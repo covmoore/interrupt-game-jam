@@ -1,7 +1,12 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1737153979
-dungeon.tscn::PackedScene::886621204624926510::1737152417::0::1::::<><>::
+::res://::1737155006
 icon.svg::CompressedTexture2D::6707800305213140251::1737152788::1737152855::1::::<><>::
-mind.tscn::PackedScene::3490664453559587492::1737153412::0::1::::<><>::
 README.md::TextFile::-1::1737152275::0::1::::<><>::
-player.tscn::PackedScene::5556328440998944932::1737153979::0::1::::<><>::
+::res://maps/::1737154979
+dungeon.tscn::PackedScene::886621204624926510::1737152417::0::1::::<><>::
+mind.tscn::PackedScene::3490664453559587492::1737154979::0::1::::<><>::
+::res://materials/::1737154233
+black.tres::StandardMaterial3D::3214856241549842857::1737154233::0::1::::<><>::
+::res://prefabs/::1737155006
+player.gd::GDScript::-1::1737154261::0::1::::<>CharacterBody3D<>::
+player.tscn::PackedScene::5556328440998944932::1737155011::0::1::::<><>::res://prefabs/player.gd<>uid://bl2khh1dv1nsr::::res://materials/black.tres

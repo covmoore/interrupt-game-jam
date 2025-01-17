@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://clfr6g1wxrggi"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ya7y0"]
+[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_wly57"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_h1j2w"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_xq1r4"]
+material = ExtResource("2_wly57")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v5mpw"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_we0ex"]
+radius = 0.25
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gel3u"]
+radius = 0.2
+height = 1.0
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ya7y0")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Head" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-3.49691e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.49691e-08, 0, 0.632918, 0)
+mesh = SubResource("SphereMesh_h1j2w")
+
+[node name="left_eye" type="MeshInstance3D" parent="Pivot/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.224307, 0.0547122, 0.0928099)
+mesh = SubResource("SphereMesh_xq1r4")
+
+[node name="right_eye" type="MeshInstance3D" parent="Pivot/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.224307, 0.0547122, -0.0886251)
+mesh = SubResource("SphereMesh_xq1r4")
+
+[node name="Body" type="MeshInstance3D" parent="Pivot"]
+mesh = SubResource("CapsuleMesh_v5mpw")
+
+[node name="HeadCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.632918, 0)
+shape = SubResource("SphereShape3D_we0ex")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_gel3u")
