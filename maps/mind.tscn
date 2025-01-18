@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
-[ext_resource type="Script" path="res://maps/camera_pan.gd" id="2_0727t"]
+[ext_resource type="Script" path="res://scripts/camera_pan.gd" id="2_0727t"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
 size = Vector2(12, 12)
