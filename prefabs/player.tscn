@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://clfr6g1wxrggi"]
+[gd_scene load_steps=11 format=3 uid="uid://clfr6g1wxrggi"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ya7y0"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_wly57"]
+[ext_resource type="Script" path="res://scripts/gun.gd" id="3_71auq"]
+[ext_resource type="PackedScene" uid="uid://bfksj87k14dre" path="res://prefabs/bullet.tscn" id="4_23b3s"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_h1j2w"]
 radius = 0.25
@@ -22,6 +24,9 @@ radius = 0.25
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gel3u"]
 radius = 0.2
 height = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwqnb"]
+size = Vector3(0.1, 0.2, 0.1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_ya7y0")
@@ -49,3 +54,21 @@ shape = SubResource("SphereShape3D_we0ex")
 
 [node name="BodyCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_gel3u")
+
+[node name="Gun" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0614162, 0.0509863, 0)
+script = ExtResource("3_71auq")
+bullet_scene = ExtResource("4_23b3s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.266803, 0.153612, -0.310057)
+material_override = ExtResource("2_wly57")
+mesh = SubResource("BoxMesh_uwqnb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Gun"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.266803, 0.203789, -0.368227)
+material_override = ExtResource("2_wly57")
+mesh = SubResource("BoxMesh_uwqnb")
+
+[node name="Muzzle" type="Node3D" parent="Gun"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.265881, 0.215707, -0.470094)
