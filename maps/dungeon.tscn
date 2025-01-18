@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
-[ext_resource type="Script" path="res://scripts/camera_pan.gd" id="2_8fhd0"]
+[ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_8fhd0"]
 [ext_resource type="Shader" path="res://shaders/cyberground.gdshader" id="2_hfbtt"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="3_v2qkb"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
