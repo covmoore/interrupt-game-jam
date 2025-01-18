@@ -5,21 +5,21 @@ extends CharacterBody3D
 @export var jump_impulse = 20
 
 var target_velocity = Vector3.ZERO
+var _camera: Camera3D = null
+
+func _ready() -> void:
+	_camera = $"../CameraPivot/Camera3D"
+
+func _input(event: InputEvent):
+	if event is InputEventMouseMotion:
+		$Pivot.basis = Basis.looking_at(Vector3(event.global_position.x, event.global_position.y, 0))
 
 func _physics_process(delta: float):
-	var direction = Vector3.ZERO
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_back"):
-		direction.z += 1
-	if Input.is_action_pressed("move_forward"):
-		direction.z -= 1
-	
-	if direction != Vector3.ZERO:
+	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var direction = Vector3(movement.x, 0, movement.y).rotated(Vector3.UP, _camera.global_rotation.y).normalized()
+	if direction:
 		direction = direction.normalized()
-		$Pivot.basis = Basis.looking_at(direction)
+		
 	
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
@@ -27,8 +27,7 @@ func _physics_process(delta: float):
 	if not is_on_floor():
 		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
 	
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		target_velocity.y = jump_impulse
-	
 	velocity = target_velocity
 	move_and_slide()
+
+	
