@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var speed = 14
 @export var fall_acceleration = 75
 @export var jump_impulse = 20
+@onready var gun = $Pivot/Body/Gun
 
 var Game = preload("res://scripts/managers/gameManager.gd")
 
@@ -15,7 +16,6 @@ enum PlayerCombatMode {
 }
 
 var inpectRadius = 5.0
-#var inspectRay = Ra
 
 func _ready() -> void:
 	_camera = $"../CameraPivot/Camera3D"
@@ -33,6 +33,11 @@ func _input(event: InputEvent):
 		if result.has("position") :  
 			result["position"].y = global_transform.origin.y
 			$Pivot.look_at(result["position"])
+			
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(("fire")):
+		gun.shoot()
 
 func _physics_process(delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
