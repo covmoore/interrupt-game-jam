@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var speed = 14
 @export var fall_acceleration = 75
 @export var jump_impulse = 20
+@onready var gun = $Gun
 
 var target_velocity = Vector3.ZERO
 var _camera: Camera3D = null
@@ -22,8 +23,13 @@ func _input(event: InputEvent):
 		query.collide_with_areas = true
 		var result = space_state.intersect_ray(query)
 		if result.has("position") :
-			print(result)
+			#print(result)
 			$Pivot.look_at(result["position"])
+			gun.look_at(result["position"])
+			
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(("fire")):
+		gun.shoot()
 
 func _physics_process(delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
