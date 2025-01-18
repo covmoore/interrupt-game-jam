@@ -4,9 +4,18 @@ extends CharacterBody3D
 @export var fall_acceleration = 75
 @export var jump_impulse = 20
 
+var Game = preload("res://scripts/managers/gameManager.gd")
+
 var target_velocity = Vector3.ZERO
 var _camera: Camera3D = null
 var RAY_LENGTH = 2000
+enum PlayerCombatMode {
+	KILLING_MODE = 0,
+	MIND_MODE = 1
+}
+
+var inpectRadius = 5.0
+#var inspectRay = Ra
 
 func _ready() -> void:
 	_camera = $"../CameraPivot/Camera3D"
@@ -21,8 +30,8 @@ func _input(event: InputEvent):
 		var query = PhysicsRayQueryParameters3D.create(origin, end)
 		query.collide_with_areas = true
 		var result = space_state.intersect_ray(query)
-		if result.has("position") :
-			print(result)
+		if result.has("position") :  
+			result["position"].y = global_transform.origin.y
 			$Pivot.look_at(result["position"])
 
 func _physics_process(delta: float):
@@ -40,4 +49,8 @@ func _physics_process(delta: float):
 	velocity = target_velocity
 	move_and_slide()
 
-	
+func set_player_combat_mode(room):
+	if room == Game.RoomType.DUNGEON:
+		PlayerCombatMode.KILLING_MODE
+	elif room == Game.RoomType.MIND:
+		PlayerCombatMode.MIND_MODE
