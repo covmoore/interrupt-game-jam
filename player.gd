@@ -6,20 +6,30 @@ extends CharacterBody3D
 
 var target_velocity = Vector3.ZERO
 var _camera: Camera3D = null
+var RAY_LENGTH = 2000
 
 func _ready() -> void:
 	_camera = $"../CameraPivot/Camera3D"
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
-		$Pivot.basis = Basis.looking_at(Vector3(event.global_position.x, event.global_position.y, 0))
+		var space_state = get_world_3d().direct_space_state
+		var mousepos = get_viewport().get_mouse_position()
+
+		var origin = _camera.project_ray_origin(mousepos)
+		var end = origin + _camera.project_ray_normal(mousepos) * RAY_LENGTH
+		var query = PhysicsRayQueryParameters3D.create(origin, end)
+		query.collide_with_areas = true
+		var result = space_state.intersect_ray(query)
+		if result.has("position") :
+			print(result)
+			$Pivot.look_at(result["position"])
 
 func _physics_process(delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = Vector3(movement.x, 0, movement.y).rotated(Vector3.UP, _camera.global_rotation.y).normalized()
 	if direction:
 		direction = direction.normalized()
-		
 	
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
