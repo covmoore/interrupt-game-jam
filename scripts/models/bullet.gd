@@ -13,4 +13,5 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	print(body.name)
+	if(body.is_in_group("enemies")):
+		body.queue_free()
