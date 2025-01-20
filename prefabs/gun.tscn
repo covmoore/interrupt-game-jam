@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://p2lmlvp22352"]
+[gd_scene load_steps=5 format=3 uid="uid://bxwgxxivps4xd"]
 
 [ext_resource type="Script" path="res://scripts/models/gun.gd" id="1_ptg06"]
 [ext_resource type="PackedScene" uid="uid://bfksj87k14dre" path="res://prefabs/bullet.tscn" id="2_pnbkf"]

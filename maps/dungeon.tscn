@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=17 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_8fhd0"]
@@ -20,8 +20,16 @@ size = Vector2(12, 12)
 [sub_resource type="BoxShape3D" id="BoxShape3D_vkvcm"]
 size = Vector3(12, 0.01, 12)
 
+[sub_resource type="BoxMesh" id="BoxMesh_ragdy"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_u07h7"]
 size = Vector3(36, 20, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k5uyb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1hqcr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_eyry3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ugbub"]
 shader = ExtResource("5_xgppb")
@@ -33,18 +41,12 @@ shader_parameter/intensity = 1.0
 sky_material = SubResource("ShaderMaterial_ugbub")
 
 [sub_resource type="Environment" id="Environment_g5vgi"]
-background_mode = 2
 background_color = Color(0.0177324, 0.0177324, 0.0177324, 1)
 sky = SubResource("Sky_ut1ug")
 glow_intensity = 1.02
 glow_bloom = 0.18
 fog_mode = 1
 fog_density = 1.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_1n34y"]
-size = Vector3(1, 7, 16)
-
-[sub_resource type="BoxMesh" id="BoxMesh_oen0d"]
 
 [node name="Dungeon1" type="Node3D"]
 
@@ -53,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0153, 0)
 speed = 5
 
 [node name="Ground" type="StaticBody3D" parent="." groups=["Ground"]]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -69,7 +71,7 @@ transform = Transform3D(1, 0, 0, 0, 0.379941, 0.925011, 0, -0.925011, 0.379941, 
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.814116, 0.580703, 0, -0.580703, 0.814116, 0, 10, 20)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 15)
 script = ExtResource("2_8fhd0")
 
 [node name="Invisible Walls" type="Node3D" parent="."]
@@ -78,8 +80,10 @@ script = ExtResource("2_8fhd0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.2084)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 6.20391)
+visible = false
 material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_ragdy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D"]
 shape = SubResource("BoxShape3D_u07h7")
@@ -88,18 +92,22 @@ shape = SubResource("BoxShape3D_u07h7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.37)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D2"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, -5.97502)
+visible = false
 material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_k5uyb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D2"]
 shape = SubResource("BoxShape3D_u07h7")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Invisible Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.1729, 0, 0.0175667)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.1848, 0, 0.0175667)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D3"]
 transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 0)
+visible = false
 material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_1hqcr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D3"]
 shape = SubResource("BoxShape3D_u07h7")
@@ -108,21 +116,13 @@ shape = SubResource("BoxShape3D_u07h7")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17.7974, 0, 0.0175667)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D4"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 2.49594e-07, 0, -5.67492)
+visible = false
 material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_eyry3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D4"]
 shape = SubResource("BoxShape3D_u07h7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_g5vgi")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96776, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_1n34y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(0.957, 0, 0, 0, 7, 0, 0, 0, 15.399, 0, 0, 0)
-mesh = SubResource("BoxMesh_oen0d")
