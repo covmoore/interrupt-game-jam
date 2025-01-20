@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="3_v2qkb"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
 [ext_resource type="Script" path="res://scripts/managers/spawnManager.gd" id="6_eotg7"]
-[ext_resource type="PackedScene" path="res://prefabs/enemy.tscn" id="6_rpdv3"]
+[ext_resource type="PackedScene" uid="uid://mafc2j10hbtt" path="res://prefabs/enemy.tscn" id="6_rpdv3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ragdy"]
 
@@ -63,6 +63,8 @@ albedo_color = Color(1, 0.141176, 1, 1)
 [node name="Player" parent="." instance=ExtResource("1_bbrec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 speed = 5
+fall_acceleration = null
+jump_impulse = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.379941, 0.925011, 0, -0.925011, 0.379941, 0, 8.58882, 0)
