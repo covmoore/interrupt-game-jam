@@ -15,6 +15,10 @@ run/main_scene="res://maps/mind.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[global_group]
+
+enemies=""
+
 [input]
 
 move_right={
