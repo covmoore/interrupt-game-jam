@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_0727t"]
 [ext_resource type="Script" path="res://maps/interactable.gd" id="4_h6mix"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_krx2p"]
-[ext_resource type="Material" uid="uid://bl2r28pxwefpq" path="res://materials/highlight.tres" id="5_bb44y"]
+[ext_resource type="Material" uid="uid://bnik6suu7lqxh" path="res://materials/highlight.tres" id="5_bb44y"]
 [ext_resource type="Script" path="res://maps/player_ui.gd" id="7_tbnyt"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
@@ -83,7 +83,6 @@ shape = SubResource("BoxShape3D_vkvcm")
 transform = Transform3D(1, 0, 0, 0, 0.379941, 0.925011, 0, -0.925011, 0.379941, 0, 8.58882, 0)
 
 [node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 9)

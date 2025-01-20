@@ -41,7 +41,6 @@ shader_parameter/intensity = 1.0
 sky_material = SubResource("ShaderMaterial_ugbub")
 
 [sub_resource type="Environment" id="Environment_g5vgi"]
-background_mode = 2
 background_color = Color(0.0177324, 0.0177324, 0.0177324, 1)
 sky = SubResource("Sky_ut1ug")
 glow_intensity = 1.02
