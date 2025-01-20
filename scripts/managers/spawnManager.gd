@@ -14,14 +14,15 @@ func _ready():
 	await(get_tree().create_timer(spawn_rate)).timeout
 	
 func _process(delta: float):
-	if can_spawn:
-		can_spawn = false
-		var rand_spawn_value = rng.randi_range(0, len(spawn_zones)-1)
-		var rand_spawn = spawn_zones[rand_spawn_value]
-		var new_enemy = enemy_scene.instantiate()
-		new_enemy.name = "Enemy" + str(enemy_count)
-		new_enemy.global_transform = rand_spawn.global_transform
-		var scene_root = get_tree().get_root().get_children()[0]
-		scene_root.add_child(new_enemy)
-		await get_tree().create_timer(spawn_rate).timeout
-		can_spawn = true
+	pass
+	#if can_spawn:
+		#can_spawn = false
+		#var rand_spawn_value = rng.randi_range(0, len(spawn_zones)-1)
+		#var rand_spawn = spawn_zones[rand_spawn_value]
+		#var new_enemy = enemy_scene.instantiate()
+		#new_enemy.name = "Enemy" + str(enemy_count)
+		#new_enemy.global_transform = rand_spawn.global_transform
+		#var scene_root = get_tree().get_root().get_children()[0]
+		#scene_root.add_child(new_enemy)
+		#await get_tree().create_timer(spawn_rate).timeout
+		#can_spawn = true

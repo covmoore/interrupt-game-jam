@@ -8,17 +8,6 @@
 [ext_resource type="Script" path="res://scripts/managers/spawnManager.gd" id="6_eotg7"]
 [ext_resource type="PackedScene" uid="uid://mafc2j10hbtt" path="res://prefabs/enemy.tscn" id="6_rpdv3"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_ragdy"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_u07h7"]
-size = Vector3(36, 20, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_k5uyb"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_1hqcr"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_eyry3"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ugbub"]
 shader = ExtResource("5_xgppb")
 shader_parameter/horizon_color = Color(0.3, 0.2, 0.2, 1)
@@ -58,7 +47,22 @@ size = Vector3(12, 0.01, 12)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j64jk"]
 albedo_color = Color(1, 0.141176, 1, 1)
 
-[node name="Dungeon1" type="Node3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_ragdy"]
+size = Vector3(24, 5, 0.01)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u07h7"]
+size = Vector3(24, 5, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k5uyb"]
+size = Vector3(24, 5, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1hqcr"]
+size = Vector3(24, 5, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eyry3"]
+size = Vector3(24, 5, 0.01)
+
+[node name="Dungeon" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_bbrec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
@@ -76,148 +80,160 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 15)
 script = ExtResource("2_8fhd0")
 
-[node name="Invisible Walls" type="Node3D" parent="."]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Invisible Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.2084)
-collision_layer = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 6.20391)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_ragdy")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.204)
-shape = SubResource("BoxShape3D_u07h7")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="Invisible Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.37)
-collision_layer = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D2"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, -5.97502)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_k5uyb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.975)
-shape = SubResource("BoxShape3D_u07h7")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="Invisible Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.1848, 0, 0.0175667)
-collision_layer = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D3"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 0)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_1hqcr")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D3"]
-shape = SubResource("BoxShape3D_u07h7")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="Invisible Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17.7974, 0, 0.0175667)
-collision_layer = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D4"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 2.49594e-07, 0, -5.67492)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_eyry3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.675)
-shape = SubResource("BoxShape3D_u07h7")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_g5vgi")
 
-[node name="Navmesh" type="NavigationRegion3D" parent="."]
+[node name="Room1" type="Node3D" parent="."]
+
+[node name="Room1Navmesh" type="NavigationRegion3D" parent="Room1"]
 navigation_mesh = SubResource("NavigationMesh_hpwqc")
 
-[node name="Ground" type="StaticBody3D" parent="Navmesh" groups=["Ground"]]
+[node name="Ground" type="StaticBody3D" parent="Room1/Room1Navmesh" groups=["Ground"]]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_mask = 7
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Navmesh/Ground"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room1/Room1Navmesh/Ground"]
 mesh = SubResource("PlaneMesh_7qubq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Navmesh/Ground"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room1/Room1Navmesh/Ground"]
 shape = SubResource("BoxShape3D_vkvcm")
 
-[node name="obstacles" type="Node3D" parent="Navmesh"]
+[node name="obstacles" type="Node3D" parent="Room1/Room1Navmesh"]
 
-[node name="obstacle" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -2)
 use_collision = true
+collision_layer = 2
 size = Vector3(5, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle2" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle2" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 2)
 use_collision = true
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle3" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle3" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0.55, 0)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle4" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle4" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 0.55, 0)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle5" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle5" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 2, 0.55, 6)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle6" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle6" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -7, 0.55, -5)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle7" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle7" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -8)
 use_collision = true
+collision_layer = 2
 size = Vector3(5, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle8" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle8" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -5, 0.55, 8)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle10" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle10" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.55, 8)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="obstacle9" type="CSGBox3D" parent="Navmesh/obstacles"]
+[node name="obstacle9" type="CSGBox3D" parent="Room1/Room1Navmesh/obstacles"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8, 0.55, 0)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
-[node name="EnemySpawnZones" type="Node3D" parent="."]
+[node name="Invisible Walls" type="Node3D" parent="Room1"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room1/Invisible Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.2084)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room1/Invisible Walls/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 6.2)
+visible = false
+material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_ragdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room1/Invisible Walls/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 6.25)
+shape = SubResource("BoxShape3D_u07h7")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Room1/Invisible Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.37)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room1/Invisible Walls/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018, 2.5, -6.38)
+visible = false
+material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_k5uyb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room1/Invisible Walls/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018, 2.5, -6.38)
+shape = SubResource("BoxShape3D_u07h7")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Room1/Invisible Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.1848, 0, 0.0175667)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room1/Invisible Walls/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025, 2.5, 0.2)
+visible = false
+material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_1hqcr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room1/Invisible Walls/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025, 2.5, 0.2)
+shape = SubResource("BoxShape3D_u07h7")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="Room1/Invisible Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17.7974, 0, 0.0175667)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room1/Invisible Walls/StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015, 2.5, -5.8)
+visible = false
+material_override = ExtResource("3_v2qkb")
+mesh = SubResource("BoxMesh_eyry3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room1/Invisible Walls/StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015, 2.5, -5.8)
+shape = SubResource("BoxShape3D_u07h7")
+
+[node name="EnemySpawnZones" type="Node3D" parent="Room1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 script = ExtResource("6_eotg7")
 enemy_scene = ExtResource("6_rpdv3")
 
-[node name="Zone1" type="Marker3D" parent="EnemySpawnZones"]
+[node name="Zone1" type="Marker3D" parent="Room1/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
 
-[node name="Zone2" type="Marker3D" parent="EnemySpawnZones"]
+[node name="Zone2" type="Marker3D" parent="Room1/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
