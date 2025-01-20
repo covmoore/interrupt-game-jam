@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/models/player.gd" id="1_ya7y0"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_wly57"]
-[ext_resource type="PackedScene" uid="uid://p2lmlvp22352" path="res://prefabs/gun.tscn" id="3_7t6sr"]
+[ext_resource type="PackedScene" uid="uid://bxwgxxivps4xd" path="res://prefabs/gun.tscn" id="3_7t6sr"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_h1j2w"]
 radius = 0.25
