@@ -14,6 +14,7 @@ var Game = preload("res://scripts/managers/gameManager.gd")
 var items_in_range: Array[Node3D] = []
 
 var target_velocity = Vector3.ZERO
+var canMove = true
 var _camera: Camera3D = null
 var RAY_LENGTH = 2000
 enum PlayerCombatMode {
@@ -42,11 +43,15 @@ func _input(event: InputEvent):
 			if result.has("position") :  
 				result["position"].y = global_transform.origin.y
 				$Pivot.look_at(result["position"])
-				
+			if result.has("collider"):
+				var hovered_item: Node3D = result["collider"]
+				if hovered_item != null and hovered_item is Interactable and hovered_item.can_be_selected():
+					hovered_item.on_hover()
 		if event is InputEventMouseButton and result.has("collider"):
 			var selected_item: Node3D = get_item_from_list(result["collider"].name)
-			if selected_item != null and selected_item.has_method("on_selected"):
+			if selected_item != null and selected_item is Interactable and selected_item.can_be_selected():
 				selected_item.on_selected(_camera)
+				canMove = false
 				
 
 func get_item_from_list(selected: String):
@@ -68,7 +73,8 @@ func _physics_process(delta: float):
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
 	velocity = target_velocity
-	move_and_slide()
+	if canMove:
+		move_and_slide()
 	
 	# Interacting Code
 	
@@ -103,9 +109,12 @@ func set_player_mesh(mesh: Mesh):
 func _on_area_detection_body_entered(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):
 		items_in_range.append(body)
-		body.in_range()
+		body.in_range(self)
 
 func _on_area_detection_body_exited(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):
 		items_in_range.remove_at(items_in_range.find(body))
-		body.out_of_range()
+		body.out_of_range(self)
+
+func _on_exit_button_button_down() -> void:
+	canMove = true

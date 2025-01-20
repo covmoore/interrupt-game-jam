@@ -1,13 +1,17 @@
 extends Control
 
-@onready var hud: Control = $CanvasLayer/MarginContainer/HUD
-@onready var interactMenu: Control = $CanvasLayer/MarginContainer/InteractMenu
+@onready var cam: Camera3D = $"../CameraPivot/Camera3D"
+@onready var canvas: CanvasLayer = $CanvasLayer
+@onready var hud = $CanvasLayer/MarginContainer/hud
+@onready var interactMenu = $CanvasLayer/MarginContainer/interactMenu
 signal cancel_interaction
-
+var panels = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	interactMenu.visible = false
+	panels = [hud, interactMenu]
+	show_panels([hud])
+	#interactMenu.visible = false
 	var interactables = get_tree().get_nodes_in_group("interactable")
 	for interactable in interactables:
 		interactable.connect("on_object_interacted", _on_object_interacted)
@@ -19,8 +23,16 @@ func _process(delta: float) -> void:
 
 
 func _on_object_interacted() -> void:
-	interactMenu.visible = true
+	show_panels([interactMenu])
+	#interactMenu.visible = true
 
 func _on_button_button_down() -> void:
-	interactMenu.visible = false
+	show_panels([hud])
 	emit_signal("cancel_interaction")
+
+func show_panels(curPanel: Array[Control]):
+	for panel in panels:
+		if curPanel.has(panel):
+			panel.show()
+		else:
+			panel.hide()

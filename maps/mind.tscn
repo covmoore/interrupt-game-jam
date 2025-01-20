@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bpy5y680rvwjc"]
+[gd_scene load_steps=27 format=3 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_krx2p"]
 [ext_resource type="Material" uid="uid://bl2r28pxwefpq" path="res://materials/highlight.tres" id="5_bb44y"]
 [ext_resource type="Script" path="res://maps/player_ui.gd" id="7_tbnyt"]
+[ext_resource type="Script" path="res://maps/panel.gd" id="8_mt58j"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
 size = Vector2(12, 12)
@@ -34,6 +35,12 @@ size = Vector3(0.8, 0.7, 1.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_oi7lx"]
 size = Vector3(0.8, 0.7, 1.8)
 
+[sub_resource type="BoxMesh" id="BoxMesh_r4f5t"]
+size = Vector3(0.5, 0, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8npt3"]
+size = Vector3(0.5, 0, 0.4)
+
 [sub_resource type="BoxMesh" id="BoxMesh_yfg8f"]
 material = ExtResource("4_krx2p")
 size = Vector3(0.7, 0.2, 0.7)
@@ -53,6 +60,14 @@ size = Vector3(0.7, 0.2, 0.7)
 material = SubResource("StandardMaterial3D_e2jcg")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvkkl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0u5i"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 3
 border_width_top = 3
@@ -83,7 +98,6 @@ shape = SubResource("BoxShape3D_vkvcm")
 transform = Transform3D(1, 0, 0, 0, 0.379941, 0.925011, 0, -0.925011, 0.379941, 0, 8.58882, 0)
 
 [node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 9)
@@ -99,6 +113,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.92632, 0.801691, 0)
 collision_layer = 8
 collision_mask = 23
 script = ExtResource("4_h6mix")
+"Is Sub Interactable" = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door"]
 mesh = SubResource("BoxMesh_xsjfd")
@@ -114,6 +129,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47316, 0.351795, 3.49068)
 collision_layer = 8
 collision_mask = 23
 script = ExtResource("4_h6mix")
+"Is Sub Interactable" = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Desk"]
 mesh = SubResource("BoxMesh_op07u")
@@ -123,6 +139,23 @@ shape = SubResource("BoxShape3D_oi7lx")
 
 [node name="camera_anchor" type="Node3D" parent="inspectables/Desk"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 1.71515, 0)
+
+[node name="sub_interactables" type="Node3D" parent="inspectables/Desk"]
+
+[node name="Note" type="StaticBody3D" parent="inspectables/Desk/sub_interactables" groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.369342, 0.488783)
+script = ExtResource("4_h6mix")
+"Is Sub Interactable" = true
+Parent = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Desk/sub_interactables/Note"]
+mesh = SubResource("BoxMesh_r4f5t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Desk/sub_interactables/Note"]
+shape = SubResource("BoxShape3D_8npt3")
+
+[node name="camera_anchor" type="Node3D" parent="inspectables/Desk/sub_interactables/Note"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0.294975, 0)
 
 [node name="static_items" type="Node3D" parent="."]
 
@@ -170,6 +203,7 @@ grow_vertical = 2
 script = ExtResource("7_tbnyt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="PlayerUI"]
+layer = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerUI/CanvasLayer"]
 anchors_preset = 15
@@ -182,21 +216,63 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="HUD" type="Control" parent="PlayerUI/CanvasLayer/MarginContainer"]
+[node name="hud" type="Control" parent="PlayerUI/CanvasLayer/MarginContainer"]
+visibility_layer = 1024
+layout_mode = 2
+script = ExtResource("8_mt58j")
+
+[node name="Label" type="Label" parent="PlayerUI/CanvasLayer/MarginContainer/hud"]
+layout_mode = 0
+offset_right = 917.0
+offset_bottom = 557.0
+text = "BRUH"
+
+[node name="interactMenu" type="Control" parent="PlayerUI/CanvasLayer/MarginContainer"]
 layout_mode = 2
 
-[node name="InteractMenu" type="Control" parent="PlayerUI/CanvasLayer/MarginContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Button" type="Button" parent="PlayerUI/CanvasLayer/MarginContainer/InteractMenu"]
+[node name="exit_buttons" type="HBoxContainer" parent="PlayerUI/CanvasLayer/MarginContainer/interactMenu"]
 layout_mode = 1
-offset_right = 60.0
-offset_bottom = 60.0
+offset_right = 40.0
+offset_bottom = 48.0
+theme_override_constants/separation = 17
+
+[node name="exit_button" type="Button" parent="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons"]
+visibility_layer = 6144
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.361816, 0.348007, 1)
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_lvkkl")
 text = "X"
 
+[node name="sub_components" type="Control" parent="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="back_button" type="Button" parent="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/sub_components"]
+visible = false
+visibility_layer = 4096
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.5
+offset_right = 30.0
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_q0u5i")
+text = "<"
+
 [connection signal="cancel_interaction" from="PlayerUI" to="CameraPivot/Camera3D" method="_on_player_ui_cancel_interaction"]
-[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/InteractMenu/Button" to="PlayerUI" method="_on_button_button_down"]
+[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/exit_button" to="Player" method="_on_exit_button_button_down"]
+[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/exit_button" to="inspectables/Door" method="_on_exit_button_button_down"]
+[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/exit_button" to="inspectables/Desk" method="_on_exit_button_button_down"]
+[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/exit_button" to="inspectables/Desk/sub_interactables/Note" method="_on_exit_button_button_down"]
+[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/exit_button" to="PlayerUI" method="_on_button_button_down"]
