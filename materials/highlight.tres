@@ -1,0 +1,9 @@
+[gd_resource type="ORMMaterial3D" format=3 uid="uid://bl2r28pxwefpq"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0, 0, 0, 0.341176)
+emission_enabled = true
+emission = Color(0.470588, 0.984314, 0.215686, 1)
+emission_energy_multiplier = 3.66

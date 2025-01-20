@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://clfr6g1wxrggi"]
+[gd_scene load_steps=10 format=3 uid="uid://clfr6g1wxrggi"]
 
 [ext_resource type="Script" path="res://scripts/models/player.gd" id="1_ya7y0"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_wly57"]
-[ext_resource type="Script" path="res://scripts/models/gun.gd" id="3_71auq"]
-[ext_resource type="PackedScene" uid="uid://bfksj87k14dre" path="res://prefabs/bullet.tscn" id="4_23b3s"]
+[ext_resource type="PackedScene" uid="uid://p2lmlvp22352" path="res://prefabs/gun.tscn" id="3_7t6sr"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_h1j2w"]
 radius = 0.25
@@ -18,9 +17,6 @@ height = 0.1
 radius = 0.2
 height = 1.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_uwqnb"]
-size = Vector3(0.1, 0.2, 0.1)
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_we0ex"]
 radius = 0.25
 
@@ -28,43 +24,36 @@ radius = 0.25
 radius = 0.2
 height = 1.0
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_v3hkg"]
+radius = 1.6
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_mask = 30
 script = ExtResource("1_ya7y0")
 
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="Head" type="MeshInstance3D" parent="Pivot"]
 transform = Transform3D(-3.49691e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.49691e-08, 0, 0.632918, 0)
+layers = 2
 mesh = SubResource("SphereMesh_h1j2w")
 
 [node name="left_eye" type="MeshInstance3D" parent="Pivot/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.224307, 0.0547122, 0.0928099)
+layers = 2
 mesh = SubResource("SphereMesh_xq1r4")
 
 [node name="right_eye" type="MeshInstance3D" parent="Pivot/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.224307, 0.0547122, -0.0886251)
+layers = 2
 mesh = SubResource("SphereMesh_xq1r4")
 
 [node name="Body" type="MeshInstance3D" parent="Pivot"]
+layers = 2
 mesh = SubResource("CapsuleMesh_v5mpw")
 
-[node name="Gun" type="Node3D" parent="Pivot/Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0614162, 0.0509863, 0)
-script = ExtResource("3_71auq")
-bullet_scene = ExtResource("4_23b3s")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/Body/Gun"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.266803, 0.153612, -0.310057)
-material_override = ExtResource("2_wly57")
-mesh = SubResource("BoxMesh_uwqnb")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pivot/Body/Gun"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.266803, 0.203789, -0.368227)
-material_override = ExtResource("2_wly57")
-mesh = SubResource("BoxMesh_uwqnb")
-
-[node name="Muzzle" type="Node3D" parent="Pivot/Body/Gun"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.265881, 0.215707, -0.470094)
+[node name="Gun" parent="Pivot/Body" instance=ExtResource("3_7t6sr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178446, 0.123678, -0.147344)
 
 [node name="HeadCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.632918, 0)
@@ -72,3 +61,14 @@ shape = SubResource("SphereShape3D_we0ex")
 
 [node name="BodyCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_gel3u")
+
+[node name="AreaDetection" type="Area3D" parent="."]
+collision_mask = 31
+input_ray_pickable = false
+
+[node name="InteractDectection" type="CollisionShape3D" parent="AreaDetection"]
+visible = false
+shape = SubResource("SphereShape3D_v3hkg")
+
+[connection signal="body_entered" from="AreaDetection" to="." method="_on_area_detection_body_entered"]
+[connection signal="body_exited" from="AreaDetection" to="." method="_on_area_detection_body_exited"]
