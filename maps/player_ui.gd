@@ -25,10 +25,7 @@ func _process(delta: float) -> void:
 func _on_object_interacted() -> void:
 	show_panels([interactMenu])
 	#interactMenu.visible = true
-
-func _on_button_button_down() -> void:
-	show_panels([hud])
-	emit_signal("cancel_interaction")
+	
 
 func show_panels(curPanel: Array[Control]):
 	for panel in panels:
@@ -36,3 +33,7 @@ func show_panels(curPanel: Array[Control]):
 			panel.show()
 		else:
 			panel.hide()
+
+func _on_exit_button_button_down() -> void:
+	show_panels([hud])
+	emit_signal("cancel_interaction")
