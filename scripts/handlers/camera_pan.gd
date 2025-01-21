@@ -35,5 +35,8 @@ func move_to_anchor(anchor: Node3D, hide_player: bool):
 		set_cull_mask_value(2, true)
 		can_pan = true
 
-func _on_player_ui_cancel_interaction() -> void:
+func reset_camera():
 	move_to_anchor(mainCameraAnchor, false)
+
+func _on_player_ui_cancel_interaction() -> void:
+	reset_camera()

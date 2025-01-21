@@ -1,17 +1,18 @@
-[gd_scene load_steps=50 format=3 uid="uid://bpy5y680rvwjc"]
+[gd_scene load_steps=59 format=3 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_0727t"]
 [ext_resource type="Script" path="res://scripts/managers/interactable_manager.gd" id="4_02tj2"]
-[ext_resource type="Script" path="res://scripts/models/interactable.gd" id="4_h6mix"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_krx2p"]
 [ext_resource type="Material" uid="uid://bnik6suu7lqxh" path="res://materials/highlight.tres" id="5_bb44y"]
 [ext_resource type="Script" path="res://scripts/models/inspectable.gd" id="5_ve011"]
+[ext_resource type="Script" path="res://scripts/handlers/lock_handler.gd" id="6_drpkv"]
 [ext_resource type="Material" uid="uid://c4lqqr1akglwv" path="res://materials/new_standard_material_3d.tres" id="7_q07yc"]
 [ext_resource type="Script" path="res://maps/player_ui.gd" id="7_tbnyt"]
 [ext_resource type="Script" path="res://maps/panel.gd" id="8_mt58j"]
 [ext_resource type="Material" uid="uid://b0535amnttyqo" path="res://materials/button_gray.tres" id="8_simbx"]
+[ext_resource type="Script" path="res://scripts/models/lock_button.gd" id="9_pgjh0"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
 size = Vector2(12, 12)
@@ -145,6 +146,35 @@ size = Vector3(0.5, 0, 0.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8npt3"]
 size = Vector3(0.5, 0, 0.4)
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_1t3i0"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.28
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0t6sl"]
+height = 0.285
+radius = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2led"]
+albedo_color = Color(0, 0.539301, 0.54112, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i371p"]
+material = SubResource("StandardMaterial3D_m2led")
+size = Vector3(0.885, 0.94, 0.025)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hvwnt"]
+size = Vector3(0.885, 0.94, 0.025)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2om11"]
+albedo_color = Color(0.861412, 0.488687, 0.972423, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3x062"]
+material = SubResource("StandardMaterial3D_2om11")
+size = Vector3(0.565, 1.97, 2.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h8kcf"]
+size = Vector3(0.565, 1.97, 2.08)
+
 [sub_resource type="BoxMesh" id="BoxMesh_yfg8f"]
 material = ExtResource("4_krx2p")
 size = Vector3(0.7, 0.2, 0.7)
@@ -202,6 +232,10 @@ shape = SubResource("BoxShape3D_vkvcm")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.598362, 0.510927, -0.617184, 0.532847, 0.321511, 0.782755, 0.598362, -0.797235, -0.0798664, 0, 8.58882, 0)
 light_energy = 2.0
+shadow_bias = 1.325
+shadow_normal_bias = 10.0
+shadow_transmittance_bias = -0.78
+shadow_opacity = 0.0
 directional_shadow_mode = 0
 
 [node name="CameraPivot" type="Node3D" parent="."]
@@ -234,6 +268,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.318
 
 [node name="Padlock" type="StaticBody3D" parent="inspectables/Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.128691, 0.175069, 0.352056)
+script = ExtResource("6_drpkv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock"]
 mesh = SubResource("BoxMesh_vy374")
@@ -257,191 +292,191 @@ shape = SubResource("BoxShape3D_8msgh")
 [node name="numbers" type="Node3D" parent="inspectables/Door/Padlock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0266512, 0.00449559)
 
-[node name="button" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="7" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, 0.00592613, -0.051493)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/7"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/7/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_sv6va")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/7"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button2" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="8" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, 0.00592613, -0.00658283)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/8"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button2/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/8/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_lwjek")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/8"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button3" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="9" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, 0.00592613, 0.0400303)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/9"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button3/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/9/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_jnq1p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/9"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button4" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="4" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0248673, -0.051493)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/4"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button4/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/4/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_anqb8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/4"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button5" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="5" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0248673, -0.00658283)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button5"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/5"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button5/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/5/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_ii5p6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/5"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button6" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="6" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0248673, 0.0400303)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button6"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/6"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button6/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/6/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_3708v")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/6"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button7" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="1" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0602473, -0.051493)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button7"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/1"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button7/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/1/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_j50kp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/1"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button8" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="2" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0602473, -0.00658283)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button8"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/2"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button8/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/2/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_fki45")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button8"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/2"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button9" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="3" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0602473, 0.0400303)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button9"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/3"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button9/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/3/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_p26v0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button9"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/3"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button10" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="0" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.095397, -0.052735)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button10"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/0"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button10/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/0/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_2a3k6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button10"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/0"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="button11" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers"]
+[node name="ENTER" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0986252, 0.0200261)
-script = ExtResource("4_h6mix")
+script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
 Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button11"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/ENTER"]
 mesh = SubResource("BoxMesh_kb4vl")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/button11/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/ENTER/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_ij4y8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/button11"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/ENTER"]
 shape = SubResource("BoxShape3D_33hpc")
 
 [node name="Desk" type="StaticBody3D" parent="inspectables" groups=["interactable"]]
@@ -477,6 +512,50 @@ shape = SubResource("BoxShape3D_8npt3")
 
 [node name="camera_anchor" type="Node3D" parent="inspectables/Desk/sub_interactables/Note"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0.294975, 0)
+
+[node name="Mug" type="StaticBody3D" parent="inspectables/Desk/sub_interactables" groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.308044, 0.369342, -0.666274)
+script = ExtResource("5_ve011")
+"Is Sub Interactable" = true
+Parent = NodePath("../..")
+Camera = NodePath("../../../../CameraPivot/Camera3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Desk/sub_interactables/Mug"]
+mesh = SubResource("CylinderMesh_1t3i0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Desk/sub_interactables/Mug"]
+shape = SubResource("CylinderShape3D_0t6sl")
+
+[node name="camera_anchor" type="Node3D" parent="inspectables/Desk/sub_interactables/Mug"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.200963, 0.0591916, 0)
+
+[node name="Painting" type="StaticBody3D" parent="inspectables" groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21155, -5.99244)
+script = ExtResource("5_ve011")
+"Is Sub Interactable" = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Painting"]
+mesh = SubResource("BoxMesh_i371p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Painting"]
+shape = SubResource("BoxShape3D_hvwnt")
+
+[node name="camera_anchor" type="Node3D" parent="inspectables/Painting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.786959)
+
+[node name="Bookshelf" type="StaticBody3D" parent="inspectables" groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.71433, 0.98218, 3.70441)
+script = ExtResource("5_ve011")
+"Is Sub Interactable" = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Bookshelf"]
+mesh = SubResource("BoxMesh_3x062")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Bookshelf"]
+shape = SubResource("BoxShape3D_h8kcf")
+
+[node name="camera_anchor" type="Node3D" parent="inspectables/Bookshelf"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.61852, 0, 0.00336385)
 
 [node name="static_items" type="Node3D" parent="."]
 

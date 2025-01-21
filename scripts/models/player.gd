@@ -41,7 +41,7 @@ func _input(event: InputEvent):
 			if result.has("position") :  
 				result["position"].y = global_transform.origin.y
 				$Pivot.look_at(result["position"])
-		if event is InputEventMouseButton and result.has("collider"):
+		if event.is_pressed() and result.has("collider"):
 			var selected_item: Node3D = get_item_from_list(result["collider"].name)
 			if selected_item != null and selected_item is Interactable and selected_item.can_be_selected():
 				selected_item.on_selected(_camera, self)
