@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 @export var speed = 14
 @export var fall_acceleration = 75
@@ -8,8 +8,6 @@ extends CharacterBody3D
 
 var battle_mesh = null
 var mind_mesh = null
-
-var Game = preload("res://scripts/managers/gameManager.gd")
 
 var items_in_range: Array[Node3D] = []
 
@@ -43,16 +41,10 @@ func _input(event: InputEvent):
 			if result.has("position") :  
 				result["position"].y = global_transform.origin.y
 				$Pivot.look_at(result["position"])
-			if result.has("collider"):
-				var hovered_item: Node3D = result["collider"]
-				if hovered_item != null and hovered_item is Interactable and hovered_item.can_be_selected():
-					hovered_item.on_hover()
-		if event is InputEventMouseButton and result.has("collider"):
+		if event.is_pressed() and result.has("collider"):
 			var selected_item: Node3D = get_item_from_list(result["collider"].name)
 			if selected_item != null and selected_item is Interactable and selected_item.can_be_selected():
-				selected_item.on_selected(_camera)
-				canMove = false
-				
+				selected_item.on_selected(_camera, self)
 
 func get_item_from_list(selected: String):
 	for item in items_in_range:
@@ -80,9 +72,9 @@ func _physics_process(delta: float):
 	
 
 func set_player_combat_mode(room):
-	if room == Game.RoomType.DUNGEON:
+	if room == GameManager.RoomType.DUNGEON:
 		player_combat_state = PlayerCombatMode.KILLING_MODE
-	elif room == Game.RoomType.MIND:
+	elif room == GameManager.RoomType.MIND:
 		player_combat_state = PlayerCombatMode.MIND_MODE
 	set_player_context()
 
@@ -116,5 +108,5 @@ func _on_area_detection_body_exited(body: Node3D) -> void:
 		items_in_range.remove_at(items_in_range.find(body))
 		body.out_of_range(self)
 
-func _on_exit_button_button_down() -> void:
+func _on_player_ui_cancel_interaction() -> void:
 	canMove = true
