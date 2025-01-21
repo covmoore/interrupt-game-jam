@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 @export var speed = 14
 @export var fall_acceleration = 75
@@ -44,9 +44,7 @@ func _input(event: InputEvent):
 		if event is InputEventMouseButton and result.has("collider"):
 			var selected_item: Node3D = get_item_from_list(result["collider"].name)
 			if selected_item != null and selected_item is Interactable and selected_item.can_be_selected():
-				selected_item.on_selected(_camera)
-				canMove = false
-				
+				selected_item.on_selected(_camera, self)
 
 func get_item_from_list(selected: String):
 	for item in items_in_range:

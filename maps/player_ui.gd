@@ -14,7 +14,8 @@ func _ready() -> void:
 	#interactMenu.visible = false
 	var interactables = get_tree().get_nodes_in_group("interactable")
 	for interactable in interactables:
-		interactable.connect("on_object_interacted", _on_object_interacted)
+		if interactable is Inspectable:
+			interactable.connect("on_object_inspected", _on_object_inspected)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,7 +23,7 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_object_interacted() -> void:
+func _on_object_inspected() -> void:
 	show_panels([interactMenu])
 	#interactMenu.visible = true
 	

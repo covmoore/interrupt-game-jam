@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bpy5y680rvwjc"]
+[gd_scene load_steps=50 format=3 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/models/interactable.gd" id="4_h6mix"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_krx2p"]
 [ext_resource type="Material" uid="uid://bnik6suu7lqxh" path="res://materials/highlight.tres" id="5_bb44y"]
+[ext_resource type="Script" path="res://scripts/models/inspectable.gd" id="5_ve011"]
 [ext_resource type="Material" uid="uid://c4lqqr1akglwv" path="res://materials/new_standard_material_3d.tres" id="7_q07yc"]
 [ext_resource type="Script" path="res://maps/player_ui.gd" id="7_tbnyt"]
 [ext_resource type="Script" path="res://maps/panel.gd" id="8_mt58j"]
@@ -219,7 +220,7 @@ script = ExtResource("4_02tj2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.92632, 0.801691, 0)
 collision_layer = 8
 collision_mask = 23
-script = ExtResource("4_h6mix")
+script = ExtResource("5_ve011")
 "Is Sub Interactable" = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door"]
@@ -447,7 +448,7 @@ shape = SubResource("BoxShape3D_33hpc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47316, 0.351795, 3.49068)
 collision_layer = 8
 collision_mask = 23
-script = ExtResource("4_h6mix")
+script = ExtResource("5_ve011")
 "Is Sub Interactable" = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Desk"]
@@ -463,7 +464,7 @@ transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 
 
 [node name="Note" type="StaticBody3D" parent="inspectables/Desk/sub_interactables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.369342, 0.488783)
-script = ExtResource("4_h6mix")
+script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
 Parent = NodePath("../..")
 Camera = NodePath("../../../../CameraPivot/Camera3D")

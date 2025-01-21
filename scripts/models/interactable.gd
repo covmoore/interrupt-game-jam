@@ -39,6 +39,8 @@ func _input(event: InputEvent) -> void:
 						else:
 							off_hover()
 
+#region Inspector Edits
+
 func _get_property_list() -> Array[Dictionary]:
 	var ret: Array[Dictionary] = []
 	
@@ -93,6 +95,10 @@ func _get(prop_name: StringName):
 		"Camera":
 			return camera_path
 	return null
+	
+#endregion
+
+#region Player Detection
 
 func in_range(player: CharacterBody3D):
 	if !isSubInteractable:
@@ -111,6 +117,8 @@ func out_of_range(player: CharacterBody3D):
 		if child is MeshInstance3D:
 			child.material_overlay = null
 
+#endregion
+
 func can_be_selected():
 	if isActive:
 		return false
@@ -124,14 +132,11 @@ func can_be_selected():
 		return true
 	
 
-func on_selected(cam: Camera3D):
-	var temp = find_child("camera_anchor")
-	if temp != null:
-		cam.move_to_anchor(temp, true)
-		for child in get_children():
-			if child is MeshInstance3D:
-				child.material_overlay = null
-		emit_signal("on_object_interacted")
+func on_selected(cam: Camera3D, player: Player):
+	for child in get_children():
+		if child is MeshInstance3D:
+			child.material_overlay = null
+	emit_signal("on_object_interacted")
 	isActive = true
 
 func on_hover():
@@ -148,6 +153,8 @@ func off_hover():
 			if child is MeshInstance3D:
 				child.material_overlay = null
 
+#region Signal Connections
+
 func conect_button(uiManager: Control):
 	uiManager.connect("cancel_interaction", _on_exit_button_button_down)
 
@@ -156,3 +163,5 @@ func _on_exit_button_button_down() -> void:
 	if isSubInteractable:
 		var parent = get_node(parent_path)
 		parent.isActive = false
+
+#endregion
