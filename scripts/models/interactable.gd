@@ -16,29 +16,6 @@ var camera:Camera3D = null
 func _ready() -> void:
 	gameManager = get_tree().get_root().get_child(0)
 
-func _input(event: InputEvent) -> void:
-	if camera == null and isSubInteractable:
-		camera = get_node(camera_path)
-	else:
-		if isSubInteractable:
-			if event is InputEventMouse:
-				var space_state = get_world_3d().direct_space_state
-				var mousepos = get_viewport().get_mouse_position()
-				var origin = camera.project_ray_origin(mousepos)
-				var end = origin + camera.project_ray_normal(mousepos) * 2000
-				var query = PhysicsRayQueryParameters3D.create(origin, end)
-				#query.exclude = [interactDetection, self]
-				query.collide_with_areas = true
-				var result = space_state.intersect_ray(query)
-				
-				if event is InputEventMouseMotion:
-					if result.has("collider"):
-						var hovered_item: Node3D = result["collider"]
-						if hovered_item != null and hovered_item.name == self.name and not isActive:
-							on_hover()
-						else:
-							off_hover()
-
 #region Inspector Edits
 
 func _get_property_list() -> Array[Dictionary]:
@@ -136,7 +113,6 @@ func on_selected(cam: Camera3D, player: Player):
 	for child in get_children():
 		if child is MeshInstance3D:
 			child.material_overlay = null
-	emit_signal("on_object_interacted")
 	isActive = true
 
 func on_hover():
@@ -155,13 +131,13 @@ func off_hover():
 
 #region Signal Connections
 
-func conect_button(uiManager: Control):
-	uiManager.connect("cancel_interaction", _on_exit_button_button_down)
+func connect_button(gameManage: GameManager):
+	pass
 
-func _on_exit_button_button_down() -> void:
-	isActive = false
-	if isSubInteractable:
-		var parent = get_node(parent_path)
-		parent.isActive = false
+#func _on_exit_button_button_down() -> void:
+	#isActive = false
+	#if isSubInteractable:
+		#var parent = get_node(parent_path)
+		#parent.isActive = false
 
 #endregion

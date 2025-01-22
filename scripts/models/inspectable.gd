@@ -27,21 +27,23 @@ func on_selected(cam: Camera3D, player: Player):
 	super(cam, player)
 
 func on_hover():
-	var parent = get_node(parent_path)
-	if isSubInteractable and parent.isActive:
-		for child in get_children():
-			if child is MeshInstance3D:
-				child.material_overlay = highlight_overlay
+	if isSubInteractable:
+		var parent = get_node(parent_path)
+		if parent.isActive:
+			for child in get_children():
+				if child is MeshInstance3D:
+					child.material_overlay = highlight_overlay
 
 func off_hover():
-	var parent = get_node(parent_path)
-	if isSubInteractable and parent.isActive:
-		for child in get_children():
-			if child is MeshInstance3D:
-				child.material_overlay = null
+	if isSubInteractable:
+		var parent = get_node(parent_path)
+		if parent.isActive:
+			for child in get_children():
+				if child is MeshInstance3D:
+					child.material_overlay = null
 
-func conect_button(uiManager: Control):
-	uiManager.connect("cancel_interaction", _on_exit_button_button_down)
+func connect_button(gameManager: GameManager):
+	gameManager.connect("on_cancel_interaction", _on_exit_button_button_down)
 
 func _on_exit_button_button_down() -> void:
 	isActive = false

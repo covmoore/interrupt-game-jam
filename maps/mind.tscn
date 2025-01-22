@@ -1,10 +1,11 @@
-[gd_scene load_steps=59 format=3 uid="uid://bpy5y680rvwjc"]
+[gd_scene load_steps=75 format=3 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_0727t"]
 [ext_resource type="Script" path="res://scripts/managers/interactable_manager.gd" id="4_02tj2"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_krx2p"]
+[ext_resource type="Script" path="res://maps/door_handler.gd" id="5_4y5in"]
 [ext_resource type="Material" uid="uid://bnik6suu7lqxh" path="res://materials/highlight.tres" id="5_bb44y"]
 [ext_resource type="Script" path="res://scripts/models/inspectable.gd" id="5_ve011"]
 [ext_resource type="Script" path="res://scripts/handlers/lock_handler.gd" id="6_drpkv"]
@@ -13,11 +14,25 @@
 [ext_resource type="Script" path="res://maps/panel.gd" id="8_mt58j"]
 [ext_resource type="Material" uid="uid://b0535amnttyqo" path="res://materials/button_gray.tres" id="8_simbx"]
 [ext_resource type="Script" path="res://scripts/models/lock_button.gd" id="9_pgjh0"]
+[ext_resource type="Script" path="res://maps/pivot_anchor_handler.gd" id="15_ww2tj"]
+[ext_resource type="Script" path="res://maps/room_change_trigger.gd" id="16_hmwhx"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
+size = Vector2(12, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfqwu"]
+size = Vector3(12, 0.01, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f3md0"]
+size = Vector3(4.95996, 0.01, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x8fas"]
+size = Vector3(6.07129, 0.01, 12)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hl8nc"]
 size = Vector2(12, 12)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vkvcm"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_w5qsh"]
 size = Vector3(12, 0.01, 12)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ycl2"]
@@ -193,6 +208,31 @@ size = Vector3(0.7, 0.2, 0.7)
 [sub_resource type="BoxMesh" id="BoxMesh_4krw5"]
 material = SubResource("StandardMaterial3D_e2jcg")
 
+[sub_resource type="BoxMesh" id="BoxMesh_pt43t"]
+material = ExtResource("4_krx2p")
+size = Vector3(0.05, 1.53, 0.965)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8hh4f"]
+size = Vector2(10, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gprn8"]
+size = Vector3(10.033, 0.01, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_glu2o"]
+size = Vector3(10.0313, 0.01, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ctsq"]
+size = Vector3(2.48877, 0.01, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_visip"]
+size = Vector3(8, 0.01, 5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c4skj"]
+size = Vector2(10, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tloi7"]
+size = Vector3(10, 0.01, 8)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvkkl"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 3
@@ -209,34 +249,21 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0, 0, 0, 1)
 
-[node name="Mind_Room" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pds2a"]
+size = Vector3(0.601074, 0.528076, 3)
+
+[node name="Mind_Room" type="Node3D" node_paths=PackedStringArray("main_room", "rooms", "pivot_anchors")]
 script = ExtResource("1_581u0")
 room_type = 1
 camera_path = NodePath("CameraPivot/Camera3D")
+main_room = NodePath("main_room")
+rooms = [NodePath("main_room"), NodePath("control_room")]
+pivot_anchors = [NodePath("pivot_anchors/main_pivot"), NodePath("pivot_anchors/control_pivot")]
 
 [node name="Player" parent="." instance=ExtResource("1_136gs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.613787, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503727, 0)
 collision_mask = 14
 speed = 5
-
-[node name="Ground" type="StaticBody3D" parent="." groups=["Ground"]]
-collision_layer = 2
-collision_mask = 29
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("PlaneMesh_7qubq")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_vkvcm")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.598362, 0.510927, -0.617184, 0.532847, 0.321511, 0.782755, 0.598362, -0.797235, -0.0798664, 0, 8.58882, 0)
-light_energy = 2.0
-shadow_bias = 1.325
-shadow_normal_bias = 10.0
-shadow_transmittance_bias = -0.78
-shadow_opacity = 0.0
-directional_shadow_mode = 0
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
@@ -247,345 +274,564 @@ script = ExtResource("2_0727t")
 [node name="mainCameraAnchor" type="Node3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 9)
 
-[node name="inspectables" type="Node3D" parent="."]
+[node name="main_room" type="Node3D" parent="."]
+
+[node name="Walls" type="Node3D" parent="main_room"]
+
+[node name="Wall1" type="StaticBody3D" parent="main_room/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 6)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_7qubq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/Walls/Wall1"]
+shape = SubResource("BoxShape3D_rfqwu")
+
+[node name="Wall2" type="StaticBody3D" parent="main_room/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -6)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_7qubq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/Walls/Wall2"]
+shape = SubResource("BoxShape3D_rfqwu")
+
+[node name="Wall3" type="StaticBody3D" parent="main_room/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -6, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/Walls/Wall3"]
+mesh = SubResource("PlaneMesh_7qubq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/Walls/Wall3"]
+shape = SubResource("BoxShape3D_rfqwu")
+
+[node name="Wall4" type="StaticBody3D" parent="main_room/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 6, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/Walls/Wall4"]
+mesh = SubResource("PlaneMesh_7qubq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, 3.52002, 0, 0)
+shape = SubResource("BoxShape3D_f3md0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="main_room/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, -2.99264, 1.43051e-06, 0)
+shape = SubResource("BoxShape3D_x8fas")
+
+[node name="Ground" type="StaticBody3D" parent="main_room" groups=["Ground"]]
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/Ground"]
+mesh = SubResource("PlaneMesh_hl8nc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/Ground"]
+shape = SubResource("BoxShape3D_w5qsh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="main_room"]
+transform = Transform3D(0.598362, 0.510927, -0.617184, 0.532847, 0.321511, 0.782755, 0.598362, -0.797235, -0.079866, 0, 8.58882, 0)
+visible = false
+light_indirect_energy = 0.0
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="main_room"]
+transform = Transform3D(0.598362, 0.510927, -0.617184, 0.532847, 0.321511, 0.782755, 0.598362, -0.797235, -0.079866, 0, 8.58882, 0)
+visible = false
+light_indirect_energy = 0.0
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="inspectables" type="Node3D" parent="main_room"]
 script = ExtResource("4_02tj2")
 
-[node name="Door" type="StaticBody3D" parent="inspectables" groups=["interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.92632, 0.801691, 0)
+[node name="Door" type="StaticBody3D" parent="main_room/inspectables" groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.92632, 0.0631726, -1.0482)
 collision_layer = 8
 collision_mask = 23
-script = ExtResource("5_ve011")
-"Is Sub Interactable" = false
+script = ExtResource("5_4y5in")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74124, 0.509787)
 mesh = SubResource("BoxMesh_xsjfd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74124, 0.509787)
 shape = SubResource("BoxShape3D_x1tnp")
 
-[node name="camera_anchor" type="Node3D" parent="inspectables/Door"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.318302, 0.16683, 0.346117)
+[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Door"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.318302, 0.90807, 0.855904)
 
-[node name="Padlock" type="StaticBody3D" parent="inspectables/Door"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.128691, 0.175069, 0.352056)
+[node name="Padlock" type="StaticBody3D" parent="main_room/inspectables/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.128691, 0.916309, 0.861843)
 script = ExtResource("6_drpkv")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock"]
 mesh = SubResource("BoxMesh_vy374")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock"]
 shape = SubResource("BoxShape3D_u1rpo")
 
-[node name="display" type="StaticBody3D" parent="inspectables/Door/Padlock"]
+[node name="display" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0214682, 0.0701002, 0.000712454)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/display"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/display"]
 mesh = SubResource("BoxMesh_1st07")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/display/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/display/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, -0.0538748)
 mesh = SubResource("TextMesh_0dkqp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/display"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/display"]
 shape = SubResource("BoxShape3D_8msgh")
 
-[node name="numbers" type="Node3D" parent="inspectables/Door/Padlock"]
+[node name="numbers" type="Node3D" parent="main_room/inspectables/Door/Padlock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0266512, 0.00449559)
 
-[node name="7" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="7" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, 0.00592613, -0.051493)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/7"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/7"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/7/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/7/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_sv6va")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/7"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="8" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="8" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, 0.00592613, -0.00658283)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/8"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/8"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/8/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/8/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_lwjek")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/8"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/8"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="9" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="9" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, 0.00592613, 0.0400303)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/9"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/9"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/9/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/9/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_jnq1p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/9"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/9"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="4" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="4" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0248673, -0.051493)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/4"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/4/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/4/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_anqb8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/4"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="5" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="5" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0248673, -0.00658283)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/5"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/5"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/5/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/5/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_ii5p6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/5"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="6" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="6" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0248673, 0.0400303)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/6"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/6"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/6/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/6/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_3708v")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/6"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="1" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="1" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0602473, -0.051493)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/1"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/1/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/1/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_j50kp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/1"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="2" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="2" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0602473, -0.00658283)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/2"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/2/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/2/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_fki45")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/2"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="3" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="3" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0602473, 0.0400303)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/3"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/3/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/3/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_p26v0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/3"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="0" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="0" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.095397, -0.052735)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/0"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/0"]
 mesh = SubResource("BoxMesh_wdxrr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/0/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/0/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_2a3k6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/0"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="ENTER" type="StaticBody3D" parent="inspectables/Door/Padlock/numbers" groups=["interactable"]]
+[node name="ENTER" type="StaticBody3D" parent="main_room/inspectables/Door/Padlock/numbers" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024209, -0.0986252, 0.0200261)
 script = ExtResource("9_pgjh0")
 "Is Sub Interactable" = true
 Parent = NodePath("../../..")
-Camera = NodePath("../../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/ENTER"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/ENTER"]
 mesh = SubResource("BoxMesh_kb4vl")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Door/Padlock/numbers/ENTER/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Door/Padlock/numbers/ENTER/MeshInstance3D"]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.00883389, 0, 0)
 mesh = SubResource("TextMesh_ij4y8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Door/Padlock/numbers/ENTER"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Door/Padlock/numbers/ENTER"]
 shape = SubResource("BoxShape3D_33hpc")
 
-[node name="Desk" type="StaticBody3D" parent="inspectables" groups=["interactable"]]
+[node name="Desk" type="StaticBody3D" parent="main_room/inspectables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47316, 0.351795, 3.49068)
 collision_layer = 8
 collision_mask = 23
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Desk"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Desk"]
 mesh = SubResource("BoxMesh_op07u")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Desk"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Desk"]
 shape = SubResource("BoxShape3D_oi7lx")
 
-[node name="camera_anchor" type="Node3D" parent="inspectables/Desk"]
+[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Desk"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 1.71515, 0)
 
-[node name="sub_interactables" type="Node3D" parent="inspectables/Desk"]
+[node name="sub_interactables" type="Node3D" parent="main_room/inspectables/Desk"]
 
-[node name="Note" type="StaticBody3D" parent="inspectables/Desk/sub_interactables" groups=["interactable"]]
+[node name="Note" type="StaticBody3D" parent="main_room/inspectables/Desk/sub_interactables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.369342, 0.488783)
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
 Parent = NodePath("../..")
-Camera = NodePath("../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Desk/sub_interactables/Note"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Desk/sub_interactables/Note"]
 mesh = SubResource("BoxMesh_r4f5t")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Desk/sub_interactables/Note"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Desk/sub_interactables/Note"]
 shape = SubResource("BoxShape3D_8npt3")
 
-[node name="camera_anchor" type="Node3D" parent="inspectables/Desk/sub_interactables/Note"]
+[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Desk/sub_interactables/Note"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0.294975, 0)
 
-[node name="Mug" type="StaticBody3D" parent="inspectables/Desk/sub_interactables" groups=["interactable"]]
+[node name="Mug" type="StaticBody3D" parent="main_room/inspectables/Desk/sub_interactables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.308044, 0.369342, -0.666274)
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
 Parent = NodePath("../..")
-Camera = NodePath("../../../../CameraPivot/Camera3D")
+Camera = NodePath("../../../../../CameraPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Desk/sub_interactables/Mug"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Desk/sub_interactables/Mug"]
 mesh = SubResource("CylinderMesh_1t3i0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Desk/sub_interactables/Mug"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Desk/sub_interactables/Mug"]
 shape = SubResource("CylinderShape3D_0t6sl")
 
-[node name="camera_anchor" type="Node3D" parent="inspectables/Desk/sub_interactables/Mug"]
+[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Desk/sub_interactables/Mug"]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.200963, 0.0591916, 0)
 
-[node name="Painting" type="StaticBody3D" parent="inspectables" groups=["interactable"]]
+[node name="Painting" type="StaticBody3D" parent="main_room/inspectables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21155, -5.99244)
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Painting"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Painting"]
 mesh = SubResource("BoxMesh_i371p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Painting"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Painting"]
 shape = SubResource("BoxShape3D_hvwnt")
 
-[node name="camera_anchor" type="Node3D" parent="inspectables/Painting"]
+[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Painting"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.786959)
 
-[node name="Bookshelf" type="StaticBody3D" parent="inspectables" groups=["interactable"]]
+[node name="Bookshelf" type="StaticBody3D" parent="main_room/inspectables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.71433, 0.98218, 3.70441)
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="inspectables/Bookshelf"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
 mesh = SubResource("BoxMesh_3x062")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inspectables/Bookshelf"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Bookshelf"]
 shape = SubResource("BoxShape3D_h8kcf")
 
-[node name="camera_anchor" type="Node3D" parent="inspectables/Bookshelf"]
+[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Bookshelf"]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.61852, 0, 0.00336385)
 
-[node name="static_items" type="Node3D" parent="."]
+[node name="static_items" type="Node3D" parent="main_room"]
 
-[node name="chair" type="StaticBody3D" parent="static_items"]
+[node name="chair" type="StaticBody3D" parent="main_room/static_items"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31024, 0.108845, 3.49068)
 collision_layer = 16
 collision_mask = 14
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="static_items/chair"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/static_items/chair"]
 mesh = SubResource("BoxMesh_yfg8f")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="static_items/chair"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/static_items/chair"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27482, 0.457955, -0.00805116)
 shape = SubResource("BoxShape3D_kv81p")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="static_items/chair"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="main_room/static_items/chair"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27482, 0.457955, -0.00805116)
 material_override = ExtResource("4_krx2p")
 mesh = SubResource("BoxMesh_g41jn")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="static_items/chair"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="main_room/static_items/chair"]
 shape = SubResource("BoxShape3D_2eb34")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="static_items"]
+[node name="StaticBody3D" type="StaticBody3D" parent="main_room/static_items"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.511937, 5.25716)
 visible = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="static_items/StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/static_items/StaticBody3D"]
 material_overlay = ExtResource("5_bb44y")
 mesh = SubResource("BoxMesh_4krw5")
+
+[node name="door_black" type="MeshInstance3D" parent="main_room/static_items"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.92632, 0.804413, -0.538411)
+mesh = SubResource("BoxMesh_pt43t")
+skeleton = NodePath("../../inspectables/Door")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="main_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1124, 0)
+light_energy = 5.52
+light_size = 0.464
+shadow_enabled = true
+shadow_opacity = 0.5
+shadow_blur = 3.353
+omni_range = 15.0
+omni_attenuation = 1.09
+
+[node name="control_room" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6044, 0, 0)
+
+[node name="Walls" type="Node3D" parent="control_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.086935, 0, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="control_room/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 4)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_8hh4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00720215, 0, -0.0567627)
+shape = SubResource("BoxShape3D_gprn8")
+
+[node name="Wall2" type="StaticBody3D" parent="control_room/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -4)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_8hh4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/Walls/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0078125, -9.53674e-07, -0.0469971)
+shape = SubResource("BoxShape3D_glu2o")
+
+[node name="Wall3" type="StaticBody3D" parent="control_room/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -5, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/Walls/Wall3"]
+transform = Transform3D(0.253578, 0, 0, -3.55271e-15, 1, 5.43995e-22, -3.17637e-22, 7.51667e-22, 0.723717, 2.74625, 0, -0.622086)
+mesh = SubResource("PlaneMesh_8hh4f")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="control_room/Walls/Wall3"]
+transform = Transform3D(0.253578, 0, -4.23516e-22, -3.55271e-15, 1, -3.55271e-15, -3.17637e-22, 7.51667e-22, 0.720635, -2.78213, 0, -0.685774)
+mesh = SubResource("PlaneMesh_8hh4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, -2.74146, 0, -0.0336914)
+shape = SubResource("BoxShape3D_2ctsq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="control_room/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, 2.75983, 0, -0.0336914)
+shape = SubResource("BoxShape3D_2ctsq")
+
+[node name="Wall4" type="StaticBody3D" parent="control_room/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 5, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/Walls/Wall4"]
+transform = Transform3D(0.8, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_8hh4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, -0.0106201, 0, 0.0136719)
+shape = SubResource("BoxShape3D_visip")
+
+[node name="Ground" type="StaticBody3D" parent="control_room" groups=["Ground"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.086935, 0, 0)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/Ground"]
+mesh = SubResource("PlaneMesh_c4skj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0249033, 0, 0)
+shape = SubResource("BoxShape3D_tloi7")
+
+[node name="HallWay" type="Node3D" parent="control_room"]
+transform = Transform3D(0.552321, 0, 0, 0, 0.727975, 0, 0, 0, 0.379974, -8.03245, 0, 0)
+
+[node name="Walls" type="Node3D" parent="control_room/HallWay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3435, 0, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="control_room/HallWay/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 3.15956)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/HallWay/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_8hh4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/HallWay/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00720215, 0, -0.0567627)
+shape = SubResource("BoxShape3D_gprn8")
+
+[node name="Wall2" type="StaticBody3D" parent="control_room/HallWay/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -4)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/HallWay/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_8hh4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/HallWay/Walls/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0078125, -9.53674e-07, -0.0469971)
+shape = SubResource("BoxShape3D_glu2o")
+
+[node name="Ground" type="StaticBody3D" parent="control_room/HallWay" groups=["Ground"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3435, 0, 0)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control_room/HallWay/Ground"]
+mesh = SubResource("PlaneMesh_c4skj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control_room/HallWay/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0249033, 0, 0)
+shape = SubResource("BoxShape3D_tloi7")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="control_room/HallWay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.83796, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="control_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55032, 0)
+light_energy = 4.41
+omni_range = 7.47907
 
 [node name="PlayerUI" type="Control" parent="."]
 layout_mode = 3
@@ -669,6 +915,30 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_q0u5i")
 text = "<"
+
+[node name="pivot_anchors" type="Node3D" parent="."]
+
+[node name="main_pivot" type="Node3D" parent="pivot_anchors"]
+script = ExtResource("15_ww2tj")
+room = "main_room"
+
+[node name="control_pivot" type="Node3D" parent="pivot_anchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0483, 0, 0)
+script = ExtResource("15_ww2tj")
+room = "control_room"
+
+[node name="room_triggers" type="Node3D" parent="."]
+
+[node name="control_trigger" type="Area3D" parent="room_triggers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.99708, 0, 0)
+collision_layer = 2
+script = ExtResource("16_hmwhx")
+room = "control_room"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/control_trigger"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_pds2a")
 
 [connection signal="cancel_interaction" from="PlayerUI" to="Player" method="_on_player_ui_cancel_interaction"]
 [connection signal="cancel_interaction" from="PlayerUI" to="CameraPivot/Camera3D" method="_on_player_ui_cancel_interaction"]

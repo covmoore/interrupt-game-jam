@@ -3,7 +3,8 @@ extends StaticBody3D
 @onready var numbers = $numbers
 @onready var display: MeshInstance3D = $display/MeshInstance3D/MeshInstance3D
 @onready var door = $".."
-@onready var cam = $"../../../CameraPivot/Camera3D"
+@onready var cam = $"../../../../CameraPivot/Camera3D"
+@onready var gameManager: GameManager = $"../../../.."
 var buttons = []
 var input = ""
 var pin = "1234"
@@ -29,8 +30,8 @@ func button_pressed(number: StringName):
 func check_passcode():
 	if input == pin:
 		emit_signal("unlock_door")
-		cam.reset_camera()
-		door.free()
+		gameManager.cancel_interaction()
+		door.unlock_door()
 	else:
 		clear_display()
 

@@ -1,9 +1,16 @@
-extends Control
+class_name UIManager extends Control
 
+enum UIState {
+	KILLING = 0,
+	IDLE,
+	INSPECTING
+}
+var ui_state = UIState.KILLING
 @onready var cam: Camera3D = $"../CameraPivot/Camera3D"
 @onready var canvas: CanvasLayer = $CanvasLayer
 @onready var hud = $CanvasLayer/MarginContainer/hud
 @onready var interactMenu = $CanvasLayer/MarginContainer/interactMenu
+@onready var gameManager: GameManager = $".."
 signal cancel_interaction
 var panels = []
 
@@ -13,19 +20,24 @@ func _ready() -> void:
 	show_panels([hud])
 	#interactMenu.visible = false
 	var interactables = get_tree().get_nodes_in_group("interactable")
-	for interactable in interactables:
-		if interactable is Inspectable:
-			interactable.connect("on_object_inspected", _on_object_inspected)
+	#for interactable in interactables:
+		#if interactable is Inspectable:
+			#interactable.connect("on_object_inspected", _on_object_inspected)
 
+func change_state(state: UIState):
+	ui_state = state
+	set_context()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func set_context():
+	if ui_state == UIState.KILLING:
+		pass
+	if ui_state == UIState.IDLE:
+		show_panels([hud])
+	if ui_state == UIState.INSPECTING:
+		show_panels([interactMenu])
 
-
-func _on_object_inspected() -> void:
-	show_panels([interactMenu])
-	#interactMenu.visible = true
+#func _on_object_inspected() -> void:
+	#show_panels([interactMenu])
 	
 
 func show_panels(curPanel: Array[Control]):
@@ -36,5 +48,4 @@ func show_panels(curPanel: Array[Control]):
 			panel.hide()
 
 func _on_exit_button_button_down() -> void:
-	show_panels([hud])
-	emit_signal("cancel_interaction")
+	gameManager.cancel_interaction()
