@@ -15,42 +15,30 @@ var target_velocity = Vector3.ZERO
 var canMove = true
 var _camera: Camera3D = null
 var RAY_LENGTH = 2000
-enum PlayerCombatMode {
+enum PlayerState {
 	KILLING_MODE = 0,
-	MIND_MODE = 1
+	IDLE,
+	INSPECTING
 }
-var player_combat_state: PlayerCombatMode = PlayerCombatMode.KILLING_MODE
+var player_state: PlayerState = PlayerState.KILLING_MODE
 
 var inpectRadius = 5.0
 
 func _ready() -> void:
 	_camera = $"../CameraPivot/Camera3D"
 
-func _input(event: InputEvent):
-	if event is InputEventMouse:
-		var space_state = get_world_3d().direct_space_state
-		var mousepos = get_viewport().get_mouse_position()
-		var origin = _camera.project_ray_origin(mousepos)
-		var end = origin + _camera.project_ray_normal(mousepos) * RAY_LENGTH
-		var query = PhysicsRayQueryParameters3D.create(origin, end)
-		query.exclude = [interactDetection, self]
-		query.collide_with_areas = true
-		var result = space_state.intersect_ray(query)
-		
-		if event is InputEventMouseMotion:
-			if result.has("position") :  
-				result["position"].y = global_transform.origin.y
-				$Pivot.look_at(result["position"])
-		if event.is_pressed() and result.has("collider"):
-			var selected_item: Node3D = get_item_from_list(result["collider"].name)
-			if selected_item != null and selected_item is Interactable and selected_item.can_be_selected():
-				selected_item.on_selected(_camera, self)
-
-func get_item_from_list(selected: String):
+func get_detection_list(selected: String):
 	for item in items_in_range:
 		if item.name == selected:
 			return item
 	return null
+
+func get_interact_collider():
+	return interactDetection
+
+func player_look_at(pos: Vector3):
+	pos.y = global_transform.origin.y
+	$Pivot.look_at(pos)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(("fire")):
@@ -69,23 +57,25 @@ func _physics_process(delta: float):
 		move_and_slide()
 	
 	# Interacting Code
-	
 
-func set_player_combat_mode(room):
-	if room == GameManager.RoomType.DUNGEON:
-		player_combat_state = PlayerCombatMode.KILLING_MODE
-	elif room == GameManager.RoomType.MIND:
-		player_combat_state = PlayerCombatMode.MIND_MODE
+func change_state(state: PlayerState):
+	player_state = state
 	set_player_context()
 
 func set_player_context():
-	if player_combat_state == PlayerCombatMode.KILLING_MODE:
+	if player_state == PlayerState.KILLING_MODE:
 		add_gun()
 		set_player_mesh(battle_mesh)
-	if player_combat_state == PlayerCombatMode.MIND_MODE:
+	elif player_state == PlayerState.IDLE:
 		remove_gun()
 		set_player_mesh(mind_mesh)
-	
+		canMove = true
+	elif player_state == PlayerState.IDLE:
+		remove_gun()
+		set_player_mesh(mind_mesh)
+		canMove = false
+	else:
+		pass
 
 func add_gun():
 	gun.can_shoot = true
@@ -107,6 +97,3 @@ func _on_area_detection_body_exited(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):
 		items_in_range.remove_at(items_in_range.find(body))
 		body.out_of_range(self)
-
-func _on_player_ui_cancel_interaction() -> void:
-	canMove = true

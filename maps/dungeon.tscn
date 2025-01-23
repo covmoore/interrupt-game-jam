@@ -63,8 +63,6 @@ albedo_color = Color(1, 0.141176, 1, 1)
 [node name="Player" parent="." instance=ExtResource("1_bbrec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 speed = 5
-fall_acceleration = null
-jump_impulse = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.379941, 0.925011, 0, -0.925011, 0.379941, 0, 8.58882, 0)
@@ -80,7 +78,7 @@ script = ExtResource("2_8fhd0")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Invisible Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.2084)
-collision_layer = 2
+collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D"]
 transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 6.20391)
@@ -89,12 +87,11 @@ material_override = ExtResource("3_v2qkb")
 mesh = SubResource("BoxMesh_ragdy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.204)
 shape = SubResource("BoxShape3D_u07h7")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Invisible Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.37)
-collision_layer = 2
+collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D2"]
 transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, -5.97502)
@@ -103,12 +100,11 @@ material_override = ExtResource("3_v2qkb")
 mesh = SubResource("BoxMesh_k5uyb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.975)
 shape = SubResource("BoxShape3D_u07h7")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Invisible Walls"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.1848, 0, 0.0175667)
-collision_layer = 2
+collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D3"]
 transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 0)
@@ -121,7 +117,7 @@ shape = SubResource("BoxShape3D_u07h7")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="Invisible Walls"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17.7974, 0, 0.0175667)
-collision_layer = 2
+collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Invisible Walls/StaticBody3D4"]
 transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 2.49594e-07, 0, -5.67492)
@@ -130,7 +126,6 @@ material_override = ExtResource("3_v2qkb")
 mesh = SubResource("BoxMesh_eyry3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Invisible Walls/StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.675)
 shape = SubResource("BoxShape3D_u07h7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

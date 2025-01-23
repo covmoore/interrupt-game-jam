@@ -22,6 +22,7 @@ gdscript/warnings/native_method_override=1
 [global_group]
 
 enemies=""
+Wall=""
 
 [input]
 
