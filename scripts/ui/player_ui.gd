@@ -6,11 +6,11 @@ enum UIState {
 	INSPECTING
 }
 var ui_state = UIState.KILLING
-@onready var cam: Camera3D = $"../CameraPivot/Camera3D"
-@onready var canvas: CanvasLayer = $CanvasLayer
-@onready var hud = $CanvasLayer/MarginContainer/hud
-@onready var interactMenu = $CanvasLayer/MarginContainer/interactMenu
-@onready var gameManager: GameManager = $".."
+@export var cam: Camera3D = null
+@export var canvas: CanvasLayer = null
+@export var hud: UIPanel = null
+@export var interactMenu: UIPanel = null
+@export var gameManager: GameManager = null
 signal cancel_interaction
 var panels = []
 
@@ -38,6 +38,9 @@ func show_panels(curPanel: Array[Control]):
 			panel.show()
 		else:
 			panel.hide()
+
+func get_current_inspected():
+	return gameManager.get_current_inspected()
 
 func _on_exit_button_button_down() -> void:
 	gameManager.cancel_interaction()
