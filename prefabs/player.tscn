@@ -54,8 +54,9 @@ mesh = SubResource("SphereMesh_xq1r4")
 layers = 2
 mesh = SubResource("CapsuleMesh_v5mpw")
 
-[node name="Gun" parent="Pivot/Body" instance=ExtResource("3_7t6sr")]
+[node name="Gun" parent="Pivot/Body" node_paths=PackedStringArray("player") instance=ExtResource("3_7t6sr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178446, 0.123678, -0.147344)
+player = NodePath("../../..")
 
 [node name="HeadCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.632918, 0)

@@ -77,11 +77,13 @@ func set_room(curRoom: String):
 	for room in rooms:
 		if room.name == curRoom:
 			room.visible = true
+			if room_type == RoomType.DUNGEON and room is RoomManager:
+				room.start_room()
 		else:
 			room.visible = false
 	for anchor in pivot_anchors:
 		if anchor.room == curRoom:
-			camera.move_to_anchor(anchor, false)
+			camera.move_to_room(anchor)
 	current_room = curRoom
 
 func get_current_room():
@@ -94,8 +96,6 @@ func cancel_interaction():
 
 func back_interaction():
 	if current_inspected.isSubInteractable:
-		print(current_inspected)
-		print(current_inspected.parent)
 		set_current_inspected(current_inspected.parent)
 		change_state(GameState.INSPECTING)
 		camera.select_interactable(current_inspected)
