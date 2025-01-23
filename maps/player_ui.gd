@@ -18,11 +18,7 @@ var panels = []
 func _ready() -> void:
 	panels = [hud, interactMenu]
 	show_panels([hud])
-	#interactMenu.visible = false
 	var interactables = get_tree().get_nodes_in_group("interactable")
-	#for interactable in interactables:
-		#if interactable is Inspectable:
-			#interactable.connect("on_object_inspected", _on_object_inspected)
 
 func change_state(state: UIState):
 	ui_state = state
@@ -36,10 +32,6 @@ func set_context():
 	if ui_state == UIState.INSPECTING:
 		show_panels([interactMenu])
 
-#func _on_object_inspected() -> void:
-	#show_panels([interactMenu])
-	
-
 func show_panels(curPanel: Array[Control]):
 	for panel in panels:
 		if curPanel.has(panel):
@@ -49,3 +41,7 @@ func show_panels(curPanel: Array[Control]):
 
 func _on_exit_button_button_down() -> void:
 	gameManager.cancel_interaction()
+
+
+func _on_back_button_button_down() -> void:
+	gameManager.back_interaction()

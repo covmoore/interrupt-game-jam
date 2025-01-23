@@ -10,6 +10,7 @@ var isActive = false
 signal on_object_interacted
 var isSubInteractable: bool = false
 var parent_path: NodePath = "null"
+var parent: Interactable = null
 var camera_path: NodePath = "null"
 var camera:Camera3D = null
 
@@ -75,6 +76,9 @@ func _get(prop_name: StringName):
 	
 #endregion
 
+func get_game_manager():
+	return gameManager
+
 #region Player Detection
 
 func in_range(player: CharacterBody3D):
@@ -83,7 +87,7 @@ func in_range(player: CharacterBody3D):
 			if child is MeshInstance3D:
 				child.material_overlay = highlight_overlay
 	else:
-		var parent = get_node(parent_path)
+		parent = get_node(parent_path)
 		if parent is Interactable and parent.isActive:
 			for child in get_children():
 				if child is MeshInstance3D:

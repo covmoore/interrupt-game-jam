@@ -1,13 +1,13 @@
 extends StaticBody3D
 
-@onready var numbers = $numbers
-@onready var display: MeshInstance3D = $display/MeshInstance3D/MeshInstance3D
-@onready var door = $".."
-@onready var cam = $"../../../../CameraPivot/Camera3D"
-@onready var gameManager: GameManager = $"../../../.."
+@export var numbers: Node3D = null
+@export var display: MeshInstance3D = null
+@export var door: Interactable = null
+@export var cam: Camera = null
+@export var gameManager: GameManager = null
 var buttons = []
 var input = ""
-var pin = "1234"
+@export var pin = ""
 const MAX_LENGTH = 9
 signal unlock_door
 # Called when the node enters the scene tree for the first time.

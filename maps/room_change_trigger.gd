@@ -14,5 +14,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.name == "Player":
+	var cur_room = gameManager.get_current_room()
+	if cur_room != room and body.name == "Player":
 		gameManager.set_room(room)
