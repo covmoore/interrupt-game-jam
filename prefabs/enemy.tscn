@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://mafc2j10hbtt"]
+[gd_scene load_steps=9 format=3 uid="uid://mafc2j10hbtt"]
 
 [ext_resource type="Script" path="res://scripts/models/enemy.gd" id="1_fck7c"]
+[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_aeriy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6eu86"]
+size = Vector3(0.5, 0.5, 0.25)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7j7kx"]
 radius = 0.35
@@ -8,6 +12,12 @@ height = 1.75
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqi2q"]
 albedo_color = Color(1, 0.0823529, 0.0666667, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2p1up"]
+size = Vector3(0.15, 0.15, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b310m"]
+albedo_color = Color(0.162066, 0.162066, 0.162066, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_231a8"]
 radius = 0.35
@@ -17,9 +27,34 @@ height = 1.75
 script = ExtResource("1_fck7c")
 health = 5.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Eye" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.3)
+material_override = ExtResource("2_aeriy")
+mesh = SubResource("BoxMesh_6eu86")
+
+[node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_7j7kx")
 surface_material_override/0 = SubResource("StandardMaterial3D_aqi2q")
+
+[node name="Gun" type="Node3D" parent="Body"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385622, 0, -0.502714)
+mesh = SubResource("BoxMesh_2p1up")
+surface_material_override/0 = SubResource("StandardMaterial3D_b310m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/Gun"]
+transform = Transform3D(1, 0, 0, 0, 0.479983, -0.3769, 0, 0.414602, 0.436335, 0.385622, -0.0923538, -0.314987)
+mesh = SubResource("BoxMesh_2p1up")
+surface_material_override/0 = SubResource("StandardMaterial3D_b310m")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body/Gun"]
+transform = Transform3D(1, 0, 0, 0, -0.513103, -0.338929, 0, 0.372832, -0.466444, 0.385622, -0.0923538, -0.508997)
+mesh = SubResource("BoxMesh_2p1up")
+surface_material_override/0 = SubResource("StandardMaterial3D_b310m")
+
+[node name="Marker3D" type="Marker3D" parent="Body/Gun"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.387072, 0, -0.753843)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_231a8")
