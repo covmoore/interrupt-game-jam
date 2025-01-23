@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=34 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
@@ -75,17 +75,32 @@ size = Vector3(1.5, 1.7, 0.325)
 [sub_resource type="BoxShape3D" id="BoxShape3D_5rkse"]
 size = Vector3(1.5, 1.7, 0.325)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_kupb0"]
-size = Vector2(12, 5)
+[sub_resource type="PlaneMesh" id="PlaneMesh_qklci"]
+size = Vector2(15, 5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vl0gx"]
-size = Vector3(12, 0.01, 12)
+[sub_resource type="BoxShape3D" id="BoxShape3D_a082y"]
+size = Vector3(14.9377, 0.01, 4.99658)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mm2q7"]
-size = Vector3(4.95996, 0.01, 12)
+[sub_resource type="PlaneMesh" id="PlaneMesh_7boyc"]
+size = Vector2(15, 5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_sqtxy"]
-size = Vector3(6.07129, 0.01, 12)
+[sub_resource type="BoxShape3D" id="BoxShape3D_7a4r0"]
+size = Vector3(14.9895, 0.01, 4.95514)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qugxo"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1gnro"]
+size = Vector3(14.9694, 0.01, 4.95288)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_woah8"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fxypm"]
+size = Vector3(6.17316, 0.01, 4.94733)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gh8lk"]
+size = Vector3(7.29797, 0.01, 4.87164)
 
 [node name="Dungeon1" type="Node3D" node_paths=PackedStringArray("main_room", "player", "camera", "camera_pivot", "uiManager", "rooms", "pivot_anchors")]
 script = ExtResource("1_mva7x")
@@ -113,9 +128,6 @@ gameManager = NodePath("../..")
 
 [node name="mainCameraAnchor" type="Node3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.393204, 0.919451, 0, -0.919451, 0.393204, 0, 9.43599, 5.07966)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.379941, 0.925011, 0, -0.925011, 0.379941, 0, 8.58882, 0)
 
 [node name="start_room" type="Node3D" parent="." node_paths=PackedStringArray("player", "doors", "enemySpawners")]
 script = ExtResource("4_7eefm")
@@ -173,7 +185,8 @@ script = ExtResource("10_de85t")
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
 
 [node name="door" type="StaticBody3D" parent="start_room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.831536, -7.32846)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.437, 0.852693, -0.51818)
+collision_layer = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/door"]
 mesh = SubResource("BoxMesh_4skxw")
@@ -182,56 +195,63 @@ mesh = SubResource("BoxMesh_4skxw")
 shape = SubResource("BoxShape3D_5rkse")
 
 [node name="Walls" type="Node3D" parent="start_room"]
-visible = false
 
 [node name="Wall1" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 6)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 7.4822)
 collision_layer = 2
 collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall1"]
-mesh = SubResource("PlaneMesh_kupb0")
+mesh = SubResource("PlaneMesh_qklci")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall1"]
-shape = SubResource("BoxShape3D_vl0gx")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00427246, 0, 0.0192871)
+shape = SubResource("BoxShape3D_a082y")
 
 [node name="Wall2" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
-transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -6)
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -7.46049)
 collision_layer = 2
 collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall2"]
-mesh = SubResource("PlaneMesh_kupb0")
+mesh = SubResource("PlaneMesh_7boyc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall2"]
-shape = SubResource("BoxShape3D_vl0gx")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0245361, 0, 0.0186462)
+shape = SubResource("BoxShape3D_7a4r0")
 
 [node name="Wall3" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -6, 2.43923, -0.00124407)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -7.51138, 2.43923, -0.00124407)
 collision_layer = 2
 collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall3"]
-mesh = SubResource("PlaneMesh_kupb0")
+mesh = SubResource("PlaneMesh_qugxo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall3"]
-shape = SubResource("BoxShape3D_vl0gx")
+transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, 0.0501099, 0, 0.0313721)
+shape = SubResource("BoxShape3D_1gnro")
 
 [node name="Wall4" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
-transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 6, 2.43923, -0.00124407)
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 7.45403, 2.43923, -0.00124407)
 collision_layer = 2
 collision_mask = 29
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall4"]
-mesh = SubResource("PlaneMesh_kupb0")
+mesh = SubResource("PlaneMesh_woah8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall4"]
-transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, 3.52002, 0, 0)
-shape = SubResource("BoxShape3D_mm2q7")
+transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, 4.3779, 0, 0.0176697)
+shape = SubResource("BoxShape3D_fxypm")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="start_room/Walls/Wall4"]
-transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, -2.99264, 1.43051e-06, 0)
-shape = SubResource("BoxShape3D_sqtxy")
+transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, -3.87686, 9.53674e-07, -0.0294495)
+shape = SubResource("BoxShape3D_gh8lk")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="start_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.3596, 0)
+light_energy = 10.799
+omni_range = 20.0
 
 [node name="pivot_anchors" type="Node3D" parent="."]
 
