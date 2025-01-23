@@ -1,9 +1,9 @@
-extends CharacterBody3D
+class_name Enemy extends CharacterBody3D
 
 @onready var player = $"../Player"
 @onready var nav_agent = $NavigationAgent3D
-
 @export var movement_speed : float = 2.0
+@export var health: float = 0.0
 
 var movement_target_position : Vector3 = Vector3.ZERO
 var path = []
@@ -30,3 +30,9 @@ func _physics_process(delta):
 	
 	velocity = current_agent_position.direction_to(next_path_position) * movement_speed
 	move_and_slide()
+
+func take_damage(shot_by: CharacterBody3D, dmg: float):
+	health -= dmg
+	if health <= 0:
+		shot_by.killed_enemy(self)
+		queue_free()

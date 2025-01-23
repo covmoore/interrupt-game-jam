@@ -24,6 +24,8 @@ var player_state: PlayerState = PlayerState.KILLING_MODE
 
 var inpectRadius = 5.0
 
+signal on_enemy_killed
+
 func _ready() -> void:
 	_camera = $"../CameraPivot/Camera3D"
 
@@ -57,6 +59,9 @@ func _physics_process(delta: float):
 		move_and_slide()
 	
 	# Interacting Code
+
+func killed_enemy(enemy: CharacterBody3D):
+	emit_signal("on_enemy_killed")
 
 func change_state(state: PlayerState):
 	player_state = state

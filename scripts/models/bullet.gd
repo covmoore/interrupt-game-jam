@@ -1,7 +1,9 @@
-extends Node3D
+class_name Bullet extends Node3D
 
 @export var lifespan: float = 2.0
 @export var speed: float = 70.0
+var shot_by: CharacterBody3D = null
+var damage: float = 0.0
 
 func _ready():
 	await(get_tree().create_timer(lifespan)).timeout
@@ -13,5 +15,5 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if(body.is_in_group("enemies")):
-		body.queue_free()
+	if(body.is_in_group("enemies") and shot_by != null):
+		body.take_damage(shot_by, damage)

@@ -1,26 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=29 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_8fhd0"]
 [ext_resource type="Shader" path="res://shaders/cyberground.gdshader" id="2_hfbtt"]
-[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="3_v2qkb"]
+[ext_resource type="Script" path="res://maps/room_manager.gd" id="4_7eefm"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
-[ext_resource type="Script" path="res://scripts/managers/spawnManager.gd" id="6_eotg7"]
 [ext_resource type="PackedScene" uid="uid://mafc2j10hbtt" path="res://prefabs/enemy.tscn" id="6_rpdv3"]
 [ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://scripts/ui/player_ui.tscn" id="9_3ai7s"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="9_g68le"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ragdy"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_u07h7"]
-size = Vector3(36, 20, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_k5uyb"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_1hqcr"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_eyry3"]
+[ext_resource type="Script" path="res://maps/enemy_spawner.gd" id="10_de85t"]
+[ext_resource type="Script" path="res://scripts/models/wave.gd" id="11_xxg05"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ugbub"]
 shader = ExtResource("5_xgppb")
@@ -40,9 +30,9 @@ fog_mode = 1
 fog_density = 1.0
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hpwqc"]
-vertices = PackedVector3Array(-5.5, 0.5, -6.75, -5.25, 0.5, -6.25, -3, 0.5, -7.5, -2.75, 0.5, -8.75, -6.75, 0.5, -6.75, 1.75, 0.5, -11.5, -11.5, 0.5, -11.5, 1.5, 0.5, -8.75, -11.5, 0.5, -4.25, -8.75, 0.5, -4.25, 3, 0.5, -2.75, 3.25, 0.5, -1.75, 5, 0.5, -1.75, 7.5, 0.5, -2, 3, 0.5, -7.25, 5, 0.5, 0, 7.25, 0.5, 0, 3, 0.5, -8.75, 9, 0.5, -1.75, 9, 0.5, 0, 11.5, 0.5, 0, 11.5, 0.5, -11.5, -7.5, 0.5, -3.25, -7.25, 0.5, -2, -6.25, 0.5, -2, -2.75, 0.5, -7, -5.25, 0.5, -5.25, -2.75, 0.5, -2.75, -6, 0.5, -1.5, -3, 0.5, -1.75, -7.75, 0.5, -1.75, -8.5, 0.5, -3.25, -11.5, 0.5, 6, -7.75, 0.5, 2, -6.25, 0.5, 6, -6.75, 0.5, 2.25, -6.25, 0.5, 6.25, -5.25, 0.5, 6.25, 2, 0.5, 1.25, 2.25, 0.5, 2, 3.25, 0.5, 1.75, 3.25, 0.5, -1.5, 2.75, 0.5, -1, -3.5, 0.5, 8, 0.25, 0.5, 7.25, 0.25, 0.5, 6.25, -1.75, 0.5, 3, -6, 0.5, 1.75, -2.75, 0.5, -1, -2, 0.5, 1.5, 2.25, 0.5, 4.25, 1.5, 0.5, 3, 3.5, 0.5, 2.25, 11.5, 0.5, 7, 9, 0.5, 1.75, 7.75, 0.5, 7.25, 3.75, 0.5, 4.5, 4.5, 0.5, 2.25, 7.5, 0.5, 2.25, 5, 0.5, 1.75, 3.5, 0.5, 6, 4.5, 0.5, 7.25, -6.75, 0.5, 6.5, -4.25, 0.5, 11.5, -4.25, 0.5, 9.75, -6.75, 0.5, 7.75, -11.5, 0.5, 11.5, 4, 0.5, 7.5, -3.25, 0.5, 9.5, 1.75, 0.5, 7.75, 4.25, 0.5, 9, 11.5, 0.5, 11.5, 7.75, 0.5, 9, 8.25, 0.5, 7.5, 0.5, 0.5, 7.75)
-polygons = [PackedInt32Array(0, 2, 1), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(3, 4, 5), PackedInt32Array(5, 4, 6), PackedInt32Array(5, 7, 3), PackedInt32Array(9, 8, 4), PackedInt32Array(4, 8, 6), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(13, 10, 14), PackedInt32Array(15, 12, 16), PackedInt32Array(16, 12, 13), PackedInt32Array(14, 17, 13), PackedInt32Array(13, 17, 18), PackedInt32Array(17, 7, 5), PackedInt32Array(20, 19, 18), PackedInt32Array(5, 21, 17), PackedInt32Array(17, 21, 18), PackedInt32Array(18, 21, 20), PackedInt32Array(24, 23, 22), PackedInt32Array(25, 1, 2), PackedInt32Array(1, 25, 26), PackedInt32Array(26, 25, 27), PackedInt32Array(27, 25, 10), PackedInt32Array(10, 25, 14), PackedInt32Array(29, 28, 24), PackedInt32Array(29, 24, 27), PackedInt32Array(27, 24, 22), PackedInt32Array(27, 22, 26), PackedInt32Array(23, 30, 22), PackedInt32Array(22, 30, 31), PackedInt32Array(31, 30, 8), PackedInt32Array(8, 30, 33), PackedInt32Array(8, 33, 32), PackedInt32Array(8, 9, 31), PackedInt32Array(35, 34, 33), PackedInt32Array(33, 34, 32), PackedInt32Array(37, 36, 34), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 42), PackedInt32Array(40, 42, 41), PackedInt32Array(44, 43, 45), PackedInt32Array(45, 43, 37), PackedInt32Array(45, 37, 46), PackedInt32Array(46, 37, 47), PackedInt32Array(35, 47, 34), PackedInt32Array(34, 47, 37), PackedInt32Array(48, 49, 29), PackedInt32Array(29, 49, 46), PackedInt32Array(29, 46, 47), PackedInt32Array(29, 47, 28), PackedInt32Array(50, 45, 51), PackedInt32Array(51, 45, 46), PackedInt32Array(38, 49, 42), PackedInt32Array(42, 49, 48), PackedInt32Array(40, 52, 39), PackedInt32Array(39, 52, 51), PackedInt32Array(55, 54, 53), PackedInt32Array(53, 54, 20), PackedInt32Array(57, 56, 52), PackedInt32Array(52, 56, 50), PackedInt32Array(52, 50, 51), PackedInt32Array(54, 19, 20), PackedInt32Array(57, 59, 56), PackedInt32Array(56, 59, 58), PackedInt32Array(60, 56, 61), PackedInt32Array(61, 56, 55), PackedInt32Array(55, 56, 58), PackedInt32Array(55, 58, 54), PackedInt32Array(15, 16, 59), PackedInt32Array(59, 16, 58), PackedInt32Array(36, 62, 34), PackedInt32Array(34, 62, 32), PackedInt32Array(64, 63, 65), PackedInt32Array(65, 63, 66), PackedInt32Array(65, 66, 32), PackedInt32Array(32, 62, 65), PackedInt32Array(67, 60, 61), PackedInt32Array(63, 64, 68), PackedInt32Array(67, 70, 60), PackedInt32Array(60, 70, 69), PackedInt32Array(70, 72, 71), PackedInt32Array(73, 55, 53), PackedInt32Array(74, 69, 70), PackedInt32Array(44, 74, 43), PackedInt32Array(43, 74, 68), PackedInt32Array(68, 74, 63), PackedInt32Array(63, 74, 70), PackedInt32Array(63, 70, 71), PackedInt32Array(73, 53, 72), PackedInt32Array(72, 53, 71)]
-vertices_per_polygon = 8.0
+vertices = PackedVector3Array(3.25, 0.5, -1.75, 4.5, 0.5, -1.5, 4.75, 0.5, -2, 3, 0.5, -2.75, 6, 0.5, -2, 6.25, 0.5, -0.75, 7, 0.5, -0.75, 7, 0.5, -7, -2.75, 0.5, -2.75, -7, 0.5, -7, -7, 0.5, -1.75, -3, 0.5, -1.75, -0.5, 0.5, 7, -0.25, 0.5, 6, -1.75, 0.5, 6, -7, 0.5, 7, -2.75, 0.5, -1, -2, 0.5, 4.5, -0.25, 0.5, 4.25, -0.5, 0.5, -1, 2.75, 0.5, -1, 4.75, 0.5, 2.25, 2, 0.5, 6, 7, 0.5, 7, 6.25, 0.5, 2, 2.25, 0.5, 4.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(3, 8, 7), PackedInt32Array(7, 8, 9), PackedInt32Array(2, 3, 4), PackedInt32Array(4, 3, 7), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(11, 16, 10), PackedInt32Array(10, 16, 17), PackedInt32Array(10, 17, 15), PackedInt32Array(18, 17, 19), PackedInt32Array(19, 17, 16), PackedInt32Array(17, 14, 15), PackedInt32Array(0, 1, 20), PackedInt32Array(20, 1, 21), PackedInt32Array(13, 22, 12), PackedInt32Array(12, 22, 23), PackedInt32Array(5, 6, 24), PackedInt32Array(24, 6, 23), PackedInt32Array(25, 21, 22), PackedInt32Array(22, 21, 24), PackedInt32Array(22, 24, 23), PackedInt32Array(25, 18, 21), PackedInt32Array(21, 18, 20), PackedInt32Array(20, 18, 19)]
+detail_sample_distance = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_phwww"]
 render_priority = 0
@@ -53,13 +43,49 @@ shader_parameter/glow_intensity = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
 material = SubResource("ShaderMaterial_phwww")
-size = Vector2(12, 12)
+size = Vector2(15, 15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vkvcm"]
-size = Vector3(12, 0.01, 12)
+size = Vector3(15, 0.01, 15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j64jk"]
 albedo_color = Color(1, 0.141176, 1, 1)
+
+[sub_resource type="Resource" id="Resource_kdfmp"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_fkvqh"]
+script = ExtResource("11_xxg05")
+wave_number = 2
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_otk37"]
+script = ExtResource("11_xxg05")
+wave_number = 3
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="BoxMesh" id="BoxMesh_4skxw"]
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5rkse"]
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kupb0"]
+size = Vector2(12, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vl0gx"]
+size = Vector3(12, 0.01, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mm2q7"]
+size = Vector3(4.95996, 0.01, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sqtxy"]
+size = Vector3(6.07129, 0.01, 12)
 
 [node name="Dungeon1" type="Node3D" node_paths=PackedStringArray("main_room", "player", "camera", "camera_pivot", "uiManager", "rooms", "pivot_anchors")]
 script = ExtResource("1_mva7x")
@@ -72,13 +98,13 @@ rooms = [NodePath("start_room")]
 pivot_anchors = [NodePath("pivot_anchors/start_pivot")]
 
 [node name="Player" parent="." instance=ExtResource("1_bbrec")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69177, 0)
 speed = 5
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" node_paths=PackedStringArray("camera_pivot", "player", "mainCameraAnchor", "gameManager")]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 15)
+transform = Transform3D(1, 0, 0, 0, 0.393204, 0.919451, 0, -0.919451, 0.393204, 0, 9.43599, 5.07966)
 script = ExtResource("2_8fhd0")
 camera_pivot = NodePath("..")
 player = NodePath("../../Player")
@@ -86,66 +112,17 @@ mainCameraAnchor = NodePath("../mainCameraAnchor")
 gameManager = NodePath("../..")
 
 [node name="mainCameraAnchor" type="Node3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 15)
+transform = Transform3D(1, 0, 0, 0, 0.393204, 0.919451, 0, -0.919451, 0.393204, 0, 9.43599, 5.07966)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.379941, 0.925011, 0, -0.925011, 0.379941, 0, 8.58882, 0)
 
-[node name="start_room" type="Node3D" parent="."]
-
-[node name="Invisible Walls" type="Node3D" parent="start_room"]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="start_room/Invisible Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.2084)
-collision_mask = 29
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Invisible Walls/StaticBody3D"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 6.20391)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_ragdy")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Invisible Walls/StaticBody3D"]
-shape = SubResource("BoxShape3D_u07h7")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="start_room/Invisible Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.37)
-collision_mask = 29
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Invisible Walls/StaticBody3D2"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, -5.97502)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_k5uyb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Invisible Walls/StaticBody3D2"]
-shape = SubResource("BoxShape3D_u07h7")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="start_room/Invisible Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.1848, 0, 0.0175667)
-collision_mask = 29
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Invisible Walls/StaticBody3D3"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 0, 0, 0)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_1hqcr")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Invisible Walls/StaticBody3D3"]
-shape = SubResource("BoxShape3D_u07h7")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="start_room/Invisible Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17.7974, 0, 0.0175667)
-collision_mask = 29
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Invisible Walls/StaticBody3D4"]
-transform = Transform3D(36.7032, 0, 0, 0, 20.6818, 0, 0, 0, 1, 2.49594e-07, 0, -5.67492)
-visible = false
-material_override = ExtResource("3_v2qkb")
-mesh = SubResource("BoxMesh_eyry3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Invisible Walls/StaticBody3D4"]
-shape = SubResource("BoxShape3D_u07h7")
+[node name="start_room" type="Node3D" parent="." node_paths=PackedStringArray("player", "doors", "enemySpawners")]
+script = ExtResource("4_7eefm")
+player = NodePath("../Player")
+number_of_waves = 3
+doors = [NodePath("door")]
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="start_room"]
 environment = SubResource("Environment_g5vgi")
@@ -154,7 +131,6 @@ environment = SubResource("Environment_g5vgi")
 navigation_mesh = SubResource("NavigationMesh_hpwqc")
 
 [node name="Ground" type="StaticBody3D" parent="start_room/Navmesh" groups=["Ground"]]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Navmesh/Ground"]
@@ -172,69 +148,90 @@ size = Vector3(5, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="obstacle2" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 5.10623)
 use_collision = true
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="obstacle3" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0.55, 0)
-use_collision = true
-size = Vector3(3, 1, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle4" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 0.55, 0)
-use_collision = true
-size = Vector3(3, 1, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle5" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 2, 0.55, 6)
-use_collision = true
-size = Vector3(3, 1, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle6" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -7, 0.55, -5)
-use_collision = true
-size = Vector3(3, 1, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle7" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -8)
-use_collision = true
-size = Vector3(5, 1, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle8" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -5, 0.55, 8)
-use_collision = true
-size = Vector3(3, 1, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle10" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.55, 8)
-use_collision = true
-size = Vector3(3, 1, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle9" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8, 0.55, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.47882, 0.55, 0)
 use_collision = true
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="EnemySpawnZones" type="Node3D" parent="start_room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-script = ExtResource("6_eotg7")
-enemy_scene = ExtResource("6_rpdv3")
 
 [node name="Zone1" type="Marker3D" parent="start_room/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kdfmp"), SubResource("Resource_fkvqh")])
 
 [node name="Zone2" type="Marker3D" parent="start_room/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69587, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
+
+[node name="door" type="StaticBody3D" parent="start_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.831536, -7.32846)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/door"]
+mesh = SubResource("BoxMesh_4skxw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/door"]
+shape = SubResource("BoxShape3D_5rkse")
+
+[node name="Walls" type="Node3D" parent="start_room"]
+visible = false
+
+[node name="Wall1" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 6)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_kupb0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall1"]
+shape = SubResource("BoxShape3D_vl0gx")
+
+[node name="Wall2" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -6)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_kupb0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall2"]
+shape = SubResource("BoxShape3D_vl0gx")
+
+[node name="Wall3" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -6, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall3"]
+mesh = SubResource("PlaneMesh_kupb0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall3"]
+shape = SubResource("BoxShape3D_vl0gx")
+
+[node name="Wall4" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 6, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Walls/Wall4"]
+mesh = SubResource("PlaneMesh_kupb0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, 3.52002, 0, 0)
+shape = SubResource("BoxShape3D_mm2q7")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="start_room/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, -2.99264, 1.43051e-06, 0)
+shape = SubResource("BoxShape3D_sqtxy")
 
 [node name="pivot_anchors" type="Node3D" parent="."]
 

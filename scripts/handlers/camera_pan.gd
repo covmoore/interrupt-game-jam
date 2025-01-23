@@ -102,6 +102,9 @@ func move_to_anchor(anchor: Node3D, hide_player: bool):
 		set_cull_mask_value(2, true)
 		can_pan = true
 
+func move_to_room(anchor: Node3D):
+	camera_pivot.global_transform = anchor.global_transform
+
 func reset_camera():
 	#transform = camera_pivot.transform
 	#print(mainCameraAnchor)
