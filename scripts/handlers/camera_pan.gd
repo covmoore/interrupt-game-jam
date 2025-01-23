@@ -4,11 +4,10 @@ enum CameraState {
 	GLOBAL = 0,
 	FOCUSED = 1
 }
-@onready var camera_pivot = $".."
-@onready var camera: Camera3D = self
-@onready var player: Player = $"../../Player"
-@onready var mainCameraAnchor = $"../mainCameraAnchor"
-@onready var gameManager: GameManager = $"../.."
+@export var camera_pivot: Node3D = null
+@export var player: Player = null
+@export var mainCameraAnchor: Node3D = null
+@export var gameManager: GameManager = null
 var can_pan = true
 var current_state: CameraState = CameraState.GLOBAL
 var hovered_item = null
@@ -75,10 +74,10 @@ func _input(event: InputEvent):
 		elif event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
 				# Zoom in by reducing the FOV
-				camera.fov = clamp(camera.fov - zoom_speed, min_zoom, max_zoom)
+				fov = clamp(fov - zoom_speed, min_zoom, max_zoom)
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
 				# Zoom out by increasing the FOV
-				camera.fov = clamp(camera.fov + zoom_speed, min_zoom, max_zoom)
+				fov = clamp(fov + zoom_speed, min_zoom, max_zoom)
 
 func change_state(state: CameraState):
 	current_state = state
@@ -104,4 +103,6 @@ func move_to_anchor(anchor: Node3D, hide_player: bool):
 		can_pan = true
 
 func reset_camera():
+	#transform = camera_pivot.transform
+	#print(mainCameraAnchor)
 	move_to_anchor(mainCameraAnchor, false)

@@ -3,8 +3,8 @@ class_name Player extends CharacterBody3D
 @export var speed = 14
 @export var fall_acceleration = 75
 @export var jump_impulse = 20
-@onready var gun = $Pivot/Body/Gun
-@onready var interactDetection = $AreaDetection
+@export var gun: Node3D = null
+@export var interactDetection: Area3D = null
 
 var battle_mesh = null
 var mind_mesh = null
@@ -40,8 +40,8 @@ func player_look_at(pos: Vector3):
 	pos.y = global_transform.origin.y
 	$Pivot.look_at(pos)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(("fire")):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("fire"):
 		gun.shoot()
 
 func _physics_process(delta: float):

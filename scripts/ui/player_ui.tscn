@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx318d6ukm8n2"]
+
+[ext_resource type="Script" path="res://scripts/ui/player_ui.gd" id="1_c76ns"]
+[ext_resource type="Script" path="res://scripts/ui/panel.gd" id="2_3nlbv"]
+[ext_resource type="Script" path="res://scripts/ui/interact_panel.gd" id="3_55d8k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvkkl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0u5i"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[node name="PlayerUI" type="Control" node_paths=PackedStringArray("canvas", "hud", "interactMenu")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c76ns")
+canvas = NodePath("CanvasLayer")
+hud = NodePath("CanvasLayer/MarginContainer/hud")
+interactMenu = NodePath("CanvasLayer/MarginContainer/interactMenu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="hud" type="Control" parent="CanvasLayer/MarginContainer"]
+visibility_layer = 1024
+layout_mode = 2
+script = ExtResource("2_3nlbv")
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/hud"]
+layout_mode = 0
+offset_right = 917.0
+offset_bottom = 557.0
+text = "BRUH"
+
+[node name="interactMenu" type="Control" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("exit_button", "back_button", "ui_manager")]
+layout_mode = 2
+script = ExtResource("3_55d8k")
+exit_button = NodePath("exit_buttons/exit_button")
+back_button = NodePath("exit_buttons/back_button")
+ui_manager = NodePath("../../..")
+
+[node name="exit_buttons" type="HBoxContainer" parent="CanvasLayer/MarginContainer/interactMenu"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 48.0
+theme_override_constants/separation = 17
+
+[node name="exit_button" type="Button" parent="CanvasLayer/MarginContainer/interactMenu/exit_buttons"]
+visibility_layer = 6144
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.361816, 0.348007, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_lvkkl")
+text = "X"
+
+[node name="back_button" type="Button" parent="CanvasLayer/MarginContainer/interactMenu/exit_buttons"]
+visibility_layer = 4096
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_q0u5i")
+text = "<"
+
+[connection signal="button_down" from="CanvasLayer/MarginContainer/interactMenu/exit_buttons/exit_button" to="." method="_on_exit_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/MarginContainer/interactMenu/exit_buttons/back_button" to="." method="_on_back_button_button_down"]

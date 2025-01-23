@@ -27,9 +27,11 @@ height = 1.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_v3hkg"]
 radius = 1.6
 
-[node name="Player" type="CharacterBody3D" groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("gun", "interactDetection") groups=["Player"]]
 collision_mask = 30
 script = ExtResource("1_ya7y0")
+gun = NodePath("Pivot/Body/Gun")
+interactDetection = NodePath("AreaDetection")
 
 [node name="Pivot" type="Node3D" parent="."]
 

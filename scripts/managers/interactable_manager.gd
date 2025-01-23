@@ -1,7 +1,7 @@
 extends Node3D
 
 var interactables: Array[Interactable] = []
-@onready var gameManager: GameManager = $"../.."
+@export var gameManager: GameManager = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,23 +1,21 @@
-[gd_scene load_steps=149 format=3 uid="uid://bpy5y680rvwjc"]
+[gd_scene load_steps=145 format=3 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_0727t"]
 [ext_resource type="Script" path="res://scripts/managers/interactable_manager.gd" id="4_02tj2"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_krx2p"]
-[ext_resource type="Script" path="res://maps/door_handler.gd" id="5_4y5in"]
+[ext_resource type="Script" path="res://scripts/handlers/door_handler.gd" id="5_4y5in"]
 [ext_resource type="Material" uid="uid://bnik6suu7lqxh" path="res://materials/highlight.tres" id="5_bb44y"]
 [ext_resource type="Script" path="res://scripts/models/inspectable.gd" id="5_ve011"]
 [ext_resource type="Script" path="res://scripts/handlers/lock_handler.gd" id="6_drpkv"]
 [ext_resource type="Material" uid="uid://c4lqqr1akglwv" path="res://materials/new_standard_material_3d.tres" id="7_q07yc"]
-[ext_resource type="Script" path="res://maps/player_ui.gd" id="7_tbnyt"]
-[ext_resource type="Script" path="res://maps/panel.gd" id="8_mt58j"]
 [ext_resource type="Material" uid="uid://b0535amnttyqo" path="res://materials/button_gray.tres" id="8_simbx"]
 [ext_resource type="Script" path="res://scripts/models/lock_button.gd" id="9_pgjh0"]
-[ext_resource type="Script" path="res://maps/safe_handler.gd" id="12_l0w0y"]
-[ext_resource type="Script" path="res://maps/interact_panel.gd" id="15_61v1t"]
-[ext_resource type="Script" path="res://maps/pivot_anchor_handler.gd" id="15_ww2tj"]
-[ext_resource type="Script" path="res://maps/room_change_trigger.gd" id="16_hmwhx"]
+[ext_resource type="Script" path="res://scripts/handlers/safe_handler.gd" id="12_l0w0y"]
+[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://scripts/ui/player_ui.tscn" id="14_mhnod"]
+[ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="15_ww2tj"]
+[ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="16_hmwhx"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
 size = Vector2(12, 5)
@@ -550,30 +548,17 @@ size = Vector2(10, 8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tloi7"]
 size = Vector3(10, 0.01, 8)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvkkl"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0u5i"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_pds2a"]
 size = Vector3(0.601074, 0.528076, 3)
 
-[node name="Mind_Room" type="Node3D" node_paths=PackedStringArray("main_room", "rooms", "pivot_anchors")]
+[node name="Mind_Room" type="Node3D" node_paths=PackedStringArray("main_room", "player", "camera", "camera_pivot", "uiManager", "rooms", "pivot_anchors")]
 script = ExtResource("1_581u0")
 room_type = 1
-camera_path = NodePath("CameraPivot/Camera3D")
 main_room = NodePath("main_room")
+player = NodePath("Player")
+camera = NodePath("CameraPivot/Camera3D")
+camera_pivot = NodePath("CameraPivot")
+uiManager = NodePath("PlayerUI")
 rooms = [NodePath("main_room"), NodePath("control_room")]
 pivot_anchors = [NodePath("pivot_anchors/main_pivot"), NodePath("pivot_anchors/control_pivot")]
 
@@ -584,9 +569,13 @@ speed = 5
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" node_paths=PackedStringArray("camera_pivot", "player", "mainCameraAnchor", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 9)
 script = ExtResource("2_0727t")
+camera_pivot = NodePath("..")
+player = NodePath("../../Player")
+mainCameraAnchor = NodePath("../mainCameraAnchor")
+gameManager = NodePath("../..")
 
 [node name="mainCameraAnchor" type="Node3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 9)
@@ -668,8 +657,9 @@ light_indirect_energy = 0.0
 shadow_enabled = true
 directional_shadow_mode = 0
 
-[node name="inspectables" type="Node3D" parent="main_room"]
+[node name="inspectables" type="Node3D" parent="main_room" node_paths=PackedStringArray("gameManager")]
 script = ExtResource("4_02tj2")
+gameManager = NodePath("../..")
 
 [node name="Door" type="StaticBody3D" parent="main_room/inspectables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.92632, 0.0631726, -1.0482)
@@ -1585,73 +1575,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5668, 0.804413, -0.538411
 mesh = SubResource("BoxMesh_pt43t")
 skeleton = NodePath("../../main_room/inspectables/Door")
 
-[node name="PlayerUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_tbnyt")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="PlayerUI"]
-layer = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerUI/CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="hud" type="Control" parent="PlayerUI/CanvasLayer/MarginContainer"]
-visibility_layer = 1024
-layout_mode = 2
-script = ExtResource("8_mt58j")
-
-[node name="Label" type="Label" parent="PlayerUI/CanvasLayer/MarginContainer/hud"]
-layout_mode = 0
-offset_right = 917.0
-offset_bottom = 557.0
-text = "BRUH"
-
-[node name="interactMenu" type="Control" parent="PlayerUI/CanvasLayer/MarginContainer"]
-layout_mode = 2
-script = ExtResource("15_61v1t")
-
-[node name="exit_buttons" type="HBoxContainer" parent="PlayerUI/CanvasLayer/MarginContainer/interactMenu"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 48.0
-theme_override_constants/separation = 17
-
-[node name="exit_button" type="Button" parent="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons"]
-visibility_layer = 6144
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.361816, 0.348007, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_lvkkl")
-text = "X"
-
-[node name="back_button" type="Button" parent="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons"]
-visibility_layer = 4096
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_q0u5i")
-text = "<"
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("cam", "gameManager") instance=ExtResource("14_mhnod")]
+cam = NodePath("../CameraPivot/Camera3D")
+gameManager = NodePath("..")
 
 [node name="pivot_anchors" type="Node3D" parent="."]
 
@@ -1666,29 +1592,28 @@ room = "control_room"
 
 [node name="room_triggers" type="Node3D" parent="."]
 
-[node name="control_trigger" type="Area3D" parent="room_triggers"]
+[node name="control_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.99708, 0, 0)
 collision_layer = 2
 script = ExtResource("16_hmwhx")
 room = "control_room"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/control_trigger"]
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_pds2a")
 
-[node name="main_trigger" type="Area3D" parent="room_triggers"]
+[node name="main_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58337, 0, 0)
 collision_layer = 2
 script = ExtResource("16_hmwhx")
 room = "main_room"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/main_trigger"]
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_pds2a")
-
-[connection signal="cancel_interaction" from="PlayerUI" to="Player" method="_on_player_ui_cancel_interaction"]
-[connection signal="cancel_interaction" from="PlayerUI" to="CameraPivot/Camera3D" method="_on_player_ui_cancel_interaction"]
-[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/exit_button" to="PlayerUI" method="_on_exit_button_button_down"]
-[connection signal="button_down" from="PlayerUI/CanvasLayer/MarginContainer/interactMenu/exit_buttons/back_button" to="PlayerUI" method="_on_back_button_button_down"]

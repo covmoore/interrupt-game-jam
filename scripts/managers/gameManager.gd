@@ -11,15 +11,13 @@ enum GameState {
 }
 @export var room_type: RoomType = RoomType.DUNGEON
 var gameState = GameState.NORMAL
-@export var camera_path: NodePath
 @export var main_room: Node3D = null
+@export var player: Player = null
+@export var camera: Camera = null
+@export var camera_pivot: Node3D = null
+@export var uiManager: UIManager = null
 @export var rooms: Array[Node3D] = []
 @export var pivot_anchors: Array[Node3D] = []
-
-@onready var player = $Player
-@onready var camera = $CameraPivot/Camera3D
-@onready var camera_pivot = $CameraPivot
-@onready var uiManager: UIManager = $PlayerUI
 
 var current_room = ""
 var current_inspected: Inspectable = null
@@ -36,7 +34,7 @@ func _process(delta: float) -> void:
 	pass
 
 func get_camera():
-	return camera_path
+	return camera
 
 func change_room_type(room: RoomType):
 	room_type = room
@@ -54,9 +52,14 @@ func set_room_context():
 func change_state(state: GameState):
 	gameState = state
 	if state == GameState.NORMAL:
-		camera.change_state(Camera.CameraState.GLOBAL)
-		player.change_state(Player.PlayerState.IDLE)
-		uiManager.change_state(UIManager.UIState.IDLE)
+		if room_type == RoomType.DUNGEON:
+			player.change_state(Player.PlayerState.KILLING_MODE)
+			camera.change_state(Camera.CameraState.GLOBAL)
+			uiManager.change_state(UIManager.UIState.IDLE)
+		elif room_type == RoomType.MIND:
+			player.change_state(Player.PlayerState.IDLE)
+			camera.change_state(Camera.CameraState.GLOBAL)
+			uiManager.change_state(UIManager.UIState.IDLE)
 	elif state == GameState.INSPECTING:
 		camera.change_state(Camera.CameraState.FOCUSED)
 		player.change_state(Player.PlayerState.INSPECTING)
@@ -78,7 +81,7 @@ func set_room(curRoom: String):
 			room.visible = false
 	for anchor in pivot_anchors:
 		if anchor.room == curRoom:
-			camera_pivot.global_transform = anchor.global_transform
+			camera.move_to_anchor(anchor, false)
 	current_room = curRoom
 
 func get_current_room():
@@ -91,7 +94,8 @@ func cancel_interaction():
 
 func back_interaction():
 	if current_inspected.isSubInteractable:
-		#print(current_inspected.parent)
+		print(current_inspected)
+		print(current_inspected.parent)
 		set_current_inspected(current_inspected.parent)
 		change_state(GameState.INSPECTING)
 		camera.select_interactable(current_inspected)
