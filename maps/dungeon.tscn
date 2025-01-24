@@ -530,11 +530,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 [node name="Zone1" type="Marker3D" parent="start_room/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -5.64134)
 script = ExtResource("10_de85t")
+initial_delay = 3.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kdfmp")])
 
 [node name="Zone2" type="Marker3D" parent="start_room/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69587, 0, -5)
 script = ExtResource("10_de85t")
+initial_delay = 3.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_wpw7l")])
 
 [node name="door" type="StaticBody3D" parent="start_room"]
@@ -724,16 +726,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2251, 0.55, 0)
 [node name="Zone1" type="Marker3D" parent="room2/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_8frrt"), SubResource("Resource_t4m1f")])
 
 [node name="Zone2" type="Marker3D" parent="room2/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_vlj12")])
 
 [node name="Zone3" type="Marker3D" parent="room2/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, 0.469994)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_vlj12")])
 
 [node name="door2" type="StaticBody3D" parent="room2"]
@@ -860,13 +865,15 @@ omni_range = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79548, 0.55, 0)
 
 [node name="Zone1" type="Marker3D" parent="room3/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.59233, 0, -5.73481)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6307, 0, -5.73481)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_rlawt"), SubResource("Resource_hjvip"), SubResource("Resource_g1c32")])
 
 [node name="Zone2" type="Marker3D" parent="room3/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_704dv"), SubResource("Resource_7j50k"), SubResource("Resource_ijn7l")])
 
 [node name="door" type="StaticBody3D" parent="room3"]
@@ -974,21 +981,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79548, 0.55, 0)
 [node name="Zone1" type="Marker3D" parent="room4/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_1iowr")])
 
 [node name="Zone3" type="Marker3D" parent="room4/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68783, 0, 5.4)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_1iowr")])
 
 [node name="Zone2" type="Marker3D" parent="room4/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_k7sj4")])
 
 [node name="Zone4" type="Marker3D" parent="room4/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, 0.058197)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_k7sj4")])
 
 [node name="room5" type="Node3D" parent="." node_paths=PackedStringArray("player", "doors", "enemySpawners")]
@@ -1095,11 +1106,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79548, 0.55, 0)
 [node name="Zone1" type="Marker3D" parent="room5/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_6d2lb")])
 
 [node name="Zone2" type="Marker3D" parent="room5/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
 script = ExtResource("10_de85t")
+initial_delay = 1.0
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_fj6qq"), SubResource("Resource_vlbql")])
 
 [node name="door" type="StaticBody3D" parent="room5"]

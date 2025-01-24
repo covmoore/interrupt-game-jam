@@ -24,7 +24,6 @@ func shoot(enemy: Enemy = null):
 		new_bullet.global_transform = $Muzzle.global_transform
 		if enemy != null:
 			new_bullet.look_at_from_position(global_position, enemy.global_position, Vector3(0,1,0), true)
-		#new_bullet.speed = muzzle_speed
 		var scene_root = get_tree().get_root().get_children()[0]
 		scene_root.add_child(new_bullet)
 		await get_tree().create_timer(fire_rate).timeout

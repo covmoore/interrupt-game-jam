@@ -78,7 +78,6 @@ func set_room(curRoom: String):
 		if room.name == curRoom:
 			room.visible = true
 			if room_type == RoomType.DUNGEON and room is RoomManager:
-				print(room)
 				room.start_room()
 		else:
 			room.visible = false

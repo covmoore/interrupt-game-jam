@@ -5,15 +5,30 @@ class_name Enemy extends CharacterBody3D
 @export var enemy_gun: Node3D = null  
 @export var movement_speed : float = 2.0
 @export var health: float = 0.0
-
 @export var attack_range: float = 5.0
-
+@export var spawning_fx: PackedScene = null
 var movement_target_position : Vector3 = Vector3.ZERO
+var can_move = true
+var can_shoot = true
 var path = []
 
 func _ready():
 	nav_agent.path_desired_distance = 0.5
 	nav_agent.target_desired_distance = 0.5
+
+func spawn():
+	visible = false
+	can_move = false
+	can_shoot = false
+	var scene_root = get_tree().get_root().get_children()[0]
+	var fx = spawning_fx.instantiate()
+	fx.global_transform = global_transform
+	scene_root.add_child(fx)
+	await pause(2, get_tree())
+	fx.free()
+	visible = true
+	can_move = true
+	can_shoot = true
 	
 func set_movement_target(movement_target: Vector3):
 	#Instead of going straight to the player pick a random offset
@@ -51,10 +66,12 @@ func _physics_process(delta):
 				velocity = global_position.direction_to(next_path_position) * movement_speed
 			else:
 				velocity = Vector3.ZERO
-		move_and_slide()
+		if can_move:
+			move_and_slide()
 	
 func shoot_at_player():
-	enemy_gun.shoot()
+	if can_shoot:
+		enemy_gun.shoot()
 
 func take_damage(shot_by: CharacterBody3D, dmg: float):
 	health -= dmg
@@ -72,3 +89,6 @@ func take_damage(shot_by: CharacterBody3D, dmg: float):
 	if health <= 0:
 		shot_by.killed_enemy(self)
 		queue_free()
+
+func pause(time: float, tree: SceneTree):
+	await tree.create_timer(time).timeout
