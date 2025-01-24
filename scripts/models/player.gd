@@ -8,6 +8,9 @@ class_name Player extends CharacterBody3D
 @export var player_ui: Control
 @export var health = 5
 
+@onready var death_sound
+@onready var hurt_sound
+
 var battle_mesh = null
 var mind_mesh = null
 
@@ -32,6 +35,12 @@ var inpectRadius = 5.0
 signal on_enemy_killed
 
 func _ready() -> void:
+	death_sound = AudioStreamPlayer.new()
+	hurt_sound = AudioStreamPlayer.new()
+	death_sound.stream = preload("res://sounds/male_death_intense_scream.wav")
+	hurt_sound.stream = preload("res://sounds/male_pain_damage_impact.wav")
+	add_child(death_sound)
+	add_child(hurt_sound)
 	_camera = $"../CameraPivot/Camera3D"
 
 func get_detection_list(selected: String):
@@ -106,9 +115,27 @@ func set_player_mesh(mesh: Mesh):
 func take_damage(dmg):
 	health -= dmg
 	player_ui.set_healthbar_value(health)
+	var body_mat = $Pivot/Body.get_surface_override_material(0) as StandardMaterial3D
+	var head_mat = $Pivot/Head.get_surface_override_material(0) as StandardMaterial3D
+	if body_mat == null or head_mat == null:
+		print("Cringe... ~o~ the players's surface override material is null")
+	else:
+		var second_mat_body = body_mat.next_pass
+		var second_mat_head = head_mat.next_pass
+		if second_mat_body == null or second_mat_head == null:
+			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material override")
+		else:
+			$Pivot/Body.set_surface_override_material(0, second_mat_body)
+			$Pivot/Head.set_surface_override_material(0, second_mat_head)
+			await get_tree().create_timer(0.1).timeout
+			$Pivot/Body.set_surface_override_material(0, body_mat)
+			$Pivot/Head.set_surface_override_material(0, head_mat)
 	if health <= 0:
 		player_state = PlayerState.DEAD
+		death_sound.play()
 		set_player_context()
+	else:
+		hurt_sound.play()
 
 func _on_area_detection_body_entered(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):

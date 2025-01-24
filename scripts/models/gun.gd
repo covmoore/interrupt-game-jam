@@ -6,10 +6,19 @@ extends Node3D
 @export var player: CharacterBody3D = null
 var can_shoot = true
 
+@onready var audio_player
+
+func _ready() -> void:
+	audio_player = AudioStreamPlayer.new()
+	audio_player.stream = preload("res://sounds/laser.wav")
+	add_child(audio_player)
+	
+
 func shoot():
 	if can_shoot:
 		can_shoot = false
 		var new_bullet = bullet_scene.instantiate()
+		audio_player.play()
 		new_bullet.shot_by = player
 		new_bullet.damage = 1
 		new_bullet.global_transform = $Muzzle.global_transform
