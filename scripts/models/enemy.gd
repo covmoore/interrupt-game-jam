@@ -58,6 +58,17 @@ func shoot_at_player():
 
 func take_damage(shot_by: CharacterBody3D, dmg: float):
 	health -= dmg
+	var mat = $Body.get_surface_override_material(0) as StandardMaterial3D
+	if mat == null:
+		print("Cringe... ~o~ the enemy's surface override material is null")
+	else:
+		var second_mat = mat.next_pass
+		if second_mat == null:
+			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material override")
+		else:
+			$Body.set_surface_override_material(0, second_mat)
+			await get_tree().create_timer(0.1).timeout
+			$Body.set_surface_override_material(0, mat)
 	if health <= 0:
 		shot_by.killed_enemy(self)
 		queue_free()
