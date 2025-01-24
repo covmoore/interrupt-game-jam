@@ -5,6 +5,7 @@ class_name Player extends CharacterBody3D
 @export var jump_impulse = 20
 @export var gun: Node3D = null
 @export var interactDetection: Area3D = null
+@export var player_ui: Control
 @export var health = 5
 
 var battle_mesh = null
@@ -104,6 +105,7 @@ func set_player_mesh(mesh: Mesh):
 	
 func take_damage(dmg):
 	health -= dmg
+	player_ui.set_healthbar_value(health)
 	if health <= 0:
 		player_state = PlayerState.DEAD
 		set_player_context()

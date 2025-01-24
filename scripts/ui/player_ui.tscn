@@ -20,7 +20,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0, 0, 0, 1)
 
-[node name="PlayerUI" type="Control" node_paths=PackedStringArray("canvas", "hud", "interactMenu")]
+[node name="PlayerUI" type="Control" node_paths=PackedStringArray("canvas", "hud", "healthbar", "interactMenu")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,6 +36,7 @@ grow_vertical = 2
 script = ExtResource("1_c76ns")
 canvas = NodePath("CanvasLayer")
 hud = NodePath("CanvasLayer/MarginContainer/hud")
+healthbar = NodePath("CanvasLayer/MarginContainer/hud/HealthBar")
 interactMenu = NodePath("CanvasLayer/MarginContainer/interactMenu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -57,11 +58,16 @@ visibility_layer = 1024
 layout_mode = 2
 script = ExtResource("2_3nlbv")
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/hud"]
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/MarginContainer/hud"]
+modulate = Color(0, 0.733333, 0, 1)
 layout_mode = 0
-offset_right = 917.0
-offset_bottom = 557.0
-text = "BRUH"
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 175.0
+offset_bottom = 35.0
+max_value = 5.0
+value = 5.0
+fill_mode = 1
 
 [node name="interactMenu" type="Control" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("exit_button", "back_button", "ui_manager")]
 layout_mode = 2

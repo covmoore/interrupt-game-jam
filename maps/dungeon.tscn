@@ -112,10 +112,11 @@ uiManager = NodePath("PlayerUI")
 rooms = [NodePath("start_room")]
 pivot_anchors = [NodePath("pivot_anchors/start_pivot")]
 
-[node name="Player" parent="." instance=ExtResource("1_bbrec")]
+[node name="Player" parent="." node_paths=PackedStringArray("player_ui") instance=ExtResource("1_bbrec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69177, 0)
 collision_mask = 30
 speed = 5
+player_ui = NodePath("../PlayerUI")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
