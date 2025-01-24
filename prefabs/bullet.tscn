@@ -21,5 +21,3 @@ surface_material_override/0 = SubResource("StandardMaterial3D_leyhf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_i5qnx")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

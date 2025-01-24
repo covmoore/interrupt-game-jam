@@ -6,6 +6,7 @@ var shot_by: CharacterBody3D = null
 var damage: float = 0.0
 
 func _ready():
+	self.connect("body_entered", _on_body_entered)
 	await(get_tree().create_timer(lifespan)).timeout
 	queue_free()
 
