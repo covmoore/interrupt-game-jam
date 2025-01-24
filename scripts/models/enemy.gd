@@ -2,6 +2,7 @@ class_name Enemy extends CharacterBody3D
 
 @onready var player = $"../Player"
 @onready var nav_agent = $NavigationAgent3D
+@export var enemy_gun: Node3D = null  
 @export var movement_speed : float = 2.0
 @export var health: float = 0.0
 
@@ -31,28 +32,29 @@ func actor_setup():
 	set_movement_target(player.global_transform.origin)
 	
 func _physics_process(delta):
-	actor_setup()
-	var distance_to_player = global_position.distance_to(player.global_transform.origin)
-	
-	#If close enough to attack
-	if distance_to_player <= attack_range:
-		#Stop moving
-		velocity = Vector3.ZERO
-		#Face the player
-		look_at(player.global_transform.origin, Vector3.UP)
-		#call you shooting logic
-		shoot_at_player()
-	else:
-		#otherwise, keep using the nav agent
-		if not nav_agent.is_navigation_finished():
-			var next_path_position = nav_agent.get_next_path_position()
-			velocity = global_position.direction_to(next_path_position) * movement_speed
-		else:
+	if player.player_state != Player.PlayerState.DEAD:
+		actor_setup()
+		var distance_to_player = global_position.distance_to(player.global_transform.origin)
+		
+		#If close enough to attack
+		if distance_to_player <= attack_range:
+			#Stop moving
 			velocity = Vector3.ZERO
-	move_and_slide()
+			#Face the player
+			look_at(player.global_transform.origin, Vector3.UP)
+			#call you shooting logic
+			shoot_at_player()
+		else:
+			#otherwise, keep using the nav agent
+			if not nav_agent.is_navigation_finished():
+				var next_path_position = nav_agent.get_next_path_position()
+				velocity = global_position.direction_to(next_path_position) * movement_speed
+			else:
+				velocity = Vector3.ZERO
+		move_and_slide()
 	
 func shoot_at_player():
-	print("Pew pew! Suck my ass!!!!!")
+	enemy_gun.shoot()
 
 func take_damage(shot_by: CharacterBody3D, dmg: float):
 	health -= dmg

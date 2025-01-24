@@ -5,6 +5,7 @@ class_name Player extends CharacterBody3D
 @export var jump_impulse = 20
 @export var gun: Node3D = null
 @export var interactDetection: Area3D = null
+@export var health = 5
 
 var battle_mesh = null
 var mind_mesh = null
@@ -13,12 +14,15 @@ var items_in_range: Array[Node3D] = []
 
 var target_velocity = Vector3.ZERO
 var canMove = true
+var canShoot = true
+var canRotate = true
 var _camera: Camera3D = null
 var RAY_LENGTH = 2000
 enum PlayerState {
 	KILLING_MODE = 0,
 	IDLE,
-	INSPECTING
+	INSPECTING,
+	DEAD
 }
 var player_state: PlayerState = PlayerState.KILLING_MODE
 
@@ -39,11 +43,12 @@ func get_interact_collider():
 	return interactDetection
 
 func player_look_at(pos: Vector3):
-	pos.y = global_transform.origin.y
-	$Pivot.look_at(pos)
+	if canRotate:
+		pos.y = global_transform.origin.y
+		$Pivot.look_at(pos)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("fire"):
+	if event.is_action_pressed("fire") and canShoot:
 		gun.shoot()
 
 func _physics_process(delta: float):
@@ -71,16 +76,20 @@ func set_player_context():
 	if player_state == PlayerState.KILLING_MODE:
 		add_gun()
 		set_player_mesh(battle_mesh)
-	elif player_state == PlayerState.IDLE:
+		canShoot = true
+		canMove = true
+		canRotate = true
+	elif player_state == PlayerState.IDLE or player_state == PlayerState.INSPECTING:
 		remove_gun()
 		set_player_mesh(mind_mesh)
 		canMove = true
-	elif player_state == PlayerState.IDLE:
-		remove_gun()
-		set_player_mesh(mind_mesh)
+		canShoot = false
+		canRotate = true
+	elif player_state == PlayerState.DEAD:
 		canMove = false
-	else:
-		pass
+		canShoot = false
+		canRotate = false
+		$".".rotation_degrees = Vector3(90,0,0)
 
 func add_gun():
 	gun.can_shoot = true
@@ -92,6 +101,12 @@ func remove_gun():
 
 func set_player_mesh(mesh: Mesh):
 	pass
+	
+func take_damage(dmg):
+	health -= dmg
+	if health <= 0:
+		player_state = PlayerState.DEAD
+		set_player_context()
 
 func _on_area_detection_body_entered(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):

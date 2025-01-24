@@ -114,6 +114,7 @@ pivot_anchors = [NodePath("pivot_anchors/start_pivot")]
 
 [node name="Player" parent="." instance=ExtResource("1_bbrec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69177, 0)
+collision_mask = 30
 speed = 5
 
 [node name="CameraPivot" type="Node3D" parent="."]
@@ -156,18 +157,21 @@ shape = SubResource("BoxShape3D_vkvcm")
 [node name="obstacle" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -2)
 use_collision = true
+collision_layer = 2
 size = Vector3(5, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="obstacle2" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 5.10623)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="obstacle3" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.47882, 0.55, 0)
 use_collision = true
+collision_layer = 2
 size = Vector3(3, 1, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
@@ -181,6 +185,21 @@ rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kdfmp"), SubResou
 
 [node name="Zone2" type="Marker3D" parent="start_room/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69587, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
+
+[node name="Zone3" type="Marker3D" parent="start_room/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.696, 0, 5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
+
+[node name="Zone4" type="Marker3D" parent="start_room/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
+
+[node name="Zone5" type="Marker3D" parent="start_room/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 script = ExtResource("10_de85t")
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
 
