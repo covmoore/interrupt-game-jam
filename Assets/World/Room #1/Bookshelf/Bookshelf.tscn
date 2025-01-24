@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://ymvt841nux7w"]
+
+[ext_resource type="PackedScene" uid="uid://417op2w376x5" path="res://Assets/World/Room #1/Bookshelf/Bookshelf.glb" id="1_j1ktf"]
+
+[node name="Bookshelf" instance=ExtResource("1_j1ktf")]
+
+[node name="Book_001" parent="." index="1"]
+transform = Transform3D(0.0576119, -0.175248, 0, 0.0228584, 0.441691, 0, 0, 0, 0.309905, -1.61444, 1.16005, 0.173693)
+visible = false
+
+[node name="Book_005" parent="." index="5"]
+visible = false
+
+[node name="Book_007" parent="." index="7"]
+visible = false
+
+[node name="Book_009" parent="." index="9"]
+visible = false
+
+[node name="Book_010" parent="." index="10"]
+visible = false

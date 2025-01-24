@@ -1,24 +1,45 @@
-[gd_scene load_steps=5 format=3 uid="uid://mafc2j10hbtt"]
+[gd_scene load_steps=9 format=3 uid="uid://mafc2j10hbtt"]
 
 [ext_resource type="Script" path="res://scripts/models/enemy.gd" id="1_fck7c"]
+[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_aeriy"]
+[ext_resource type="PackedScene" uid="uid://0l3pomo7gp0s" path="res://prefabs/enemy_gun.tscn" id="3_6n7g4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6eu86"]
+size = Vector3(0.5, 0.25, 0.25)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7j7kx"]
 radius = 0.35
 height = 1.75
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dkjwe"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqi2q"]
-albedo_color = Color(1, 0.0823529, 0.0666667, 1)
+render_priority = 1
+next_pass = SubResource("StandardMaterial3D_dkjwe")
+albedo_color = Color(1, 0.0980392, 0.0666667, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_231a8"]
 radius = 0.35
 height = 1.75
 
-[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("enemy_gun") groups=["enemies"]]
 script = ExtResource("1_fck7c")
+enemy_gun = NodePath("Body/Gun")
+health = 5.0
+attack_range = 3.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Eye" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51602, -0.3)
+material_override = ExtResource("2_aeriy")
+mesh = SubResource("BoxMesh_6eu86")
+
+[node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_7j7kx")
 surface_material_override/0 = SubResource("StandardMaterial3D_aqi2q")
+
+[node name="Gun" parent="Body" node_paths=PackedStringArray("player") instance=ExtResource("3_6n7g4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.137769, -0.135773)
+player = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_231a8")
