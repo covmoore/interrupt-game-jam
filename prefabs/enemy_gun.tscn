@@ -9,7 +9,7 @@ size = Vector3(0.15, 0.15, 0.5)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b310m"]
 albedo_color = Color(0.162066, 0.162066, 0.162066, 1)
 
-[node name="Gun" type="Node3D"]
+[node name="Gun2" type="Node3D"]
 script = ExtResource("1_i0dvg")
 bullet_scene = ExtResource("2_0gfk7")
 
