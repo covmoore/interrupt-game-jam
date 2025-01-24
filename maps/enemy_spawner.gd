@@ -1,5 +1,6 @@
 class_name EnemySpawner extends Marker3D
 
+@export var initial_delay = 0.0
 @export var rounds: Array[DungeonWave]
 @onready var spawn_zones
 var enemy_count = 0
@@ -14,11 +15,13 @@ func start(round_num: int):
 			spawn_enemies(round.enemies, round.spawn_rate)
 
 func spawn_enemies(enemies: Array[PackedScene], spawn_rate: float):
+	await try_await(initial_delay)
 	for enemy in enemies:
 		var new_enemy = enemy.instantiate()
 		new_enemy.global_transform = global_transform
 		var scene_root = get_tree().get_root().get_children()[0]
 		scene_root.add_child(new_enemy)
+		new_enemy.spawn()
 		await try_await(spawn_rate)
 
 func get_total_enemies():

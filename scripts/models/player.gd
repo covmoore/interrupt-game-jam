@@ -71,7 +71,6 @@ func _input(event: InputEvent) -> void:
 		var result = space_state.intersect_ray(query)
 		if result.has("collider") and result["collider"] is Enemy:
 			enemy = result["collider"]
-			print(enemy)
 		gun.shoot(enemy)
 
 func _physics_process(delta: float):

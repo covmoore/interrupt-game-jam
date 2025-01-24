@@ -25,12 +25,10 @@ func _process(delta: float) -> void:
 	pass
 
 func start_room():
-	print("start")
 	active = true
 	start_next_wave()
 
 func start_next_wave():
-	print("Start Wave: %s" % self.name)
 	total_wave_enemies = 0
 	current_wave += 1
 	if enemySpawners.size() > 0:
@@ -39,7 +37,6 @@ func start_next_wave():
 				total_wave_enemies += spawner.get_enemies_in_wave(current_wave)
 				spawner.start(current_wave)
 	if current_wave > number_of_waves:
-		print("Current %s on Room %s" % [current_wave, self.name])
 		on_room_cleared()
 
 func on_room_cleared():
