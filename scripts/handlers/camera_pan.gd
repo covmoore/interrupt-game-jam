@@ -28,6 +28,10 @@ func _ready() -> void:
 	for wall in walls:
 		col_rids.append(wall.get_rid())
 	col_rids.append_array([interact_collider, self])
+
+func get_exclusion_rids():
+	return col_rids
+
 func _input(event: InputEvent):
 	if event is InputEventMouse:
 		var space_state = get_world_3d().direct_space_state

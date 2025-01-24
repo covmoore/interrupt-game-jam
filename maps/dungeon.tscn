@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=125 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
@@ -61,34 +61,10 @@ wave_number = 1
 spawn_rate = 1.0
 enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
-[sub_resource type="Resource" id="Resource_fkvqh"]
-script = ExtResource("11_xxg05")
-wave_number = 2
-spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
-
-[sub_resource type="Resource" id="Resource_i5hji"]
-script = ExtResource("11_xxg05")
-wave_number = 3
-spawn_rate = 2.0
-enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
-
 [sub_resource type="Resource" id="Resource_wpw7l"]
 script = ExtResource("11_xxg05")
 wave_number = 1
 spawn_rate = 2.0
-enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
-
-[sub_resource type="Resource" id="Resource_otk37"]
-script = ExtResource("11_xxg05")
-wave_number = 3
-spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
-
-[sub_resource type="Resource" id="Resource_kgfuq"]
-script = ExtResource("11_xxg05")
-wave_number = 3
-spawn_rate = 1.0
 enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_4skxw"]
@@ -169,6 +145,12 @@ wave_number = 1
 spawn_rate = 1.0
 enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
+[sub_resource type="Resource" id="Resource_t4m1f"]
+script = ExtResource("11_xxg05")
+wave_number = 2
+spawn_rate = 2.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
+
 [sub_resource type="Resource" id="Resource_vlj12"]
 script = ExtResource("11_xxg05")
 wave_number = 2
@@ -241,7 +223,25 @@ size = Vector3(15, 0.01, 15)
 material = ExtResource("3_v2qkb")
 size = Vector3(1.2, 1.6, 0.1)
 
+[sub_resource type="Resource" id="Resource_rlawt"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
 [sub_resource type="Resource" id="Resource_hjvip"]
+script = ExtResource("11_xxg05")
+wave_number = 2
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_g1c32"]
+script = ExtResource("11_xxg05")
+wave_number = 3
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_704dv"]
 script = ExtResource("11_xxg05")
 wave_number = 1
 spawn_rate = 1.0
@@ -252,6 +252,12 @@ script = ExtResource("11_xxg05")
 wave_number = 2
 spawn_rate = 1.0
 enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_ijn7l"]
+script = ExtResource("11_xxg05")
+wave_number = 3
+spawn_rate = 2.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_ojsuk"]
 material = ExtResource("10_ywes5")
@@ -310,7 +316,7 @@ enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
 [sub_resource type="Resource" id="Resource_k7sj4"]
 script = ExtResource("11_xxg05")
-wave_number = 2
+wave_number = 1
 spawn_rate = 1.0
 enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
@@ -365,6 +371,12 @@ script = ExtResource("11_xxg05")
 wave_number = 1
 spawn_rate = 1.0
 enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_fj6qq"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 2.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
 
 [sub_resource type="Resource" id="Resource_vlbql"]
 script = ExtResource("11_xxg05")
@@ -447,11 +459,12 @@ uiManager = NodePath("PlayerUI")
 rooms = [NodePath("start_room"), NodePath("room2"), NodePath("room3"), NodePath("room4"), NodePath("room5"), NodePath("boss_room")]
 pivot_anchors = [NodePath("pivot_anchors/start_pivot"), NodePath("pivot_anchors/room2_pivot"), NodePath("pivot_anchors/room3_pivot"), NodePath("pivot_anchors/room4_pivot"), NodePath("pivot_anchors/room5_pivot"), NodePath("pivot_anchors/boss_pivot")]
 
-[node name="Player" parent="." node_paths=PackedStringArray("player_ui") instance=ExtResource("1_bbrec")]
+[node name="Player" parent="." node_paths=PackedStringArray("player_ui", "camera") instance=ExtResource("1_bbrec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69177, 0)
 collision_mask = 30
 speed = 5
 player_ui = NodePath("../PlayerUI")
+camera = NodePath("../CameraPivot/Camera3D")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
@@ -469,9 +482,9 @@ transform = Transform3D(1, 0, 0, 0, 0.393204, 0.919451, 0, -0.919451, 0.393204, 
 [node name="start_room" type="Node3D" parent="." node_paths=PackedStringArray("player", "doors", "enemySpawners")]
 script = ExtResource("4_7eefm")
 player = NodePath("../Player")
-number_of_waves = 3
+number_of_waves = 1
 doors = [NodePath("door")]
-enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2"), NodePath("EnemySpawnZones/Zone3")]
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="start_room"]
 environment = SubResource("Environment_g5vgi")
@@ -515,34 +528,14 @@ material = SubResource("StandardMaterial3D_j64jk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 
 [node name="Zone1" type="Marker3D" parent="start_room/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -5.64134)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kdfmp"), SubResource("Resource_fkvqh"), SubResource("Resource_i5hji")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kdfmp")])
 
 [node name="Zone2" type="Marker3D" parent="start_room/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69587, 0, -5)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_wpw7l"), SubResource("Resource_otk37")])
-
-[node name="Zone3" type="Marker3D" parent="start_room/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69587, 0, 4.77948)
-script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kgfuq")])
-
-[node name="Zone3" type="Marker3D" parent="start_room/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.696, 0, 5)
-script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
-
-[node name="Zone4" type="Marker3D" parent="start_room/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
-script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
-
-[node name="Zone5" type="Marker3D" parent="start_room/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
-script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_wpw7l")])
 
 [node name="door" type="StaticBody3D" parent="start_room"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.437, 0.852693, -0.51818)
@@ -624,7 +617,7 @@ script = ExtResource("4_7eefm")
 player = NodePath("../Player")
 number_of_waves = 2
 doors = [NodePath("door2"), NodePath("door3")]
-enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2"), NodePath("EnemySpawnZones/Zone3")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="room2"]
 environment = SubResource("Environment_g5vgi")
@@ -731,10 +724,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2251, 0.55, 0)
 [node name="Zone1" type="Marker3D" parent="room2/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_8frrt")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_8frrt"), SubResource("Resource_t4m1f")])
 
 [node name="Zone2" type="Marker3D" parent="room2/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_vlj12")])
+
+[node name="Zone3" type="Marker3D" parent="room2/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, 0.469994)
 script = ExtResource("10_de85t")
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_vlj12")])
 
@@ -764,7 +762,7 @@ shape = SubResource("BoxShape3D_gmkan")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0375, 0, -14.9175)
 script = ExtResource("4_7eefm")
 player = NodePath("../Player")
-number_of_waves = 2
+number_of_waves = 3
 doors = [NodePath("door")]
 enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
 
@@ -862,14 +860,14 @@ omni_range = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79548, 0.55, 0)
 
 [node name="Zone1" type="Marker3D" parent="room3/EnemySpawnZones"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.59233, 0, -5.73481)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_hjvip")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_rlawt"), SubResource("Resource_hjvip"), SubResource("Resource_g1c32")])
 
 [node name="Zone2" type="Marker3D" parent="room3/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_7j50k")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_704dv"), SubResource("Resource_7j50k"), SubResource("Resource_ijn7l")])
 
 [node name="door" type="StaticBody3D" parent="room3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.547925, 0.844149, -7.4171)
@@ -886,8 +884,8 @@ shape = SubResource("BoxShape3D_4auf7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.969, 0, 0.0351715)
 script = ExtResource("4_7eefm")
 player = NodePath("../Player")
-number_of_waves = 2
-enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
+number_of_waves = 1
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2"), NodePath("EnemySpawnZones/Zone3"), NodePath("EnemySpawnZones/Zone4")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="room4"]
 environment = SubResource("Environment_uubkc")
@@ -978,8 +976,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
 script = ExtResource("10_de85t")
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_1iowr")])
 
+[node name="Zone3" type="Marker3D" parent="room4/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68783, 0, 5.4)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_1iowr")])
+
 [node name="Zone2" type="Marker3D" parent="room4/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_k7sj4")])
+
+[node name="Zone4" type="Marker3D" parent="room4/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, 0.058197)
 script = ExtResource("10_de85t")
 rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_k7sj4")])
 
@@ -987,7 +995,7 @@ rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_k7sj4")])
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0601, 0, -29.9524)
 script = ExtResource("4_7eefm")
 player = NodePath("../Player")
-number_of_waves = 2
+number_of_waves = 1
 doors = [NodePath("door")]
 enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
 
@@ -1092,7 +1100,7 @@ rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_6d2lb")])
 [node name="Zone2" type="Marker3D" parent="room5/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_vlbql")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_fj6qq"), SubResource("Resource_vlbql")])
 
 [node name="door" type="StaticBody3D" parent="room5"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.49503, 0.809327, -0.518181)

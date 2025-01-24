@@ -10,6 +10,7 @@ size = Vector3(0.1, 0.2, 0.1)
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_ptg06")
 bullet_scene = ExtResource("2_pnbkf")
+fire_rate = 0.8
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00452767, 0.104414, -0.00141588)

@@ -7,7 +7,7 @@ class_name Player extends CharacterBody3D
 @export var interactDetection: Area3D = null
 @export var player_ui: Control
 @export var health = 5
-
+@export var camera: Camera = null
 @onready var death_sound
 @onready var hurt_sound
 
@@ -59,7 +59,20 @@ func player_look_at(pos: Vector3):
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire") and canShoot:
-		gun.shoot()
+		var enemy = null
+		var space_state = get_world_3d().direct_space_state
+		var mousepos = get_viewport().get_mouse_position()
+		var origin =  camera.project_ray_origin(mousepos)
+		var end = origin + camera.project_ray_normal(mousepos) * RAY_LENGTH
+		var query = PhysicsRayQueryParameters3D.create(origin, end)
+		#query.exclude = [interact_collider, self]
+		query.exclude = camera.get_exclusion_rids()
+		query.collide_with_areas = true
+		var result = space_state.intersect_ray(query)
+		if result.has("collider") and result["collider"] is Enemy:
+			enemy = result["collider"]
+			print(enemy)
+		gun.shoot(enemy)
 
 func _physics_process(delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")

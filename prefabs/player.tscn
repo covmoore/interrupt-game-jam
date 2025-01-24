@@ -74,6 +74,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ueybd")
 
 [node name="Gun" parent="Pivot/Body" node_paths=PackedStringArray("player") instance=ExtResource("3_7t6sr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178446, 0.123678, -0.147344)
+fire_rate = 0.5
 player = NodePath("../../..")
 
 [node name="HeadCollision" type="CollisionShape3D" parent="."]
