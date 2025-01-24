@@ -9,6 +9,7 @@ var room_cleared = false
 var total_enemies = 0
 var total_wave_enemies = 0
 var total_wave_killed = 0
+var active = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,9 +25,12 @@ func _process(delta: float) -> void:
 	pass
 
 func start_room():
+	print("start")
+	active = true
 	start_next_wave()
 
 func start_next_wave():
+	print("Start Wave: %s" % self.name)
 	total_wave_enemies = 0
 	current_wave += 1
 	if enemySpawners.size() > 0:
@@ -35,11 +39,14 @@ func start_next_wave():
 				total_wave_enemies += spawner.get_enemies_in_wave(current_wave)
 				spawner.start(current_wave)
 	if current_wave > number_of_waves:
+		print("Current %s on Room %s" % [current_wave, self.name])
 		on_room_cleared()
 
 func on_room_cleared():
-	room_cleared = true
-	open_doors()
+	print("Room Cleared: %s" % self.name)
+	if not room_cleared:
+		room_cleared = true
+		open_doors()
 
 func open_doors():
 	if doors.size() > 0:
@@ -47,7 +54,8 @@ func open_doors():
 			door.free()
 
 func _on_enemy_killed():
-	total_wave_killed += 1
-	if total_wave_killed >= total_wave_enemies:
-		total_wave_killed = 0
-		start_next_wave()
+	if active:
+		total_wave_killed += 1
+		if total_wave_killed >= total_wave_enemies:
+			total_wave_killed = 0
+			start_next_wave()

@@ -1,16 +1,20 @@
-[gd_scene load_steps=34 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=123 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_8fhd0"]
 [ext_resource type="Shader" path="res://shaders/cyberground.gdshader" id="2_hfbtt"]
+[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="3_v2qkb"]
 [ext_resource type="Script" path="res://maps/room_manager.gd" id="4_7eefm"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
 [ext_resource type="PackedScene" uid="uid://mafc2j10hbtt" path="res://prefabs/enemy.tscn" id="6_rpdv3"]
 [ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://scripts/ui/player_ui.tscn" id="9_3ai7s"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="9_g68le"]
 [ext_resource type="Script" path="res://maps/enemy_spawner.gd" id="10_de85t"]
+[ext_resource type="Material" uid="uid://b0d5whnc5744t" path="res://maps/door.tres" id="10_ywes5"]
 [ext_resource type="Script" path="res://scripts/models/wave.gd" id="11_xxg05"]
+[ext_resource type="Script" path="res://maps/mind_trigger.gd" id="12_kokh7"]
+[ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="13_2epaw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ugbub"]
 shader = ExtResource("5_xgppb")
@@ -55,13 +59,25 @@ albedo_color = Color(1, 0.141176, 1, 1)
 script = ExtResource("11_xxg05")
 wave_number = 1
 spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
 [sub_resource type="Resource" id="Resource_fkvqh"]
 script = ExtResource("11_xxg05")
 wave_number = 2
 spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("6_rpdv3"), ExtResource("6_rpdv3"), ExtResource("6_rpdv3")])
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_i5hji"]
+script = ExtResource("11_xxg05")
+wave_number = 3
+spawn_rate = 2.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_wpw7l"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 2.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
 [sub_resource type="Resource" id="Resource_otk37"]
 script = ExtResource("11_xxg05")
@@ -69,7 +85,14 @@ wave_number = 3
 spawn_rate = 1.0
 enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
 
+[sub_resource type="Resource" id="Resource_kgfuq"]
+script = ExtResource("11_xxg05")
+wave_number = 3
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
 [sub_resource type="BoxMesh" id="BoxMesh_4skxw"]
+material = ExtResource("10_ywes5")
 size = Vector3(1.5, 1.7, 0.325)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5rkse"]
@@ -102,6 +125,318 @@ size = Vector3(6.17316, 0.01, 4.94733)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gh8lk"]
 size = Vector3(7.29797, 0.01, 4.87164)
 
+[sub_resource type="BoxMesh" id="BoxMesh_f2k38"]
+material = ExtResource("3_v2qkb")
+size = Vector3(1.2, 1.6, 0.1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l3whj"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jneqj"]
+size = Vector3(6.84631, 0.01, 4.99658)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_b33f1"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j2kwy"]
+size = Vector3(14.9895, 0.01, 4.95514)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0fxsk"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r5xtp"]
+size = Vector3(6.89895, 0.01, 4.95288)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6mhcp"]
+size = Vector3(7.3604, 0.01, 4.95288)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n3tnc"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6a0re"]
+size = Vector3(7.33015, 0.01, 4.94733)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_whaca"]
+size = Vector3(6.40018, 0.01, 4.87164)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_igbj7"]
+vertices = PackedVector3Array(-7, 0.5, -7, -7, 0.5, 7, 7, 0.5, 7, 7, 0.5, -7)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="Resource" id="Resource_8frrt"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_vlj12"]
+script = ExtResource("11_xxg05")
+wave_number = 2
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bg8wa"]
+albedo_color = Color(0.43142, 0.24493, 1.92523e-07, 1)
+metallic = 0.35
+metallic_specular = 0.55
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_sosy7"]
+material = SubResource("StandardMaterial3D_bg8wa")
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7bqrr"]
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="BoxMesh" id="BoxMesh_amyw0"]
+material = ExtResource("10_ywes5")
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gmkan"]
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="Environment" id="Environment_56vq8"]
+background_color = Color(0.0177324, 0.0177324, 0.0177324, 1)
+sky = SubResource("Sky_ut1ug")
+glow_intensity = 1.02
+glow_bloom = 0.18
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3lc5s"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fxgw0"]
+size = Vector3(6.88736, 0.01, 4.99658)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_av2k2"]
+size = Vector3(6.70833, 0.01, 4.99658)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g0aca"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a44uw"]
+size = Vector3(6.815, 0.01, 4.95514)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pofpe"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l01e2"]
+size = Vector3(14.9694, 0.01, 4.95288)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4thh3"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0wo8f"]
+size = Vector3(14.9641, 0.01, 4.94733)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jvprv"]
+material = SubResource("ShaderMaterial_phwww")
+size = Vector2(15, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_41sh2"]
+size = Vector3(15, 0.01, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yamlb"]
+material = ExtResource("3_v2qkb")
+size = Vector3(1.2, 1.6, 0.1)
+
+[sub_resource type="Resource" id="Resource_hjvip"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_7j50k"]
+script = ExtResource("11_xxg05")
+wave_number = 2
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="BoxMesh" id="BoxMesh_ojsuk"]
+material = ExtResource("10_ywes5")
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4auf7"]
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="Environment" id="Environment_uubkc"]
+background_color = Color(0.0177324, 0.0177324, 0.0177324, 1)
+sky = SubResource("Sky_ut1ug")
+glow_intensity = 1.02
+glow_bloom = 0.18
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u2yl3"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1q5h4"]
+size = Vector3(14.9377, 0.01, 4.99658)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wiy6c"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gxa3t"]
+size = Vector3(14.9895, 0.01, 4.95514)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8lted"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dc4q0"]
+size = Vector3(14.9694, 0.01, 4.95288)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x7rph"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cdi1s"]
+size = Vector3(7.38875, 0.01, 4.94733)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qfdr1"]
+size = Vector3(6.36751, 0.01, 4.87164)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_unfy6"]
+material = SubResource("ShaderMaterial_phwww")
+size = Vector2(15, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_etmew"]
+size = Vector3(15, 0.01, 15)
+
+[sub_resource type="Resource" id="Resource_1iowr"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_k7sj4"]
+script = ExtResource("11_xxg05")
+wave_number = 2
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Environment" id="Environment_77a38"]
+background_color = Color(0.0177324, 0.0177324, 0.0177324, 1)
+sky = SubResource("Sky_ut1ug")
+glow_intensity = 1.02
+glow_bloom = 0.18
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ph21a"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pewof"]
+size = Vector3(14.9377, 0.01, 4.99658)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x34bd"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yb2cr"]
+size = Vector3(7.30426, 0.01, 4.95514)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3kmbh"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b02tl"]
+size = Vector3(14.9694, 0.01, 4.95288)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kw648"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rolgp"]
+size = Vector3(7.22574, 0.01, 4.94733)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hcd6m"]
+size = Vector3(6.27887, 0.01, 4.87164)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tfypi"]
+material = SubResource("ShaderMaterial_phwww")
+size = Vector2(15, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cctfg"]
+size = Vector3(15, 0.01, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7emdw"]
+material = ExtResource("3_v2qkb")
+size = Vector3(1.2, 1.6, 0.1)
+
+[sub_resource type="Resource" id="Resource_6d2lb"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="Resource" id="Resource_vlbql"]
+script = ExtResource("11_xxg05")
+wave_number = 2
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("6_rpdv3")])
+
+[sub_resource type="BoxMesh" id="BoxMesh_6xwfe"]
+material = ExtResource("10_ywes5")
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ej10"]
+size = Vector3(1.5, 1.7, 0.325)
+
+[sub_resource type="Environment" id="Environment_m23uw"]
+background_color = Color(0.0177324, 0.0177324, 0.0177324, 1)
+sky = SubResource("Sky_ut1ug")
+glow_intensity = 1.02
+glow_bloom = 0.18
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8f2r2"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t0re4"]
+size = Vector3(14.9377, 0.01, 4.99658)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pv32y"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c3klw"]
+size = Vector3(14.9895, 0.01, 4.95514)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_30mun"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4houm"]
+size = Vector3(7.22159, 0.01, 4.95288)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ts0tf"]
+size = Vector2(15, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_86btm"]
+size = Vector3(14.9263, 0.01, 4.94733)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hgdcf"]
+material = SubResource("ShaderMaterial_phwww")
+size = Vector2(15, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_42vyl"]
+size = Vector3(15, 0.01, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3jhv"]
+transparency = 1
+blend_mode = 3
+albedo_color = Color(0.432665, 0.00241212, 0.853589, 1)
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.554953, 0.2697, 1, 1)
+emission_operator = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_a6qfg"]
+material = SubResource("StandardMaterial3D_t3jhv")
+radius = 1.5
+height = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hs8th"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y77kf"]
+size = Vector3(0.601074, 0.528076, 3)
+
 [node name="Dungeon1" type="Node3D" node_paths=PackedStringArray("main_room", "player", "camera", "camera_pivot", "uiManager", "rooms", "pivot_anchors")]
 script = ExtResource("1_mva7x")
 main_room = NodePath("start_room")
@@ -109,8 +444,8 @@ player = NodePath("Player")
 camera = NodePath("CameraPivot/Camera3D")
 camera_pivot = NodePath("CameraPivot")
 uiManager = NodePath("PlayerUI")
-rooms = [NodePath("start_room")]
-pivot_anchors = [NodePath("pivot_anchors/start_pivot")]
+rooms = [NodePath("start_room"), NodePath("room2"), NodePath("room3"), NodePath("room4"), NodePath("room5"), NodePath("boss_room")]
+pivot_anchors = [NodePath("pivot_anchors/start_pivot"), NodePath("pivot_anchors/room2_pivot"), NodePath("pivot_anchors/room3_pivot"), NodePath("pivot_anchors/room4_pivot"), NodePath("pivot_anchors/room5_pivot"), NodePath("pivot_anchors/boss_pivot")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("player_ui") instance=ExtResource("1_bbrec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69177, 0)
@@ -136,7 +471,7 @@ script = ExtResource("4_7eefm")
 player = NodePath("../Player")
 number_of_waves = 3
 doors = [NodePath("door")]
-enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2"), NodePath("EnemySpawnZones/Zone3")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="start_room"]
 environment = SubResource("Environment_g5vgi")
@@ -182,12 +517,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 [node name="Zone1" type="Marker3D" parent="start_room/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kdfmp"), SubResource("Resource_fkvqh")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kdfmp"), SubResource("Resource_fkvqh"), SubResource("Resource_i5hji")])
 
 [node name="Zone2" type="Marker3D" parent="start_room/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69587, 0, -5)
 script = ExtResource("10_de85t")
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_otk37")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_wpw7l"), SubResource("Resource_otk37")])
+
+[node name="Zone3" type="Marker3D" parent="start_room/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69587, 0, 4.77948)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_kgfuq")])
 
 [node name="Zone3" type="Marker3D" parent="start_room/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.696, 0, 5)
@@ -209,6 +549,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.437,
 collision_layer = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0, -0.0541735)
 mesh = SubResource("BoxMesh_4skxw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/door"]
@@ -268,16 +609,760 @@ shape = SubResource("BoxShape3D_fxypm")
 transform = Transform3D(1, 0, 0, 0, 1, 2.08797e-21, 0, 2.08797e-21, 1, -3.87686, 9.53674e-07, -0.0294495)
 shape = SubResource("BoxShape3D_gh8lk")
 
+[node name="door_hole" type="MeshInstance3D" parent="start_room"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.49826, 0.852693, -0.51818)
+mesh = SubResource("BoxMesh_f2k38")
+skeleton = NodePath("../door/MeshInstance3D")
+
 [node name="OmniLight3D" type="OmniLight3D" parent="start_room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.3596, 0)
 light_energy = 10.799
 omni_range = 20.0
+
+[node name="room2" type="Node3D" parent="." node_paths=PackedStringArray("player", "doors", "enemySpawners")]
+script = ExtResource("4_7eefm")
+player = NodePath("../Player")
+number_of_waves = 2
+doors = [NodePath("door2"), NodePath("door3")]
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="room2"]
+environment = SubResource("Environment_g5vgi")
+
+[node name="Walls" type="Node3D" parent="room2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 15.0149, 0, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="room2/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 7.4822)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room2/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_l3whj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.04144, 0, 0.0192871)
+shape = SubResource("BoxShape3D_jneqj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room2/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.03026, -9.53674e-07, 0.0192871)
+shape = SubResource("BoxShape3D_jneqj")
+
+[node name="Wall2" type="StaticBody3D" parent="room2/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -7.46049)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room2/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_b33f1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Walls/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0245361, 0, 0.0186462)
+shape = SubResource("BoxShape3D_j2kwy")
+
+[node name="Wall3" type="StaticBody3D" parent="room2/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -7.51138, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room2/Walls/Wall3"]
+mesh = SubResource("PlaneMesh_0fxsk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, 0, 8.35181e-23, 1, 4.56186, 0, 0.0313721)
+shape = SubResource("BoxShape3D_r5xtp")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room2/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, 0, 8.35181e-23, 1, -3.77282, 0, 0.0313721)
+shape = SubResource("BoxShape3D_6mhcp")
+
+[node name="Wall4" type="StaticBody3D" parent="room2/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 7.45403, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room2/Walls/Wall4"]
+mesh = SubResource("PlaneMesh_n3tnc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, 3.7994, 0, 0.0176697)
+shape = SubResource("BoxShape3D_6a0re")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room2/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, -4.32576, 9.53674e-07, -0.0294495)
+shape = SubResource("BoxShape3D_whaca")
+
+[node name="Navmesh" type="NavigationRegion3D" parent="room2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9965, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_igbj7")
+
+[node name="Ground" type="StaticBody3D" parent="room2/Navmesh" groups=["Ground"]]
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room2/Navmesh/Ground"]
+mesh = SubResource("PlaneMesh_7qubq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/Navmesh/Ground"]
+shape = SubResource("BoxShape3D_vkvcm")
+
+[node name="door_hole" type="MeshInstance3D" parent="room2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.61232, 0.852693, -0.51818)
+mesh = SubResource("BoxMesh_f2k38")
+skeleton = NodePath("")
+
+[node name="door_hole2" type="MeshInstance3D" parent="room2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 15.0097, 0.852693, -7.46935)
+mesh = SubResource("BoxMesh_f2k38")
+skeleton = NodePath("")
+
+[node name="door_hole3" type="MeshInstance3D" parent="room2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 22.4932, 0.852693, -0.51818)
+mesh = SubResource("BoxMesh_f2k38")
+skeleton = NodePath("")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="room2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0041, 8.3596, 0)
+light_energy = 10.799
+omni_range = 20.0
+
+[node name="EnemySpawnZones" type="Node3D" parent="room2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2251, 0.55, 0)
+
+[node name="Zone1" type="Marker3D" parent="room2/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_8frrt")])
+
+[node name="Zone2" type="Marker3D" parent="room2/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_vlj12")])
+
+[node name="door2" type="StaticBody3D" parent="room2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 22.4168, 0.852693, -0.573812)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room2/door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0, -0.0541735)
+mesh = SubResource("BoxMesh_sosy7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/door2"]
+shape = SubResource("BoxShape3D_7bqrr")
+
+[node name="door3" type="StaticBody3D" parent="room2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 15.0851, 0.852693, -7.52237)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room2/door3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0, -0.0541735)
+mesh = SubResource("BoxMesh_amyw0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room2/door3"]
+shape = SubResource("BoxShape3D_gmkan")
+
+[node name="room3" type="Node3D" parent="." node_paths=PackedStringArray("player", "doors", "enemySpawners")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0375, 0, -14.9175)
+script = ExtResource("4_7eefm")
+player = NodePath("../Player")
+number_of_waves = 2
+doors = [NodePath("door")]
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="room3"]
+environment = SubResource("Environment_56vq8")
+
+[node name="Walls" type="Node3D" parent="room3"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.00571, 0, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="room3/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 7.4822)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room3/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_3lc5s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room3/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.60524, 0, 0.0192871)
+shape = SubResource("BoxShape3D_fxgw0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room3/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.351, 0, 0.0192871)
+shape = SubResource("BoxShape3D_av2k2")
+
+[node name="Wall2" type="StaticBody3D" parent="room3/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -7.46049)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room3/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_g0aca")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room3/Walls/Wall2"]
+transform = Transform3D(1, 0, 1.00974e-28, 0, 1, 0, 0, 0, 1, 4.06171, 0, 0.0186462)
+shape = SubResource("BoxShape3D_a44uw")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room3/Walls/Wall2"]
+transform = Transform3D(1, 0, 1.00974e-28, 0, 1, 0, 0, 0, 1, -4.03987, 0, 0.0186462)
+shape = SubResource("BoxShape3D_a44uw")
+
+[node name="Wall3" type="StaticBody3D" parent="room3/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -7.51138, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room3/Walls/Wall3"]
+mesh = SubResource("PlaneMesh_pofpe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room3/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, 0.0501099, 0, 0.0313721)
+shape = SubResource("BoxShape3D_l01e2")
+
+[node name="Wall4" type="StaticBody3D" parent="room3/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 7.45403, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room3/Walls/Wall4"]
+mesh = SubResource("PlaneMesh_4thh3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room3/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, -0.0175962, 4.76837e-07, 0.0176697)
+shape = SubResource("BoxShape3D_0wo8f")
+
+[node name="Navmesh" type="NavigationRegion3D" parent="room3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02413, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_igbj7")
+
+[node name="Ground" type="StaticBody3D" parent="room3/Navmesh" groups=["Ground"]]
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room3/Navmesh/Ground"]
+mesh = SubResource("PlaneMesh_jvprv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room3/Navmesh/Ground"]
+shape = SubResource("BoxShape3D_41sh2")
+
+[node name="door_hole" type="MeshInstance3D" parent="room3"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.578403, 0.798986, -7.47649)
+mesh = SubResource("BoxMesh_yamlb")
+skeleton = NodePath("../door/MeshInstance3D")
+
+[node name="door_hole2" type="MeshInstance3D" parent="room3"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.03119, 0.798986, 7.47079)
+mesh = SubResource("BoxMesh_yamlb")
+skeleton = NodePath("../door/MeshInstance3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="room3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01648, 8.3596, 0)
+light_energy = 10.799
+omni_range = 20.0
+
+[node name="EnemySpawnZones" type="Node3D" parent="room3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79548, 0.55, 0)
+
+[node name="Zone1" type="Marker3D" parent="room3/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_hjvip")])
+
+[node name="Zone2" type="Marker3D" parent="room3/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_7j50k")])
+
+[node name="door" type="StaticBody3D" parent="room3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.547925, 0.844149, -7.4171)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room3/door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0, -0.0541735)
+mesh = SubResource("BoxMesh_ojsuk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room3/door"]
+shape = SubResource("BoxShape3D_4auf7")
+
+[node name="room4" type="Node3D" parent="." node_paths=PackedStringArray("player", "enemySpawners")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.969, 0, 0.0351715)
+script = ExtResource("4_7eefm")
+player = NodePath("../Player")
+number_of_waves = 2
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="room4"]
+environment = SubResource("Environment_uubkc")
+
+[node name="Walls" type="Node3D" parent="room4"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.00571, 0, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="room4/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 7.4822)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room4/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_u2yl3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room4/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00427246, 0, 0.0192871)
+shape = SubResource("BoxShape3D_1q5h4")
+
+[node name="Wall2" type="StaticBody3D" parent="room4/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -7.46049)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room4/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_wiy6c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room4/Walls/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0245361, 0, 0.0186462)
+shape = SubResource("BoxShape3D_gxa3t")
+
+[node name="Wall3" type="StaticBody3D" parent="room4/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -7.51138, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room4/Walls/Wall3"]
+mesh = SubResource("PlaneMesh_8lted")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room4/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, 0.0501099, 0, 0.0313721)
+shape = SubResource("BoxShape3D_dc4q0")
+
+[node name="Wall4" type="StaticBody3D" parent="room4/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 7.45403, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room4/Walls/Wall4"]
+mesh = SubResource("PlaneMesh_x7rph")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room4/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, 3.7701, 0, 0.0176697)
+shape = SubResource("BoxShape3D_cdi1s")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room4/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, -4.34209, 0, -0.0294495)
+shape = SubResource("BoxShape3D_qfdr1")
+
+[node name="Navmesh" type="NavigationRegion3D" parent="room4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02413, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_igbj7")
+
+[node name="Ground" type="StaticBody3D" parent="room4/Navmesh" groups=["Ground"]]
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room4/Navmesh/Ground"]
+mesh = SubResource("PlaneMesh_unfy6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room4/Navmesh/Ground"]
+shape = SubResource("BoxShape3D_etmew")
+
+[node name="door_hole" type="MeshInstance3D" parent="room4"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.46334, 0.852693, -0.51818)
+mesh = SubResource("BoxMesh_f2k38")
+skeleton = NodePath("")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="room4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01648, 8.3596, 0)
+light_energy = 10.799
+omni_range = 20.0
+
+[node name="EnemySpawnZones" type="Node3D" parent="room4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79548, 0.55, 0)
+
+[node name="Zone1" type="Marker3D" parent="room4/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_1iowr")])
+
+[node name="Zone2" type="Marker3D" parent="room4/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_k7sj4")])
+
+[node name="room5" type="Node3D" parent="." node_paths=PackedStringArray("player", "doors", "enemySpawners")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0601, 0, -29.9524)
+script = ExtResource("4_7eefm")
+player = NodePath("../Player")
+number_of_waves = 2
+doors = [NodePath("door")]
+enemySpawners = [NodePath("EnemySpawnZones/Zone1"), NodePath("EnemySpawnZones/Zone2")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="room5"]
+environment = SubResource("Environment_77a38")
+
+[node name="Walls" type="Node3D" parent="room5"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.00571, 0, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="room5/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 7.4822)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room5/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_ph21a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room5/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00427246, 0, 0.0192871)
+shape = SubResource("BoxShape3D_pewof")
+
+[node name="Wall2" type="StaticBody3D" parent="room5/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -7.46049)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room5/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_x34bd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room5/Walls/Wall2"]
+transform = Transform3D(1, 0, 1.00974e-28, 0, 1, 0, 0, 0, 1, 4.26923, 0, 0.0186462)
+shape = SubResource("BoxShape3D_yb2cr")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room5/Walls/Wall2"]
+transform = Transform3D(1, 0, 1.00974e-28, 0, 1, 0, 0, 0, 1, -3.80441, 0, 0.0186462)
+shape = SubResource("BoxShape3D_yb2cr")
+
+[node name="Wall3" type="StaticBody3D" parent="room5/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -7.51138, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room5/Walls/Wall3"]
+mesh = SubResource("PlaneMesh_3kmbh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room5/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, 0.0501099, 0, 0.0313721)
+shape = SubResource("BoxShape3D_b02tl")
+
+[node name="Wall4" type="StaticBody3D" parent="room5/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 7.45403, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room5/Walls/Wall4"]
+mesh = SubResource("PlaneMesh_kw648")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room5/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, 3.85161, 0, 0.0176697)
+shape = SubResource("BoxShape3D_rolgp")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="room5/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, -4.38641, 9.53674e-07, -0.0294495)
+shape = SubResource("BoxShape3D_hcd6m")
+
+[node name="Navmesh" type="NavigationRegion3D" parent="room5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02413, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_igbj7")
+
+[node name="Ground" type="StaticBody3D" parent="room5/Navmesh" groups=["Ground"]]
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room5/Navmesh/Ground"]
+mesh = SubResource("PlaneMesh_tfypi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room5/Navmesh/Ground"]
+shape = SubResource("BoxShape3D_cctfg")
+
+[node name="door_hole" type="MeshInstance3D" parent="room5"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.38683, 0.852693, -0.51818)
+mesh = SubResource("BoxMesh_7emdw")
+skeleton = NodePath("../door/MeshInstance3D")
+
+[node name="door_hole2" type="MeshInstance3D" parent="room5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.597239, 0.781939, 7.41844)
+mesh = SubResource("BoxMesh_7emdw")
+skeleton = NodePath("../door/MeshInstance3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="room5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01648, 8.3596, 0)
+light_energy = 10.799
+omni_range = 20.0
+
+[node name="EnemySpawnZones" type="Node3D" parent="room5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79548, 0.55, 0)
+
+[node name="Zone1" type="Marker3D" parent="room5/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_6d2lb")])
+
+[node name="Zone2" type="Marker3D" parent="room5/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -5)
+script = ExtResource("10_de85t")
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_vlbql")])
+
+[node name="door" type="StaticBody3D" parent="room5"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.49503, 0.809327, -0.518181)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room5/door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0, -0.0541735)
+mesh = SubResource("BoxMesh_6xwfe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room5/door"]
+shape = SubResource("BoxShape3D_1ej10")
+
+[node name="boss_room" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15442, 0, -29.9524)
+script = ExtResource("4_7eefm")
+player = NodePath("../Player")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="boss_room"]
+environment = SubResource("Environment_m23uw")
+
+[node name="Walls" type="Node3D" parent="boss_room"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.00571, 0, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="boss_room/Walls" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.43923, 7.4822)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boss_room/Walls/Wall1"]
+mesh = SubResource("PlaneMesh_8f2r2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_room/Walls/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00427246, 0, 0.0192871)
+shape = SubResource("BoxShape3D_t0re4")
+
+[node name="Wall2" type="StaticBody3D" parent="boss_room/Walls" groups=["Wall"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.43923, -7.46049)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boss_room/Walls/Wall2"]
+mesh = SubResource("PlaneMesh_pv32y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_room/Walls/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0245361, 0, 0.0186462)
+shape = SubResource("BoxShape3D_c3klw")
+
+[node name="Wall3" type="StaticBody3D" parent="boss_room/Walls" groups=["Wall"]]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.31134e-07, -5.73206e-15, -7.51138, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boss_room/Walls/Wall3"]
+mesh = SubResource("PlaneMesh_30mun")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_room/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, 0, 8.35181e-23, 1, 4.40109, 0, 0.0313721)
+shape = SubResource("BoxShape3D_4houm")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="boss_room/Walls/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, 0, 8.35181e-23, 1, -3.84165, 1.43051e-06, 0.0313721)
+shape = SubResource("BoxShape3D_4houm")
+
+[node name="Wall4" type="StaticBody3D" parent="boss_room/Walls" groups=["Wall"]]
+transform = Transform3D(-2.18557e-07, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 2.18557e-07, 9.55343e-15, 7.45403, 2.43923, -0.00124407)
+collision_layer = 2
+collision_mask = 29
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boss_room/Walls/Wall4"]
+mesh = SubResource("PlaneMesh_ts0tf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_room/Walls/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.51669e-22, 0, 7.51669e-22, 1, 0.00130463, 0, 0.0176697)
+shape = SubResource("BoxShape3D_86btm")
+
+[node name="Navmesh" type="NavigationRegion3D" parent="boss_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02413, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_igbj7")
+
+[node name="Ground" type="StaticBody3D" parent="boss_room/Navmesh" groups=["Ground"]]
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boss_room/Navmesh/Ground"]
+mesh = SubResource("PlaneMesh_hgdcf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_room/Navmesh/Ground"]
+shape = SubResource("BoxShape3D_42vyl")
+
+[node name="door_hole" type="MeshInstance3D" parent="boss_room"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.47046, 0.775874, -0.518181)
+mesh = SubResource("BoxMesh_f2k38")
+skeleton = NodePath("../door/MeshInstance3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="boss_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01648, 8.3596, 0)
+light_energy = 10.799
+omni_range = 20.0
+
+[node name="Area3D" type="Area3D" parent="boss_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12386, 0.216298, 0)
+script = ExtResource("12_kokh7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boss_room/Area3D"]
+mesh = SubResource("SphereMesh_a6qfg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_room/Area3D"]
+shape = SubResource("SphereShape3D_hs8th")
 
 [node name="pivot_anchors" type="Node3D" parent="."]
 
 [node name="start_pivot" type="Node3D" parent="pivot_anchors"]
 script = ExtResource("9_g68le")
 room = "start_room"
+
+[node name="room2_pivot" type="Node3D" parent="pivot_anchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9781, 0, 0)
+script = ExtResource("9_g68le")
+room = "room2"
+
+[node name="room3_pivot" type="Node3D" parent="pivot_anchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8439, 0, -15.3275)
+script = ExtResource("9_g68le")
+room = "room3"
+
+[node name="room4_pivot" type="Node3D" parent="pivot_anchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.9556, 0, -0.0792408)
+script = ExtResource("9_g68le")
+room = "room4"
+
+[node name="room5_pivot" type="Node3D" parent="pivot_anchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8439, 0, -30.0875)
+script = ExtResource("9_g68le")
+room = "room5"
+
+[node name="boss_pivot" type="Node3D" parent="pivot_anchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0302734, 0, -30.0875)
+script = ExtResource("9_g68le")
+room = "boss_room"
+
+[node name="room_triggers" type="Node3D" parent="."]
+
+[node name="start_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.89265, 0, -0.40451)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "start_room"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/start_trigger"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room2_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.02019, 0.00197589, -0.767055)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room2"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room2_trigger"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room2_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9207, 0.00197589, -0.430263)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room2"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room2_trigger2"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room2_trigger3" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.1442, 0.00197589, -7.13829)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room2"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room2_trigger3"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room3_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.9433, 0.00197589, -8.04507)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room3"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room3_trigger"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room3_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.5071, 0.00197589, -22.0944)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room3"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room3_trigger2"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room4_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8296, 0.00197589, -0.513504)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room4"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room4_trigger"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room5_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.3307, 0.00197589, -23.001)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room5"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room5_trigger"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="room5_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.99142, 0.00197589, -30.5379)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "room5"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/room5_trigger2"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
+
+[node name="boss_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.97493, 0.00197589, -30.4442)
+collision_layer = 2
+script = ExtResource("13_2epaw")
+room = "boss_room"
+collider = NodePath("CollisionShape3D")
+gameManager = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/boss_trigger"]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
+shape = SubResource("BoxShape3D_y77kf")
 
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("cam", "gameManager") instance=ExtResource("9_3ai7s")]
 cam = NodePath("../CameraPivot/Camera3D")

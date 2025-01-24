@@ -42,6 +42,7 @@ func connect_button(gameManager: GameManager):
 	gameManager.connect("on_cancel_interaction", _on_exit_button_down)
 	gameManager.connect("on_back_interaction", _on_back_button_down)
 
+
 func _on_exit_button_down() -> void:
 	isActive = false
 	if isSubInteractable:
