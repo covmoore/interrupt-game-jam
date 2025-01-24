@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://0l3pomo7gp0s"]
+[gd_scene load_steps=5 format=3 uid="uid://dfeftj73jy3nv"]
 
 [ext_resource type="Script" path="res://scripts/models/gun.gd" id="1_i0dvg"]
-[ext_resource type="PackedScene" uid="uid://bfksj87k14dre" path="res://prefabs/bullet.tscn" id="2_0gfk7"]
+[ext_resource type="PackedScene" uid="uid://bd7akkcdmvvdm" path="res://prefabs/main_enemy_bullet.tscn" id="2_s4np1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2p1up"]
 size = Vector3(0.15, 0.15, 0.5)
@@ -11,7 +11,8 @@ albedo_color = Color(0.162066, 0.162066, 0.162066, 1)
 
 [node name="Gun2" type="Node3D"]
 script = ExtResource("1_i0dvg")
-bullet_scene = ExtResource("2_0gfk7")
+bullet_scene = ExtResource("2_s4np1")
+fire_rate = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385622, 0, -0.502714)

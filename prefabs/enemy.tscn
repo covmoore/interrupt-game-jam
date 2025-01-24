@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/models/enemy.gd" id="1_fck7c"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_aeriy"]
-[ext_resource type="PackedScene" uid="uid://0l3pomo7gp0s" path="res://prefabs/enemy_gun.tscn" id="3_6n7g4"]
+[ext_resource type="PackedScene" uid="uid://dfeftj73jy3nv" path="res://prefabs/enemy_gun.tscn" id="3_6n7g4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6eu86"]
 size = Vector3(0.5, 0.25, 0.25)
@@ -25,8 +25,8 @@ height = 1.75
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("enemy_gun") groups=["enemies"]]
 script = ExtResource("1_fck7c")
 enemy_gun = NodePath("Body/Gun")
-health = 5.0
-attack_range = 3.0
+health = 3.0
+attack_range = 7.0
 
 [node name="Eye" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51602, -0.3)
