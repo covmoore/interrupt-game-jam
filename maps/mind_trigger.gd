@@ -10,5 +10,5 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_body_entered(body: Node3D) -> void:
-	#if body.name == "Player":
-		
+	if body.name == "Player":
+		get_tree().change_scene_to_file("res://maps/mind.tscn")
