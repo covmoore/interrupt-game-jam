@@ -2,8 +2,11 @@ class_name Enemy extends CharacterBody3D
 
 @onready var player = $"../Player"
 @onready var nav_agent = $NavigationAgent3D
+@export var enemy_gun: Node3D = null  
 @export var movement_speed : float = 2.0
 @export var health: float = 0.0
+
+@export var attack_range: float = 5.0
 
 var movement_target_position : Vector3 = Vector3.ZERO
 var path = []
@@ -13,7 +16,15 @@ func _ready():
 	nav_agent.target_desired_distance = 0.5
 	
 func set_movement_target(movement_target: Vector3):
-	nav_agent.set_target_position(movement_target)
+	#Instead of going straight to the player pick a random offset
+	#to avoid bunching up
+	var offset_distance = 2.0
+	var random_angle = randf_range(0, TAU)
+	var offset_x = cos(random_angle) * offset_distance
+	var offset_z = sin(random_angle) * offset_distance
+	
+	var target_pos = player.global_transform.origin + Vector3(offset_x, 0, offset_z)
+	nav_agent.set_target_position(target_pos)
 	
 func actor_setup():
 	await get_tree().physics_frame
@@ -21,18 +32,43 @@ func actor_setup():
 	set_movement_target(player.global_transform.origin)
 	
 func _physics_process(delta):
-	actor_setup()
-	if nav_agent.is_navigation_finished():
-		return
+	if player.player_state != Player.PlayerState.DEAD:
+		actor_setup()
+		var distance_to_player = global_position.distance_to(player.global_transform.origin)
+		
+		#If close enough to attack
+		if distance_to_player <= attack_range:
+			#Stop moving
+			velocity = Vector3.ZERO
+			#Face the player
+			look_at(player.global_transform.origin, Vector3.UP)
+			#call you shooting logic
+			shoot_at_player()
+		else:
+			#otherwise, keep using the nav agent
+			if not nav_agent.is_navigation_finished():
+				var next_path_position = nav_agent.get_next_path_position()
+				velocity = global_position.direction_to(next_path_position) * movement_speed
+			else:
+				velocity = Vector3.ZERO
+		move_and_slide()
 	
-	var current_agent_position = global_position
-	var next_path_position = nav_agent.get_next_path_position()
-	
-	velocity = current_agent_position.direction_to(next_path_position) * movement_speed
-	move_and_slide()
+func shoot_at_player():
+	enemy_gun.shoot()
 
 func take_damage(shot_by: CharacterBody3D, dmg: float):
 	health -= dmg
+	var mat = $Body.get_surface_override_material(0) as StandardMaterial3D
+	if mat == null:
+		print("Cringe... ~o~ the enemy's surface override material is null")
+	else:
+		var second_mat = mat.next_pass
+		if second_mat == null:
+			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material override")
+		else:
+			$Body.set_surface_override_material(0, second_mat)
+			await get_tree().create_timer(0.1).timeout
+			$Body.set_surface_override_material(0, mat)
 	if health <= 0:
 		shot_by.killed_enemy(self)
 		queue_free()

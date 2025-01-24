@@ -3,7 +3,7 @@ extends Node3D
 @export var bullet_scene: PackedScene
 @export var muzzle_speed: float = 50.0
 @export var fire_rate:float = 0.2
-@export var player: CharacterBody3D
+@export var player: CharacterBody3D = null
 var can_shoot = true
 
 func shoot():
