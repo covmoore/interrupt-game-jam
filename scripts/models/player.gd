@@ -73,7 +73,7 @@ func _input(event: InputEvent) -> void:
 			enemy = result["collider"]
 		gun.shoot(enemy)
 
-func _physics_process(delta: float):
+func _physics_process(_delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = Vector3(movement.x, 0, movement.y).rotated(Vector3.UP, _camera.global_rotation.y).normalized()
 	if direction:
@@ -87,7 +87,7 @@ func _physics_process(delta: float):
 	
 	# Interacting Code
 
-func killed_enemy(enemy: CharacterBody3D):
+func killed_enemy(_enemy: CharacterBody3D):
 	emit_signal("on_enemy_killed")
 
 func change_state(state: PlayerState):
@@ -121,7 +121,7 @@ func remove_gun():
 	gun.can_shoot = false
 	gun.visible = false
 
-func set_player_mesh(mesh: Mesh):
+func set_player_mesh(_mesh: Mesh):
 	pass
 	
 func take_damage(dmg):
@@ -153,9 +153,9 @@ func take_damage(dmg):
 func _on_area_detection_body_entered(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):
 		items_in_range.append(body)
-		body.in_range(self)
+		body.in_range()
 
 func _on_area_detection_body_exited(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):
 		items_in_range.remove_at(items_in_range.find(body))
-		body.out_of_range(self)
+		body.out_of_range()

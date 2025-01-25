@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=126 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
@@ -430,6 +430,10 @@ size = Vector2(15, 15)
 [sub_resource type="BoxShape3D" id="BoxShape3D_42vyl"]
 size = Vector3(15, 0.01, 15)
 
+[sub_resource type="BoxMesh" id="BoxMesh_3lapd"]
+material = ExtResource("3_v2qkb")
+size = Vector3(1.2, 1.6, 0.1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3jhv"]
 transparency = 1
 blend_mode = 3
@@ -504,24 +508,24 @@ shape = SubResource("BoxShape3D_vkvcm")
 [node name="obstacles" type="Node3D" parent="start_room/Navmesh"]
 
 [node name="obstacle" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.903058, -2)
 use_collision = true
 collision_layer = 2
-size = Vector3(5, 1, 0.5)
+size = Vector3(5, 1.70612, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="obstacle2" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 5.10623)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799878, 5.10623)
 use_collision = true
 collision_layer = 2
-size = Vector3(3, 1, 0.5)
+size = Vector3(3, 1.49976, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="obstacle3" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.47882, 0.55, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.4831, 0.829927, 0.00387979)
 use_collision = true
 collision_layer = 2
-size = Vector3(3, 1, 0.5)
+size = Vector3(3, 1.57983, 0.5)
 material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="EnemySpawnZones" type="Node3D" parent="start_room"]
@@ -1204,7 +1208,7 @@ shape = SubResource("BoxShape3D_42vyl")
 
 [node name="door_hole" type="MeshInstance3D" parent="boss_room"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.47046, 0.775874, -0.518181)
-mesh = SubResource("BoxMesh_f2k38")
+mesh = SubResource("BoxMesh_3lapd")
 skeleton = NodePath("../door/MeshInstance3D")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="boss_room"]

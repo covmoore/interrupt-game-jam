@@ -6,13 +6,13 @@ class_name EnemySpawner extends Marker3D
 var enemy_count = 0
 
 func _ready():
-	for round in rounds:
-		enemy_count += round.enemies.size()
+	for roomRound in rounds:
+		enemy_count += roomRound.enemies.size()
 
 func start(round_num: int):
-	for round in rounds:
-		if round.wave_number == round_num:
-			spawn_enemies(round.enemies, round.spawn_rate)
+	for roomRound in rounds:
+		if roomRound.wave_number == round_num:
+			spawn_enemies(roomRound.enemies, roomRound.spawn_rate)
 
 func spawn_enemies(enemies: Array[PackedScene], spawn_rate: float):
 	await try_await(initial_delay)
@@ -29,9 +29,9 @@ func get_total_enemies():
 
 func get_enemies_in_wave(wave_number: int):
 	var res = 0
-	for round in rounds:
-		if round.wave_number == wave_number:
-			res = round.enemies.size()
+	for roomRound in rounds:
+		if roomRound.wave_number == wave_number:
+			res = roomRound.enemies.size()
 	return res
 
 func try_await(pause_time: float):

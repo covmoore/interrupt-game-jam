@@ -29,9 +29,6 @@ signal on_back_interaction
 func _ready() -> void:
 	set_room(main_room.name)
 	set_room_context()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func get_camera():
 	return camera

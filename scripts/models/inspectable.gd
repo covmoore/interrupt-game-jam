@@ -5,7 +5,7 @@ func can_be_selected():
 	if isActive:
 		return false
 	elif isSubInteractable:
-		var parent = get_node(parent_path)
+		parent = get_node(parent_path)
 		if parent.isActive:
 			return true
 		else:
@@ -24,7 +24,7 @@ func on_selected(cam: Camera3D, player: Player):
 
 func on_hover():
 	if isSubInteractable:
-		var parent = get_node(parent_path)
+		parent = get_node(parent_path)
 		if parent.isActive:
 			for child in get_children():
 				if child is MeshInstance3D:
@@ -32,7 +32,7 @@ func on_hover():
 
 func off_hover():
 	if isSubInteractable:
-		var parent = get_node(parent_path)
+		parent = get_node(parent_path)
 		if parent.isActive:
 			for child in get_children():
 				if child is MeshInstance3D:
@@ -46,7 +46,7 @@ func connect_button(gameManager: GameManager):
 func _on_exit_button_down() -> void:
 	isActive = false
 	if isSubInteractable:
-		var parent = get_node(parent_path)
+		parent = get_node(parent_path)
 		parent.isActive = false
 
 func _on_back_button_down():
