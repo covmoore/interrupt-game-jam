@@ -17,6 +17,8 @@ func _ready():
 	nav_agent.target_desired_distance = 0.5
 
 func spawn():
+	var collision: CollisionShape3D = find_child("CollisionShape3D")
+	collision.disabled = true
 	visible = false
 	can_move = false
 	can_shoot = false
@@ -27,10 +29,11 @@ func spawn():
 	await pause(2, get_tree())
 	fx.free()
 	visible = true
+	collision.disabled = false
 	can_move = true
 	can_shoot = true
 	
-func set_movement_target(movement_target: Vector3):
+func set_movement_target(_movement_target: Vector3):
 	#Instead of going straight to the player pick a random offset
 	#to avoid bunching up
 	var offset_distance = 2.0
@@ -46,7 +49,7 @@ func actor_setup():
 	# Now that the navigation map is no longer empty, set the movement target.
 	set_movement_target(player.global_transform.origin)
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player.player_state != Player.PlayerState.DEAD:
 		actor_setup()
 		var distance_to_player = global_position.distance_to(player.global_transform.origin)

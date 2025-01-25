@@ -81,7 +81,7 @@ func get_game_manager():
 
 #region Player Detection
 
-func in_range(player: CharacterBody3D):
+func in_range():
 	if !isSubInteractable:
 		for child in get_children():
 			if child is MeshInstance3D:
@@ -93,7 +93,7 @@ func in_range(player: CharacterBody3D):
 				if child is MeshInstance3D:
 					child.material_overlay = highlight_overlay
 
-func out_of_range(player: CharacterBody3D):
+func out_of_range():
 	for child in get_children():
 		if child is MeshInstance3D:
 			child.material_overlay = null
@@ -104,7 +104,7 @@ func can_be_selected():
 	if isActive:
 		return false
 	elif isSubInteractable:
-		var parent = get_node(parent_path)
+		parent = get_node(parent_path)
 		if parent.isActive:
 			return true
 		else:
@@ -113,21 +113,21 @@ func can_be_selected():
 		return true
 	
 
-func on_selected(cam: Camera3D, player: Player):
+func on_selected(_cam: Camera3D, _player: Player):
 	for child in get_children():
 		if child is MeshInstance3D:
 			child.material_overlay = null
 	isActive = true
 
 func on_hover():
-	var parent = get_node(parent_path)
+	parent = get_node(parent_path)
 	if isSubInteractable and parent.isActive:
 		for child in get_children():
 			if child is MeshInstance3D:
 				child.material_overlay = highlight_overlay
 
 func off_hover():
-	var parent = get_node(parent_path)
+	parent = get_node(parent_path)
 	if isSubInteractable and parent.isActive:
 		for child in get_children():
 			if child is MeshInstance3D:
@@ -135,7 +135,7 @@ func off_hover():
 
 #region Signal Connections
 
-func connect_button(gameManage: GameManager):
+func connect_button(_gameManage: GameManager):
 	pass
 
 #func _on_exit_button_button_down() -> void:

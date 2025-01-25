@@ -19,11 +19,6 @@ func _ready() -> void:
 	if player != null:
 		player.connect("on_enemy_killed", _on_enemy_killed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func start_room():
 	active = true
 	start_next_wave()
