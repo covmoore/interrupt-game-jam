@@ -8,6 +8,7 @@ albedo_color = Color(0.709804, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddvml"]
 resource_name = "Suit"
+render_priority = 1
 next_pass = SubResource("StandardMaterial3D_kve56")
 cull_mode = 2
 albedo_color = Color(0.293517, 0.253478, 0.239828, 1)

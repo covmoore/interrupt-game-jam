@@ -41,7 +41,6 @@ func _ready() -> void:
 	hurt_sound.stream = preload("res://sounds/male_pain_damage_impact.wav")
 	add_child(death_sound)
 	add_child(hurt_sound)
-	print("diddy on start " + str($"Pivot/Character_Mesh/Skeleton3D/Character".mesh.surface_get_material(0).next_pass.get_render_priority()))
 	_camera = $"../CameraPivot/Camera3D"
 
 func get_detection_list(selected: String):
@@ -57,10 +56,6 @@ func player_look_at(pos: Vector3):
 	if canRotate:
 		pos.y = global_transform.origin.y
 		$Pivot.look_at(pos)
-		
-func set_player_mesh_render_priority(p:int):
-	#have to set it to 0 at spawn because diddy said
-	$"Pivot/Character_Mesh/Skeleton3D/Character".mesh.surface_get_material(0).next_pass.set_render_priority(p)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire") and canShoot:
@@ -141,11 +136,11 @@ func take_damage(dmg):
 		if second_material == null:
 			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material")
 		else:
-			second_material.set_render_priority(1)
+			second_material.set_render_priority(2)
 			await get_tree().create_timer(0.1).timeout
 			second_material.set_render_priority(0)
-			print("diddy " + str(second_material.get_render_priority()))
 	if health <= 0:
+		suit_material.next_pass.set_render_priority(0)
 		player_state = PlayerState.DEAD
 		death_sound.play()
 		set_player_context()
