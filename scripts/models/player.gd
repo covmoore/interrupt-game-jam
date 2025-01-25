@@ -41,6 +41,7 @@ func _ready() -> void:
 	hurt_sound.stream = preload("res://sounds/male_pain_damage_impact.wav")
 	add_child(death_sound)
 	add_child(hurt_sound)
+	print("diddy on start " + str($"Pivot/Character_Mesh/Skeleton3D/Character".mesh.surface_get_material(0).next_pass.get_render_priority()))
 	_camera = $"../CameraPivot/Camera3D"
 
 func get_detection_list(selected: String):
@@ -56,6 +57,10 @@ func player_look_at(pos: Vector3):
 	if canRotate:
 		pos.y = global_transform.origin.y
 		$Pivot.look_at(pos)
+		
+func set_player_mesh_render_priority(p:int):
+	#have to set it to 0 at spawn because diddy said
+	$"Pivot/Character_Mesh/Skeleton3D/Character".mesh.surface_get_material(0).next_pass.set_render_priority(p)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire") and canShoot:
@@ -127,21 +132,19 @@ func set_player_mesh(_mesh: Mesh):
 func take_damage(dmg):
 	health -= dmg
 	player_ui.set_healthbar_value(health)
-	var body_mat = $Pivot/Body.get_surface_override_material(0) as StandardMaterial3D
-	var head_mat = $Pivot/Head.get_surface_override_material(0) as StandardMaterial3D
-	if body_mat == null or head_mat == null:
-		print("Cringe... ~o~ the players's surface override material is null")
+	var suit_mesh = $"Pivot/Character_Mesh/Skeleton3D/Character".mesh as Mesh
+	var suit_material = suit_mesh.surface_get_material(0)
+	if suit_mesh == null or suit_material == null:
+		print("Cringe... ~o~ the players's mesh or material")
 	else:
-		var second_mat_body = body_mat.next_pass
-		var second_mat_head = head_mat.next_pass
-		if second_mat_body == null or second_mat_head == null:
-			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material override")
+		var second_material= suit_material.next_pass
+		if second_material == null:
+			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material")
 		else:
-			$Pivot/Body.set_surface_override_material(0, second_mat_body)
-			$Pivot/Head.set_surface_override_material(0, second_mat_head)
+			second_material.set_render_priority(1)
 			await get_tree().create_timer(0.1).timeout
-			$Pivot/Body.set_surface_override_material(0, body_mat)
-			$Pivot/Head.set_surface_override_material(0, head_mat)
+			second_material.set_render_priority(0)
+			print("diddy " + str(second_material.get_render_priority()))
 	if health <= 0:
 		player_state = PlayerState.DEAD
 		death_sound.play()

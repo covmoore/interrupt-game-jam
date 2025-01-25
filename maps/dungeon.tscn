@@ -1,6 +1,6 @@
 [gd_scene load_steps=126 format=3 uid="uid://bcrnhkm7n7ejm"]
 
-[ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
+[ext_resource type="PackedScene" uid="uid://di821yqlgeg3q" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_8fhd0"]
 [ext_resource type="Shader" path="res://shaders/cyberground.gdshader" id="2_hfbtt"]
