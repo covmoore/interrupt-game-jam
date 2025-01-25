@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="interrupt"
+<<<<<<< Updated upstream
 run/main_scene="res://maps/mind.tscn"
+=======
+run/main_scene="res://Scenes/UI/mainmenu.tscn"
+>>>>>>> Stashed changes
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 

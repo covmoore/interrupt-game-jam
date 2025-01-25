@@ -21,7 +21,11 @@ enum PlayerCombatMode {
 	KILLING_MODE = 0,
 	MIND_MODE = 1
 }
+<<<<<<< Updated upstream
 var player_combat_state: PlayerCombatMode = PlayerCombatMode.KILLING_MODE
+=======
+@onready var player_state: PlayerState = PlayerState.KILLING_MODE
+>>>>>>> Stashed changes
 
 var inpectRadius = 5.0
 
@@ -89,11 +93,30 @@ func set_player_combat_mode(room):
 func set_player_context():
 	if player_combat_state == PlayerCombatMode.KILLING_MODE:
 		add_gun()
+<<<<<<< Updated upstream
 		set_player_mesh(battle_mesh)
 	if player_combat_state == PlayerCombatMode.MIND_MODE:
 		remove_gun()
 		set_player_mesh(mind_mesh)
 	
+=======
+		set_player_mesh_and_material($Pivot/Character_Mesh/Skeleton3D/Character.mesh, $Pivot/Character_Mesh/Skeleton3D/Character.mesh.surface_get_material(0))
+		canShoot = true
+		canMove = true
+		canRotate = true
+	elif player_state == PlayerState.IDLE or player_state == PlayerState.INSPECTING:
+		remove_gun()
+		#set_player_mesh(mind_mesh)
+		canMove = true
+		canShoot = false
+		canRotate = true
+	elif player_state == PlayerState.DEAD:
+		canMove = false
+		canShoot = false
+		canRotate = false
+		$".".rotation_degrees = Vector3(90,0,0)
+		set_player_mesh_and_material($Pivot/Character_Mesh/Skeleton3D/Character.mesh, $Pivot/Character_Mesh/Skeleton3D/Character.mesh.surface_get_material(0))
+>>>>>>> Stashed changes
 
 func add_gun():
 	gun.can_shoot = true
@@ -103,8 +126,35 @@ func remove_gun():
 	gun.can_shoot = false
 	gun.visible = false
 
+<<<<<<< Updated upstream
 func set_player_mesh(mesh: Mesh):
 	pass
+=======
+func set_player_mesh_and_material(_mesh: Mesh, _material: Material):
+	_mesh.surface_set_material(0, _material)
+	
+func take_damage(dmg):
+	health -= dmg
+	player_ui.set_healthbar_value(health)
+	var mat = $Pivot/Character_Mesh/Skeleton3D/Character.mesh.surface_get_material(0)
+	if mat == null:
+		print("Cringe... ~o~ the players's surface override material is null")
+	else:
+		var second_mat = mat.next_pass
+		if second_mat == null:
+			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material override")
+		else:
+			$Pivot/Character_Mesh/Skeleton3D/Character.mesh.surface_set_material(0, second_mat)
+			await get_tree().create_timer(0.1).timeout
+			$Pivot/Character_Mesh/Skeleton3D/Character.mesh.surface_set_material(0, mat)
+	if health <= 0:
+		player_state = PlayerState.DEAD
+		death_sound.play()
+		set_player_context()
+		player_ui.change_state(player_ui.UIState.DEAD)
+	else:
+		hurt_sound.play()
+>>>>>>> Stashed changes
 
 func _on_area_detection_body_entered(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):
