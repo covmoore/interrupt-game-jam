@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3vreyyj4wq8q"]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_hd6yw"]
+
+[sub_resource type="Gradient" id="Gradient_3ws1x"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.160784, 0.298039, 0.427451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0ay50"]
+gradient = SubResource("Gradient_3ws1x")
+
+[sub_resource type="SystemFont" id="SystemFont_yva7q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iskjw"]
+font = SubResource("SystemFont_yva7q")
+font_size = 52
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hd6yw")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = SubResource("GradientTexture1D_0ay50")
+
+[node name="Title" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_right = 125.0
+offset_bottom = 50.0
+grow_horizontal = 2
+text = "Interrupt"
+label_settings = SubResource("LabelSettings_iskjw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -150.0
+offset_right = 125.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Play" type="Button" parent="Background/Buttons"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Play"
+
+[node name="Options" type="Button" parent="Background/Buttons"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="Background/Buttons"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Quit
+"
