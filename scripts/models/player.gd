@@ -146,6 +146,7 @@ func take_damage(dmg):
 		player_state = PlayerState.DEAD
 		death_sound.play()
 		set_player_context()
+		player_ui.change_state(player_ui.UIState.DEAD)
 	else:
 		hurt_sound.play()
 

@@ -3,7 +3,8 @@ class_name UIManager extends Control
 enum UIState {
 	KILLING = 0,
 	IDLE,
-	INSPECTING
+	INSPECTING,
+	DEAD
 }
 var ui_state = UIState.KILLING
 @export var cam: Camera3D = null
@@ -12,12 +13,13 @@ var ui_state = UIState.KILLING
 @export var healthbar: ProgressBar = null
 @export var interactMenu: UIPanel = null
 @export var gameManager: GameManager = null
+@export var restartMenu: UIPanel = null
 signal cancel_interaction
 var panels = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	panels = [hud, interactMenu]
+	panels = [hud, interactMenu, restartMenu]
 	show_panels([hud])
 	var interactables = get_tree().get_nodes_in_group("interactable")
 
@@ -32,6 +34,8 @@ func set_context():
 		show_panels([hud])
 	if ui_state == UIState.INSPECTING:
 		show_panels([interactMenu])
+	if ui_state == UIState.DEAD:
+		show_panels([restartMenu])
 
 func show_panels(curPanel: Array[Control]):
 	for panel in panels:
