@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7r0gmmds3kt0"]
+
+[ext_resource type="PackedScene" uid="uid://csnh7vaj8bydp" path="res://assets/interactables/Painting/Painting.glb" id="1_2athf"]
+
+[node name="Painting" instance=ExtResource("1_2athf")]
