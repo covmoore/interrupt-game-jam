@@ -127,22 +127,20 @@ func set_player_mesh(_mesh: Mesh):
 func take_damage(dmg):
 	health -= dmg
 	player_ui.set_healthbar_value(health)
-	var body_mat = $Pivot/Body.get_surface_override_material(0) as StandardMaterial3D
-	var head_mat = $Pivot/Head.get_surface_override_material(0) as StandardMaterial3D
-	if body_mat == null or head_mat == null:
-		print("Cringe... ~o~ the players's surface override material is null")
+	var suit_mesh = $"Pivot/Character_Mesh/Skeleton3D/Character".mesh as Mesh
+	var suit_material = suit_mesh.surface_get_material(0)
+	if suit_mesh == null or suit_material == null:
+		print("Cringe... ~o~ the players's mesh or material")
 	else:
-		var second_mat_body = body_mat.next_pass
-		var second_mat_head = head_mat.next_pass
-		if second_mat_body == null or second_mat_head == null:
-			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material override")
+		var second_material= suit_material.next_pass
+		if second_material == null:
+			print("Cringe... ~o~ you forgot to add a next pass material to the original surface material")
 		else:
-			$Pivot/Body.set_surface_override_material(0, second_mat_body)
-			$Pivot/Head.set_surface_override_material(0, second_mat_head)
+			second_material.set_render_priority(2)
 			await get_tree().create_timer(0.1).timeout
-			$Pivot/Body.set_surface_override_material(0, body_mat)
-			$Pivot/Head.set_surface_override_material(0, head_mat)
+			second_material.set_render_priority(0)
 	if health <= 0:
+		suit_material.next_pass.set_render_priority(0)
 		player_state = PlayerState.DEAD
 		death_sound.play()
 		set_player_context()

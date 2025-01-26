@@ -1,15 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://di821yqlgeg3q"]
+[gd_scene load_steps=18 format=4 uid="uid://clfr6g1wxrggi"]
 
 [ext_resource type="Script" path="res://scripts/models/player.gd" id="1_ya7y0"]
 [ext_resource type="PackedScene" uid="uid://bxwgxxivps4xd" path="res://prefabs/gun.tscn" id="3_7t6sr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kve56"]
-albedo_color = Color(0.709804, 0, 0, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddvml"]
 resource_name = "Suit"
-render_priority = 1
-next_pass = SubResource("StandardMaterial3D_kve56")
 cull_mode = 2
 albedo_color = Color(0.293517, 0.253478, 0.239828, 1)
 
