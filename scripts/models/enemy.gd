@@ -2,17 +2,21 @@ class_name Enemy extends CharacterBody3D
 
 @onready var player = $"../Player"
 @onready var nav_agent = $NavigationAgent3D
+@onready var audio_player
 @export var enemy_gun: Node3D = null  
 @export var movement_speed : float = 2.0
 @export var health: float = 0.0
 @export var attack_range: float = 5.0
 @export var spawning_fx: PackedScene = null
+@export var spawning_sound: AudioStream = null
+
 var movement_target_position : Vector3 = Vector3.ZERO
 var can_move = true
 var can_shoot = true
 var path = []
 
 func _ready():
+	audio_player = AudioStreamPlayer.new()
 	nav_agent.path_desired_distance = 0.5
 	nav_agent.target_desired_distance = 0.5
 
@@ -26,6 +30,9 @@ func spawn():
 	var fx = spawning_fx.instantiate()
 	fx.global_transform = global_transform
 	scene_root.add_child(fx)
+	audio_player.stream = spawning_sound
+	add_child(audio_player)
+	audio_player.play()
 	await pause(2, get_tree())
 	fx.free()
 	visible = true
