@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bdvb46gk1fkg"]
 
 [ext_resource type="Script" path="res://scripts/models/shooting_enemy.gd" id="1_6051u"]
-[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://enemy_spawn_animation.tscn" id="2_xwu2i"]
+[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://animations/enemy_spawn_animation.tscn" id="2_xwu2i"]
 [ext_resource type="AudioStream" uid="uid://pvmbv5h07wgr" path="res://sounds/spawn_sound.wav" id="3_5crsw"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_yutdr"]
 [ext_resource type="PackedScene" uid="uid://dfeftj73jy3nv" path="res://prefabs/enemy_gun.tscn" id="5_65ey0"]

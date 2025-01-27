@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfksj87k14dre"]
 
 [ext_resource type="Script" path="res://scripts/models/bullet.gd" id="1_tg5sn"]
-[ext_resource type="Material" uid="uid://5g2r1jltpmj2" path="res://prefabs/bullet_red.tres" id="2_r3sto"]
+[ext_resource type="Material" uid="uid://5g2r1jltpmj2" path="res://materials/bullet_red.tres" id="2_r3sto"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0vpf5"]
 material = ExtResource("2_r3sto")

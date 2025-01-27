@@ -1,22 +1,24 @@
-[gd_scene load_steps=140 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=146 format=3 uid="uid://bcrnhkm7n7ejm"]
 
-[ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://player.tscn" id="1_bbrec"]
+[ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_8fhd0"]
 [ext_resource type="Shader" path="res://shaders/cyberground.gdshader" id="2_hfbtt"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="3_v2qkb"]
-[ext_resource type="Script" path="res://maps/room_manager.gd" id="4_7eefm"]
+[ext_resource type="Script" path="res://scripts/managers/room_manager.gd" id="4_7eefm"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
+[ext_resource type="Texture2D" uid="uid://b1003ykp85o5d" path="res://images/room0-text.png" id="6_odr38"]
 [ext_resource type="PackedScene" uid="uid://bi48fce1ya15w" path="res://prefabs/rail_enemy.tscn" id="9_0tqef"]
-[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://scripts/ui/player_ui.tscn" id="9_3ai7s"]
+[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://prefabs/player_ui.tscn" id="9_3ai7s"]
 [ext_resource type="PackedScene" uid="uid://bds5k3xnl54ii" path="res://prefabs/bomber_enemy.tscn" id="9_bfmmw"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="9_g68le"]
 [ext_resource type="PackedScene" uid="uid://bdvb46gk1fkg" path="res://prefabs/shooting_enemy.tscn" id="9_orjg1"]
-[ext_resource type="Script" path="res://maps/enemy_spawner.gd" id="10_de85t"]
-[ext_resource type="Material" uid="uid://b0d5whnc5744t" path="res://maps/door.tres" id="10_ywes5"]
+[ext_resource type="Script" path="res://scripts/models/enemy_spawner.gd" id="10_de85t"]
+[ext_resource type="Material" uid="uid://b0d5whnc5744t" path="res://materials/door.tres" id="10_ywes5"]
 [ext_resource type="Script" path="res://scripts/models/wave.gd" id="11_xxg05"]
-[ext_resource type="Script" path="res://maps/mind_trigger.gd" id="12_kokh7"]
+[ext_resource type="Script" path="res://scripts/models/mind_trigger.gd" id="12_kokh7"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="13_2epaw"]
+[ext_resource type="Script" path="res://scripts/managers/audioManager.gd" id="18_u0ykp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ugbub"]
 shader = ExtResource("5_xgppb")
@@ -40,22 +42,20 @@ vertices = PackedVector3Array(3.25, 0.5, -1.75, 4.5, 0.5, -1.5, 4.75, 0.5, -2, 3
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(3, 8, 7), PackedInt32Array(7, 8, 9), PackedInt32Array(2, 3, 4), PackedInt32Array(4, 3, 7), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(11, 16, 10), PackedInt32Array(10, 16, 17), PackedInt32Array(10, 17, 15), PackedInt32Array(18, 17, 19), PackedInt32Array(19, 17, 16), PackedInt32Array(17, 14, 15), PackedInt32Array(0, 1, 20), PackedInt32Array(20, 1, 21), PackedInt32Array(13, 22, 12), PackedInt32Array(12, 22, 23), PackedInt32Array(5, 6, 24), PackedInt32Array(24, 6, 23), PackedInt32Array(25, 21, 22), PackedInt32Array(22, 21, 24), PackedInt32Array(22, 24, 23), PackedInt32Array(25, 18, 21), PackedInt32Array(21, 18, 20), PackedInt32Array(20, 18, 19)]
 detail_sample_distance = 8.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_phwww"]
-render_priority = 0
-shader = ExtResource("2_hfbtt")
-shader_parameter/grid_color = Color(0, 1, 1, 1)
-shader_parameter/line_thickness = 0.02
-shader_parameter/glow_intensity = 1.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_schkk"]
+albedo_texture = ExtResource("6_odr38")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
-material = SubResource("ShaderMaterial_phwww")
+[sub_resource type="ImageTexture" id="ImageTexture_517m1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwptc"]
+albedo_texture = SubResource("ImageTexture_517m1")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lv6xd"]
+material = SubResource("StandardMaterial3D_hwptc")
 size = Vector2(15, 15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vkvcm"]
 size = Vector3(15, 0.01, 15)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j64jk"]
-albedo_color = Color(1, 0.141176, 1, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qklci"]
 size = Vector2(15, 5)
@@ -73,7 +73,7 @@ size = Vector3(14.9895, 0.01, 4.95514)
 size = Vector2(15, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1gnro"]
-size = Vector3(6.37174, 0.01, 4.95288)
+size = Vector3(14.9664, 0.01, 4.95288)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_woah8"]
 size = Vector2(15, 5)
@@ -87,6 +87,20 @@ size = Vector3(7.41376, 0.01, 4.87164)
 [sub_resource type="BoxMesh" id="BoxMesh_f2k38"]
 material = ExtResource("3_v2qkb")
 size = Vector3(1.2, 1.6, 0.1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phwww"]
+render_priority = 0
+shader = ExtResource("2_hfbtt")
+shader_parameter/grid_color = Color(0, 1, 1, 1)
+shader_parameter/line_thickness = 0.02
+shader_parameter/glow_intensity = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
+material = SubResource("ShaderMaterial_phwww")
+size = Vector2(15, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j64jk"]
+albedo_color = Color(1, 0.141176, 1, 1)
 
 [sub_resource type="Resource" id="Resource_kdfmp"]
 script = ExtResource("11_xxg05")
@@ -540,33 +554,11 @@ navigation_mesh = SubResource("NavigationMesh_hpwqc")
 collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="start_room/Navmesh/Ground"]
-mesh = SubResource("PlaneMesh_7qubq")
+material_override = SubResource("StandardMaterial3D_schkk")
+mesh = SubResource("PlaneMesh_lv6xd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Navmesh/Ground"]
 shape = SubResource("BoxShape3D_vkvcm")
-
-[node name="obstacles" type="Node3D" parent="start_room/Navmesh"]
-
-[node name="obstacle" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.903058, -2)
-use_collision = true
-collision_layer = 2
-size = Vector3(5, 1.70612, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle2" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799878, 5.10623)
-use_collision = true
-collision_layer = 2
-size = Vector3(3, 1.49976, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
-
-[node name="obstacle3" type="CSGBox3D" parent="start_room/Navmesh/obstacles"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.4831, 0.829927, 0.00387979)
-use_collision = true
-collision_layer = 2
-size = Vector3(3, 1.57983, 0.5)
-material = SubResource("StandardMaterial3D_j64jk")
 
 [node name="Walls" type="Node3D" parent="start_room"]
 
@@ -603,7 +595,7 @@ collision_mask = 29
 mesh = SubResource("PlaneMesh_qugxo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="start_room/Walls/Wall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, 0.0501099, 0, 0.0313721)
+transform = Transform3D(1, 0, 0, 0, 1, 7.51668e-22, 0, 7.51667e-22, 1, 0.0306504, 0, 0.0313721)
 shape = SubResource("BoxShape3D_1gnro")
 
 [node name="Wall4" type="StaticBody3D" parent="start_room/Walls" groups=["Wall"]]
@@ -1422,11 +1414,12 @@ room = "boss_room"
 
 [node name="room_triggers" type="Node3D" parent="."]
 
-[node name="start_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="start_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.10481, 0, -0.40451)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "start_room"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1435,11 +1428,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room1_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room1_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.89265, 0, -0.40451)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room1"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1448,11 +1442,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room1_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room1_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.24678, 0, -0.40451)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room1"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1461,11 +1456,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room2_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room2_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.02019, 0.00197589, -0.767055)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room2"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1474,11 +1470,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room2_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room2_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9207, 0.00197589, -0.430263)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room2"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1487,11 +1484,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room2_trigger3" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room2_trigger3" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.1442, 0.00197589, -7.13829)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room2"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1500,11 +1498,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room3_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room3_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.9433, 0.00197589, -8.04507)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room3"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1513,11 +1512,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room3_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room3_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.5071, 0.00197589, -22.0944)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room3"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1526,11 +1526,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room4_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room4_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8296, 0.00197589, -0.513504)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room4"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1539,11 +1540,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room5_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room5_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.3307, 0.00197589, -23.001)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room5"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1552,11 +1554,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="room5_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="room5_trigger2" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.99142, 0.00197589, -30.5379)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "room5"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1565,11 +1568,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="boss_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="boss_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("audioManager", "collider", "gameManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.97493, 0.00197589, -30.4442)
 collision_layer = 2
 script = ExtResource("13_2epaw")
 room = "boss_room"
+audioManager = NodePath("../../AudioManager")
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
 
@@ -1581,3 +1585,11 @@ shape = SubResource("BoxShape3D_y77kf")
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("cam", "gameManager") instance=ExtResource("9_3ai7s")]
 cam = NodePath("../CameraPivot/Camera3D")
 gameManager = NodePath("..")
+
+[node name="AudioManager" type="Node3D" parent="." node_paths=PackedStringArray("camera_pivot")]
+script = ExtResource("18_u0ykp")
+camera_pivot = NodePath("../CameraPivot")
+
+[node name="dungeon_song" type="AudioStreamPlayer3D" parent="AudioManager"]
+
+[node name="wind" type="AudioStreamPlayer3D" parent="AudioManager"]

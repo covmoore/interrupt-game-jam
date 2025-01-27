@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cbn47fl8qljbv"]
 
-[ext_resource type="Script" path="res://prefabs/rail_gun.gd" id="1_47jwc"]
+[ext_resource type="Script" path="res://scripts/models/rail_gun.gd" id="1_47jwc"]
 [ext_resource type="PackedScene" uid="uid://dr1mf8dyttbgb" path="res://prefabs/rail_gun_laser.tscn" id="2_h31rt"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2nngg"]

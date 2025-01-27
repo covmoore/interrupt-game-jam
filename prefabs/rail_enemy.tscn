@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bi48fce1ya15w"]
 
 [ext_resource type="Script" path="res://scripts/models/rail_enemy.gd" id="1_6umod"]
-[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://enemy_spawn_animation.tscn" id="2_o7hje"]
+[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://animations/enemy_spawn_animation.tscn" id="2_o7hje"]
 [ext_resource type="AudioStream" uid="uid://pvmbv5h07wgr" path="res://sounds/spawn_sound.wav" id="3_nc0l1"]
 [ext_resource type="PackedScene" uid="uid://cbn47fl8qljbv" path="res://prefabs/rail_gun.tscn" id="5_6r26w"]
 

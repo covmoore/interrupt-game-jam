@@ -1,6 +1,6 @@
 [gd_scene load_steps=145 format=3 uid="uid://bpy5y680rvwjc"]
 
-[ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://player.tscn" id="1_136gs"]
+[ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
 [ext_resource type="Script" path="res://scripts/handlers/camera_pan.gd" id="2_0727t"]
 [ext_resource type="Script" path="res://scripts/managers/interactable_manager.gd" id="4_02tj2"]
@@ -13,7 +13,7 @@
 [ext_resource type="Material" uid="uid://b0535amnttyqo" path="res://materials/button_gray.tres" id="8_simbx"]
 [ext_resource type="Script" path="res://scripts/models/lock_button.gd" id="9_pgjh0"]
 [ext_resource type="Script" path="res://scripts/handlers/safe_handler.gd" id="12_l0w0y"]
-[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://scripts/ui/player_ui.tscn" id="14_mhnod"]
+[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://prefabs/player_ui.tscn" id="14_mhnod"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="15_ww2tj"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="16_hmwhx"]
 
@@ -562,10 +562,12 @@ uiManager = NodePath("PlayerUI")
 rooms = [NodePath("main_room"), NodePath("control_room")]
 pivot_anchors = [NodePath("pivot_anchors/main_pivot"), NodePath("pivot_anchors/control_pivot")]
 
-[node name="Player" parent="." instance=ExtResource("1_136gs")]
+[node name="Player" parent="." node_paths=PackedStringArray("player_ui", "camera") instance=ExtResource("1_136gs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503727, 0)
 collision_mask = 14
 speed = 5
+player_ui = NodePath("../PlayerUI")
+camera = NodePath("../CameraPivot/Camera3D")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
