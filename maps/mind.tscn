@@ -1,4 +1,4 @@
-[gd_scene load_steps=186 format=4 uid="uid://bpy5y680rvwjc"]
+[gd_scene load_steps=194 format=4 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://di821yqlgeg3q" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://prefabs/player_ui.tscn" id="14_mhnod"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="15_ww2tj"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="16_hmwhx"]
-[ext_resource type="PackedScene" uid="uid://b7r0gmmds3kt0" path="res://prefabs/painting.tscn" id="18_7fp5b"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
 lightmap_size_hint = Vector2i(62, 27)
@@ -186,6 +185,9 @@ height = 0.28
 height = 0.285
 radius = 0.05
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_hvwnt"]
+size = Vector3(0.854487, 0.800078, 0.814282)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2led"]
 albedo_color = Color(0, 0.539301, 0.54112, 1)
 
@@ -202,8 +204,108 @@ autowrap_mode = 2
 depth = 0.001
 width = 100.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hvwnt"]
-size = Vector3(0.854487, 0.800078, 0.814282)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwm8l"]
+resource_name = "Wood"
+cull_mode = 2
+albedo_color = Color(0.360783, 0.243137, 0.0980393, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_5mw85"]
+_surfaces = [{
+"aabb": AABB(-1, -0.00751987, -1, 2, 0.067499, 2),
+"format": 34359742465,
+"index_count": 78,
+"index_data": PackedByteArray("AAAJAAUAAAAIAAkABgAKAAEABgALAAoABQALAAYABQAJAAsADQAEAAwADQACAAQADwADAA4ADwAHAAMADAAHAA8ADAAEAAcACwATAA8ACwARABMACAAMAAkACAANAAwACwAOAAoACwAPAA4AEAATABEAEAASABMACQARAAsACQAQABEADwASAAwADwATABIADAAQAAkADAASABAA"),
+"name": "Wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC/16Nwv5/64zkAAIC/16NwvwAAAAAAAIA/zhlxPwAAAAAAAIA/zhlxP5/64zkAAIC/AACAvwAAAABmZmY/16Nwv6SsdT1mZmY/AACAP3tfqDdmZmY/zhlxP6SsdT1mZmY/16Nwv6SsdT0Urme/AACAvwAAAAAUrme/AACAP3tfqDcUrme/zhlxP6SsdT0Urme/16Nwv0Bp9rtmZmY/zhlxP0Bp9rtmZmY/16Nwv0Bp9rsUrme/zhlxP0Bp9rsUrme/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_h0qwv"]
+resource_name = "Painting_Plane"
+_surfaces = [{
+"aabb": AABB(-1, -0.00751987, -1, 2, 0.067499, 2),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAACAPwAAAACAwvU8AAAAAIDC9TwAAAAAkML1PAAAgD+QwvU8AACAP+eMeD8AAIA/54x4PwAAgD/njHg/AAAAAOeMeD8AAAAAAAAAADMzcz8AAAAAMzNzP4/C9TwzM3M/j8L1PDMzcz+PwvU8MzNzP4/C9TwzM3M/j8L1PDMzcz8AAIA/MzNzPwAAgD8zM3M/54x4PzMzcz/njHg/MzNzP+eMeD8zM3M/54x4PzMzcz/njHg/MzNzP4HC9Txgj0I9gcL1PGCPQj2BwvU8YI9CPYHC9Txgj0I9gcL1PGCPQj0AAAAAYI9CPQAAAABgj0I9AACAP2CPQj0AAIA/YI9CPeeMeD9gj0I954x4P2CPQj3njHg/YI9CPeeMeD9gj0I954x4P2CPQj2PwvU8MzNzP4/C9TwzM3M/j8L1PDMzcz/njHg/MzNzP+eMeD8zM3M/54x4PzMzcz+BwvU8YI9CPYHC9Txgj0I9gcL1PGCPQj3njHg/YI9CPeeMeD9gj0I954x4P2CPQj0="),
+"format": 34359742487,
+"index_count": 78,
+"index_data": PackedByteArray("AAARAAcAAAAMABEACQATAAEACQAXABMABgAWAAgABgAPABYAHwAFAB0AHwACAAUAJQADACEAJQALAAMAGwAKACQAGwAEAAoAGQAzACcAGQAtADMADQAeABIADQAgAB4AGAAiABQAGAAmACIAKQAyACwAKQAvADIADgArABUADgAoACsAIwAuABoAIwAxAC4AHAAqABAAHAAwACoA"),
+"material": SubResource("StandardMaterial3D_rwm8l"),
+"name": "Wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 52,
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC/16Nwv5/64zkAAIC/16Nwv5/64zkAAIC/16NwvwAAAAAAAIA/16NwvwAAAAAAAIA/zhlxPwAAAAAAAIA/zhlxPwAAAAAAAIA/zhlxP5/64zkAAIC/zhlxP5/64zkAAIC/AACAvwAAAABmZmY/AACAvwAAAABmZmY/16Nwv6SsdT1mZmY/16Nwv6SsdT1mZmY/16Nwv6SsdT1mZmY/16Nwv6SsdT1mZmY/16Nwv6SsdT1mZmY/AACAP3tfqDdmZmY/AACAP3tfqDdmZmY/zhlxP6SsdT1mZmY/zhlxP6SsdT1mZmY/zhlxP6SsdT1mZmY/zhlxP6SsdT1mZmY/zhlxP6SsdT1mZmY/16Nwv6SsdT0Urme/16Nwv6SsdT0Urme/16Nwv6SsdT0Urme/16Nwv6SsdT0Urme/16Nwv6SsdT0Urme/AACAvwAAAAAUrme/AACAvwAAAAAUrme/AACAP3tfqDcUrme/AACAP3tfqDcUrme/zhlxP6SsdT0Urme/zhlxP6SsdT0Urme/zhlxP6SsdT0Urme/zhlxP6SsdT0Urme/zhlxP6SsdT0Urme/16Nwv0Bp9rtmZmY/16Nwv0Bp9rtmZmY/16Nwv0Bp9rtmZmY/zhlxP0Bp9rtmZmY/zhlxP0Bp9rtmZmY/zhlxP0Bp9rtmZmY/16Nwv0Bp9rsUrme/16Nwv0Bp9rsUrme/16Nwv0Bp9rsUrme/zhlxP0Bp9rsUrme/zhlxP0Bp9rsUrme/zhlxP0Bp9rsUrme/c1wex3HTPtRSpIPGhtqkp3NGh9xE2wHYJLrA22XSRatQsf//////v3NGh9zS1iLW/38B0P///79zXB7HMdBi0v9/AdD///+/UqSDxmrWZ6lQsf//////vyS6wNsRz0mtc1wex1TWjNgCQAHAAcD93/////////+//38B0P///7////9/////v3NcHseA1drVAkABwAHA/d9SpIPGgdJmqvPACr8Kv4Wf/////////7//fwHQ////v1Kkg8YWzsSq88AKvwq/hZ8AAP9/////v/9//3////8/ULH//////7////9/////v3NGh9x6zvLUAkABwAHA/d9zRofcX9NM1QJAAcABwP3fJLrA20zV1abzwAq/Cr+Fn/9//3////8/ULH//////78kusDbadSsqfPACr8Kv4WfAAD/f////7//////////v/9///////+/////f////7//////////v/9///////+/AAD/f////7//f/9/////P/9///////+/////f////7//f/9/////P/9///////+/AAD/f////78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_5mw85")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7s2ta"]
+resource_name = "Default"
+cull_mode = 2
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nl2ay"]
+resource_name = "Painting"
+cull_mode = 2
+albedo_texture = ExtResource("12_n3n4p")
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1mpqi"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 30,
+"index_data": PackedByteArray("AAAGAAQAAAACAAYABwAEAAYABwAFAAQABQADAAEABQAHAAMAAQACAAAAAQADAAIABQAAAAQABQABAAAA"),
+"name": "Default",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAP///////wAA//8AAP//AAAAAP//AAAAAAAAAAAAAAAAAAD/////AAAAAAAA//8AAA==")
+}, {
+"aabb": AABB(-1, -1, 1, 2, 2, 1e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AQACAAAAAQADAAIA"),
+"name": "Painting",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAAAA//8AAAAAAAAAAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_kr5sm"]
+resource_name = "Painting_Cube"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("/5//f/+f/3//n/9//1//f/9f/3//X/9//5//P/+f/z//X/8//1//P/+f/7//3/9//5//v/9f/7//H/9//1//v//f/z//n////x//P/9f//8="),
+"format": 34896613399,
+"index_count": 30,
+"index_data": PackedByteArray("AQAQAAsAAQAGABAAEwAMABEAEwAPAAwADgAIAAQADgASAAgABQAHAAIABQAJAAcADQAAAAoADQADAAAA"),
+"material": SubResource("StandardMaterial3D_7s2ta"),
+"name": "Default",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("/////wAA////////AAD///////8AAFTV//8AAAAA/////wAAAAD/v///AAAAAFTV//////////////////9U1f//AAD///+///8AAP//VNUAAP//AAD//wAA//8AAP//AAD//wAAVNUAAAAAAAD//wAAAAAAAP+/AAAAAAAAVNUAAP///////wAA/////1TVAAAAAP///78AAAAA//9U1f+//7//f/+/qiqqKv+//78AAP9/qiqqKv9//7+qKqoqAAD/f6oqqir/v/+//3//v1TVVNX/v/+/AAD/f1TVVNX/f/+/VNVU1QAA/39U1VTV")
+}, {
+"aabb": AABB(-1, -1, 1, 2, 2, 1e-05),
+"attribute_data": PackedByteArray("/v8Rgv///v/mfxGC5n///w=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AQACAAAAAQADAAIA"),
+"material": SubResource("StandardMaterial3D_nl2ay"),
+"name": "Painting",
+"primitive": 3,
+"uv_scale": Vector4(2.00151, 1.97319, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("/////wAAAID//wAAAAAAgAAA//8AAACAAAAAAAAAAID/f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_1mpqi")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0n4k7"]
 albedo_color = Color(0.31, 0.279568, 0.2139, 1)
@@ -1592,22 +1694,34 @@ transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.20096
 
 [node name="Painting" type="StaticBody3D" parent="main_room/inspectables" groups=["interactable"]]
 transform = Transform3D(2.53604, 0, 0, 0, 1.95428, 0, 0, 0, 1, 0, 1.64204, -5.99244)
+visible = false
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Painting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.21435e-05, 0, 0)
+shape = SubResource("BoxShape3D_hvwnt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Painting"]
 mesh = SubResource("BoxMesh_i371p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="main_room/inspectables/Painting/MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0170736)
+visible = false
 mesh = SubResource("TextMesh_ckknl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Painting"]
-transform = Transform3D(1.5, 0, 0, 0, 1.28, 0, 0, 0, 1, -6.2142e-05, 0, 0)
-shape = SubResource("BoxShape3D_hvwnt")
+[node name="Painting New" type="MeshInstance3D" parent="main_room/inspectables" groups=["interactable"]]
+transform = Transform3D(1.72, 0, 0, 0, -4.44108e-08, -1.016, 0, 1.016, -4.44108e-08, 0, 1.625, -5.997)
+mesh = SubResource("ArrayMesh_h0qwv")
+skeleton = NodePath("")
 
-[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Painting"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3928)
+[node name="Image" type="MeshInstance3D" parent="main_room/inspectables/Painting New"]
+transform = Transform3D(0.941176, 0, 0, 0, -3.93403e-08, 0.019993, 0, -0.9, -8.73923e-10, 0, 0, 0)
+mesh = SubResource("ArrayMesh_kr5sm")
+skeleton = NodePath("")
+
+[node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Painting New"]
+transform = Transform3D(1.47444, 0, 0, 0, -8.4079e-08, 0.984252, 0, -1.9235, -4.3023e-08, -1.08293e-09, 1.37535, -0.0167717)
 
 [node name="Safe" type="StaticBody3D" parent="main_room/inspectables" node_paths=PackedStringArray("backPanel", "collision") groups=["interactable"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.49514, 0.490079, -1.63503)
@@ -2025,77 +2139,81 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.482
 [node name="Bookshelf New" parent="main_room/inspectables" instance=ExtResource("13_xpf0f")]
 transform = Transform3D(0.000516724, -0.000309873, -0.395, 0.000238738, 0.395, -0.000309561, 0.395, -0.000238333, 0.000516911, 5.77431, 0.808094, 3.75629)
 
-[node name="Book_015" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New"]
+[node name="1984" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New" groups=["interactable"]]
 transform = Transform3D(0.0576119, -0.175248, 0, 0.0228584, 0.441691, 0, 0, 0, 0.309905, -1.62026, 1.13712, 0.18042)
 mesh = SubResource("ArrayMesh_etiyg")
 skeleton = NodePath("")
 
-[node name="Number_001" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_015"]
+[node name="Number_001" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/1984"]
 transform = Transform3D(0.956291, 0, 0, 0, 0, -0.124734, 0, 0.191258, 0, -0.00053215, -0.941892, 0.93945)
 mesh = SubResource("ArrayMesh_g1gon")
 skeleton = NodePath("")
 
-[node name="Title_001" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_015"]
+[node name="Title_001" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/1984"]
 transform = Transform3D(2.33776e-08, 1.07537e-07, 1.50348, 0.196105, -3.58457e-08, -1.79228e-07, 2.33776e-08, 0.300695, -5.37685e-07, -0.00513649, 0.0234467, 0.93945)
 mesh = SubResource("ArrayMesh_nb21u")
 skeleton = NodePath("")
 
-[node name="Book_018" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New"]
+[node name="Interactable" type="StaticBody3D" parent="main_room/inspectables/Bookshelf New/1984"]
+script = ExtResource("14_6s7ej")
+"Is Sub Interactable" = false
+
+[node name="Ready Player One" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New" groups=["interactable"]]
 transform = Transform3D(0.0486838, 0.294096, 0, -0.0383604, 0.373243, 0, 0, 0, 0.309905, -0.0823481, 1.0807, 0.015286)
 mesh = SubResource("ArrayMesh_suygi")
 skeleton = NodePath("")
 
-[node name="Number_005" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_018"]
+[node name="Number_005" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Ready Player One"]
 transform = Transform3D(0.956291, 0, 0, 0, 0, -0.124734, 0, 0.191258, 0, -0.000532085, -0.941893, 0.93945)
 mesh = SubResource("ArrayMesh_gsro4")
 skeleton = NodePath("")
 
-[node name="Title_012" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_018"]
+[node name="Title_012" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Ready Player One"]
 transform = Transform3D(7.01328e-08, -3.58456e-08, 1.50348, 0.196105, 1.07537e-07, -5.37685e-07, -7.01328e-08, 0.300695, 1.79228e-07, -0.00513791, 0.0234464, 0.93945)
 mesh = SubResource("ArrayMesh_6sy47")
 skeleton = NodePath("")
 
-[node name="Book_019" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New"]
+[node name="All Tomorrows" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New" groups=["interactable"]]
 transform = Transform3D(0.0501779, -0.278141, 0.0138016, 0.0363458, 0.384839, -0.00483029, -0.00167003, 0.0184058, 0.309559, -1.3233, -0.0913617, 0.176015)
 mesh = SubResource("ArrayMesh_haara")
 skeleton = NodePath("")
 
-[node name="Number_007" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_019"]
+[node name="Number_007" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/All Tomorrows"]
 transform = Transform3D(0.956291, 0, 0, 0, 3.41996e-08, -0.124734, 0, 0.191258, 2.23041e-08, -0.000529885, -0.941892, 0.93945)
 mesh = SubResource("ArrayMesh_qwh3u")
 skeleton = NodePath("")
 
-[node name="Title_014" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_019"]
+[node name="Title_014" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/All Tomorrows"]
 transform = Transform3D(9.35104e-08, 2.15074e-07, 1.50348, 0.196105, -1.43383e-07, -7.16912e-07, 9.35104e-08, 0.300695, -1.07537e-06, -0.00513554, 0.0234462, 0.93945)
 mesh = SubResource("ArrayMesh_qna8v")
 skeleton = NodePath("")
 
-[node name="Book_020" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New"]
+[node name="Foundation" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New" groups=["interactable"]]
 transform = Transform3D(-0.0113624, 0.467134, 0, -0.0609305, -0.0871116, 0, 0, 0, 0.309905, 0.566661, -1.61888, 0.220194)
 mesh = SubResource("ArrayMesh_gifxa")
 skeleton = NodePath("")
 
-[node name="Number_009" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_020"]
+[node name="Number_009" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Foundation"]
 transform = Transform3D(0.956291, 0, 0, 0, 0, -0.124734, 0, 0.191258, 0, -0.000532597, -0.941892, 0.93945)
 mesh = SubResource("ArrayMesh_ad1kf")
 skeleton = NodePath("")
 
-[node name="Title_004" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_020"]
+[node name="Title_004" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Foundation"]
 transform = Transform3D(2.33776e-08, 1.07537e-07, 1.50348, 0.196105, -3.58457e-08, -1.79228e-07, 2.33776e-08, 0.300695, -5.37685e-07, -0.00514138, 0.0234463, 0.93945)
 mesh = SubResource("ArrayMesh_dp5ie")
 skeleton = NodePath("")
 
-[node name="Book_022" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New"]
+[node name="Martian Chronicles" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New" groups=["interactable"]]
 transform = Transform3D(0, 0.474567, 0.0158235, -0.0619809, 0, 0, 0, -0.0242627, 0.3095, 1.29322, -0.475026, 0.175974)
 mesh = SubResource("ArrayMesh_73ll3")
 skeleton = NodePath("")
 
-[node name="Number_010" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_022"]
+[node name="Number_010" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Martian Chronicles"]
 transform = Transform3D(0.956291, 0, 0, 0, 0, -0.124734, 0, 0.191258, 0, -0.000531101, -0.941893, 0.93945)
 mesh = SubResource("ArrayMesh_67ajm")
 skeleton = NodePath("")
 
-[node name="Title_002" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Book_022"]
+[node name="Title_002" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf New/Martian Chronicles"]
 transform = Transform3D(2.33776e-08, 1.07537e-07, 1.50348, 0.196105, -3.58457e-08, -1.79228e-07, 2.33776e-08, 0.300695, -5.37685e-07, -0.00513917, 0.023446, 0.93945)
 mesh = SubResource("ArrayMesh_ksi88")
 skeleton = NodePath("")
@@ -2336,6 +2454,3 @@ gameManager = NodePath("../..")
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_pds2a")
-
-[node name="Painting" parent="." instance=ExtResource("18_7fp5b")]
-transform = Transform3D(0.105, 0, 0, 0, 0.105, 0, 0, 0, 0.105, 0.0135803, 1.62512, -5.97916)

@@ -508,7 +508,7 @@ height = 3.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_y77kf"]
 size = Vector3(0.601074, 0.528076, 3)
 
-[node name="Dungeon1" type="Node3D" node_paths=PackedStringArray("main_room", "player", "camera", "camera_pivot", "uiManager", "rooms", "pivot_anchors")]
+[node name="Dungeon1" type="Node3D" node_paths=PackedStringArray("main_room", "player", "camera", "camera_pivot", "uiManager")]
 script = ExtResource("1_mva7x")
 main_room = NodePath("start_room")
 player = NodePath("Player")
