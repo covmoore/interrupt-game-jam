@@ -1,4 +1,4 @@
-extends Node3D
+class_name Gun extends Node3D
 
 @export var bullet_scene: PackedScene
 @export var muzzle_speed: float = 50.0
@@ -14,17 +14,33 @@ func _ready() -> void:
 	add_child(audio_player)
 	
 
-func shoot(enemy: Enemy = null):
+func shoot(pos = null):
 	if can_shoot:
 		can_shoot = false
-		var new_bullet = bullet_scene.instantiate()
-		audio_player.play()
-		new_bullet.shot_by = player
-		new_bullet.damage = 1
-		new_bullet.global_transform = $Muzzle.global_transform
-		if enemy != null:
-			new_bullet.look_at_from_position(global_position, enemy.global_position, Vector3(0,1,0), true)
-		var scene_root = get_tree().get_root().get_children()[0]
-		scene_root.add_child(new_bullet)
-		await get_tree().create_timer(fire_rate).timeout
+		await fire(fire_rate, pos)
 		can_shoot = true
+
+func shoot_burst(burst_num: int, burst_rate: float, enemy: Enemy = null):
+	if can_shoot:
+		can_shoot = false
+		for i in range(0,burst_num):
+			can_shoot = false
+			await fire(burst_rate)
+		await pause(fire_rate)
+		can_shoot = true
+
+func fire(time: float, pos = null):
+	var new_bullet = bullet_scene.instantiate()
+	audio_player.play()
+	new_bullet.shot_by = player
+	new_bullet.damage = 1
+	new_bullet.global_transform = $Muzzle.global_transform
+	if pos != null:
+		new_bullet.look_at_from_position(global_position, pos, Vector3(0,1,0), true)
+	var scene_root = get_tree().get_root().get_children()[0]
+	scene_root.add_child(new_bullet)
+	await pause(time)
+	
+
+func pause(time: float):
+	await get_tree().create_timer(time).timeout

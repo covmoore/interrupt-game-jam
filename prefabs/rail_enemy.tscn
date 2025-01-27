@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://bi48fce1ya15w"]
+
+[ext_resource type="Script" path="res://scripts/models/rail_enemy.gd" id="1_6umod"]
+[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://enemy_spawn_animation.tscn" id="2_o7hje"]
+[ext_resource type="AudioStream" uid="uid://pvmbv5h07wgr" path="res://sounds/spawn_sound.wav" id="3_nc0l1"]
+[ext_resource type="PackedScene" uid="uid://cbn47fl8qljbv" path="res://prefabs/rail_gun.tscn" id="5_6r26w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_if5h6"]
+transparency = 1
+blend_mode = 3
+albedo_color = Color(1, 0, 0, 1)
+metallic_specular = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_oxels"]
+material = SubResource("StandardMaterial3D_if5h6")
+radius = 0.15
+height = 0.3
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7j7kx"]
+radius = 0.25
+height = 1.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dkjwe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqi2q"]
+render_priority = 1
+next_pass = SubResource("StandardMaterial3D_dkjwe")
+albedo_color = Color(0.427443, 0.619779, 0.922407, 1)
+albedo_texture_msdf = true
+metallic_specular = 0.0
+roughness = 0.0
+emission = Color(0.705882, 0.290196, 1, 1)
+emission_energy_multiplier = 2.06
+clearcoat_roughness = 0.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_231a8"]
+radius = 0.255193
+height = 1.75
+
+[node name="RailEnemy" type="CharacterBody3D" node_paths=PackedStringArray("gun") groups=["enemies"]]
+script = ExtResource("1_6umod")
+gun = NodePath("Body/RailGun")
+movement_speed = 4.0
+health = 2.0
+attack_range = 10.0
+spawning_fx = ExtResource("2_o7hje")
+spawning_sound = ExtResource("3_nc0l1")
+
+[node name="Eye" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000884116, 0.51602, -0.17546)
+mesh = SubResource("SphereMesh_oxels")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_7j7kx")
+surface_material_override/0 = SubResource("StandardMaterial3D_aqi2q")
+
+[node name="RailGun" parent="Body" instance=ExtResource("5_6r26w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.290807, 0.0800183, -0.0948231)
+bullet_scene = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_231a8")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
