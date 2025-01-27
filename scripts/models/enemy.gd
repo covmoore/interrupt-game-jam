@@ -3,16 +3,17 @@ class_name Enemy extends CharacterBody3D
 @onready var player = $"../Player"
 @onready var nav_agent = $NavigationAgent3D
 @onready var audio_player
-@export var enemy_gun: Node3D = null  
 @export var movement_speed : float = 2.0
 @export var health: float = 0.0
 @export var attack_range: float = 5.0
 @export var spawning_fx: PackedScene = null
 @export var spawning_sound: AudioStream = null
+@export var spawn_time: float = 2.0
 
 var movement_target_position : Vector3 = Vector3.ZERO
 var can_move = true
 var can_shoot = true
+var can_rotate = true
 var path = []
 
 func _ready():
@@ -33,7 +34,7 @@ func spawn():
 	audio_player.stream = spawning_sound
 	add_child(audio_player)
 	audio_player.play()
-	await pause(2, get_tree())
+	await pause(spawn_time)
 	fx.free()
 	visible = true
 	collision.disabled = false
@@ -66,9 +67,10 @@ func _physics_process(_delta):
 			#Stop moving
 			velocity = Vector3.ZERO
 			#Face the player
-			look_at(player.global_transform.origin, Vector3.UP)
+			if can_rotate:
+				look_at(player.global_transform.origin, Vector3.UP)
 			#call you shooting logic
-			shoot_at_player()
+			attack_player(player)
 		else:
 			#otherwise, keep using the nav agent
 			if not nav_agent.is_navigation_finished():
@@ -79,9 +81,9 @@ func _physics_process(_delta):
 		if can_move:
 			move_and_slide()
 	
-func shoot_at_player():
-	if can_shoot:
-		enemy_gun.shoot()
+func attack_player(player: Player = null):
+	#Overridden by child classes
+	pass
 
 func take_damage(shot_by: CharacterBody3D, dmg: float):
 	health -= dmg
@@ -100,5 +102,5 @@ func take_damage(shot_by: CharacterBody3D, dmg: float):
 		shot_by.killed_enemy(self)
 		queue_free()
 
-func pause(time: float, tree: SceneTree):
-	await tree.create_timer(time).timeout
+func pause(time: float):
+	await get_tree().create_timer(time).timeout

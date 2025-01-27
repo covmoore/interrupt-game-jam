@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://mafc2j10hbtt"]
+[gd_scene load_steps=11 format=3 uid="uid://bdvb46gk1fkg"]
 
-[ext_resource type="Script" path="res://scripts/models/enemy.gd" id="1_fck7c"]
-[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="2_aeriy"]
-[ext_resource type="PackedScene" uid="uid://dfeftj73jy3nv" path="res://prefabs/enemy_gun.tscn" id="3_6n7g4"]
-[ext_resource type="AudioStream" uid="uid://pvmbv5h07wgr" path="res://sounds/spawn_sound.wav" id="3_fgk2i"]
-[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://enemy_spawn_animation.tscn" id="4_cfoj0"]
+[ext_resource type="Script" path="res://scripts/models/shooting_enemy.gd" id="1_6051u"]
+[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://enemy_spawn_animation.tscn" id="2_xwu2i"]
+[ext_resource type="AudioStream" uid="uid://pvmbv5h07wgr" path="res://sounds/spawn_sound.wav" id="3_5crsw"]
+[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_yutdr"]
+[ext_resource type="PackedScene" uid="uid://dfeftj73jy3nv" path="res://prefabs/enemy_gun.tscn" id="5_65ey0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6eu86"]
 size = Vector3(0.5, 0.25, 0.25)
@@ -24,24 +24,28 @@ albedo_color = Color(1, 0.0980392, 0.0666667, 1)
 radius = 0.35
 height = 1.75
 
-[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
-script = ExtResource("1_fck7c")
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("gun") groups=["enemies"]]
+script = ExtResource("1_6051u")
+gun = NodePath("Body/Gun")
+burst_num = 3
+burst_rate = 0.3
 health = 3.0
-attack_range = 7.0
-spawning_fx = ExtResource("4_cfoj0")
-spawning_sound = ExtResource("3_fgk2i")
+attack_range = 8.0
+spawning_fx = ExtResource("2_xwu2i")
+spawning_sound = ExtResource("3_5crsw")
 
 [node name="Eye" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51602, -0.3)
-material_override = ExtResource("2_aeriy")
+material_override = ExtResource("4_yutdr")
 mesh = SubResource("BoxMesh_6eu86")
 
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_7j7kx")
 surface_material_override/0 = SubResource("StandardMaterial3D_aqi2q")
 
-[node name="Gun" parent="Body" node_paths=PackedStringArray("player") instance=ExtResource("3_6n7g4")]
+[node name="Gun" parent="Body" node_paths=PackedStringArray("player") instance=ExtResource("5_65ey0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.137769, -0.135773)
+fire_rate = 3.0
 player = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

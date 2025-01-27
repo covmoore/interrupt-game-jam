@@ -59,7 +59,7 @@ func player_look_at(pos: Vector3):
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire") and canShoot:
-		var enemy = null
+		var pos = null
 		var space_state = get_world_3d().direct_space_state
 		var mousepos = get_viewport().get_mouse_position()
 		var origin =  camera.project_ray_origin(mousepos)
@@ -69,9 +69,9 @@ func _input(event: InputEvent) -> void:
 		query.exclude = camera.get_exclusion_rids()
 		query.collide_with_areas = true
 		var result = space_state.intersect_ray(query)
-		if result.has("collider") and result["collider"] is Enemy:
-			enemy = result["collider"]
-		gun.shoot(enemy)
+		if result.has("position"):
+			pos = result["position"]
+		gun.shoot(pos)
 
 func _physics_process(_delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -101,16 +101,26 @@ func set_player_context():
 		canShoot = true
 		canMove = true
 		canRotate = true
-	elif player_state == PlayerState.IDLE or player_state == PlayerState.INSPECTING:
+		enable_collision()
+	elif player_state == PlayerState.IDLE:
 		remove_gun()
 		set_player_mesh(mind_mesh)
 		canMove = true
 		canShoot = false
 		canRotate = true
+		disable_collision()
+	elif player_state == PlayerState.INSPECTING:
+		remove_gun()
+		set_player_mesh(mind_mesh)
+		canMove = false
+		canShoot = false
+		canRotate = true
+		disable_collision()
 	elif player_state == PlayerState.DEAD:
 		canMove = false
 		canShoot = false
 		canRotate = false
+		disable_collision()
 		$".".rotation_degrees = Vector3(90,0,0)
 
 func add_gun():
@@ -147,6 +157,18 @@ func take_damage(dmg):
 		player_ui.change_state(player_ui.UIState.DEAD)
 	else:
 		hurt_sound.play()
+
+func disable_collision():
+	var children = get_children(true)
+	for child in children:
+		if child is CollisionShape3D:
+			child.disabled = true
+
+func enable_collision():
+	var children = get_children(true)
+	for child in children:
+		if child is CollisionShape3D:
+			child.disabled = false
 
 func _on_area_detection_body_entered(body: Node3D) -> void:
 	if body.get_groups().has("interactable"):

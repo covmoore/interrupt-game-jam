@@ -1,0 +1,83 @@
+[gd_scene load_steps=16 format=3 uid="uid://bds5k3xnl54ii"]
+
+[ext_resource type="Script" path="res://scripts/models/bomber_enemy.gd" id="1_bjf4h"]
+[ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://enemy_spawn_animation.tscn" id="2_oepdw"]
+[ext_resource type="Material" uid="uid://m50u5lbi8864" path="res://materials/bomber_blink.tres" id="3_b06bs"]
+[ext_resource type="AudioStream" uid="uid://chbma85rhh60r" path="res://sounds/explosion.wav" id="3_viyl7"]
+[ext_resource type="AudioStream" uid="uid://pvmbv5h07wgr" path="res://sounds/spawn_sound.wav" id="3_ycqr1"]
+[ext_resource type="PackedScene" uid="uid://c7a5xv621i23a" path="res://prefabs/explosion.tscn" id="4_2dqjp"]
+[ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_aikaf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rll1p"]
+radius = 0.1
+height = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_nte6k"]
+
+[sub_resource type="Gradient" id="Gradient_xoqbc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_esfts"]
+noise_type = 2
+frequency = 0.1
+cellular_distance_function = 1
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_amplitude = 12.95
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o3con"]
+color_ramp = SubResource("Gradient_xoqbc")
+noise = SubResource("FastNoiseLite_esfts")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekftl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0eqsh"]
+next_pass = SubResource("StandardMaterial3D_ekftl")
+albedo_color = Color(1, 0.341176, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_o3con")
+metallic = 0.4
+metallic_specular = 0.35
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 0.25
+clearcoat_roughness = 0.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0ui6y"]
+
+[node name="BomberEnemy" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "explosion_fx") groups=["enemies"]]
+script = ExtResource("1_bjf4h")
+explosion_radius = 3.5
+time_to_explode = 0.5
+damage = 3.0
+mesh = NodePath("Body")
+overlay = ExtResource("3_b06bs")
+explosion_sound = ExtResource("3_viyl7")
+explosion_fx = NodePath("Explosion")
+movement_speed = 4.2
+health = 1.0
+attack_range = 3.0
+spawning_fx = ExtResource("2_oepdw")
+spawning_sound = ExtResource("3_ycqr1")
+spawn_time = 1.0
+
+[node name="Eye" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.207316, 0.276024, -0.3)
+material_override = ExtResource("4_aikaf")
+mesh = SubResource("CapsuleMesh_rll1p")
+
+[node name="Eye2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.19548, 0.276024, -0.3)
+material_override = ExtResource("4_aikaf")
+mesh = SubResource("CapsuleMesh_rll1p")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_nte6k")
+surface_material_override/0 = SubResource("StandardMaterial3D_0eqsh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_0ui6y")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Explosion" parent="." instance=ExtResource("4_2dqjp")]
+amount = 30
+speed_scale = 2.0

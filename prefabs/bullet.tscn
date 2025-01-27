@@ -8,8 +8,9 @@ material = ExtResource("2_r3sto")
 radius = 0.04
 height = 0.8
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_i5qnx"]
-radius = 0.05
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0c1ev"]
+radius = 0.0428699
+height = 0.881551
 
 [node name="Bullet" type="Area3D"]
 collision_layer = 2
@@ -20,4 +21,5 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 
 mesh = SubResource("CapsuleMesh_0vpf5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_i5qnx")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.0375869)
+shape = SubResource("CapsuleShape3D_0c1ev")
