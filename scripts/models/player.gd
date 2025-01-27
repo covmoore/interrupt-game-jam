@@ -108,7 +108,7 @@ func set_player_context():
 		canMove = true
 		canShoot = false
 		canRotate = true
-		disable_collision()
+		enable_collision()
 	elif player_state == PlayerState.INSPECTING:
 		remove_gun()
 		set_player_mesh(mind_mesh)

@@ -13,7 +13,7 @@
 [ext_resource type="Material" uid="uid://b0535amnttyqo" path="res://materials/button_gray.tres" id="8_simbx"]
 [ext_resource type="Script" path="res://scripts/models/lock_button.gd" id="9_pgjh0"]
 [ext_resource type="Script" path="res://scripts/handlers/safe_handler.gd" id="12_l0w0y"]
-[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://prefabs/player_ui.tscn" id="14_mhnod"]
+[ext_resource type="PackedScene" path="res://prefabs/player_ui.tscn" id="14_mhnod"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="15_ww2tj"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="16_hmwhx"]
 
@@ -564,7 +564,7 @@ pivot_anchors = [NodePath("pivot_anchors/main_pivot"), NodePath("pivot_anchors/c
 
 [node name="Player" parent="." node_paths=PackedStringArray("player_ui", "camera") instance=ExtResource("1_136gs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503727, 0)
-collision_mask = 14
+collision_mask = 30
 speed = 5
 player_ui = NodePath("../PlayerUI")
 camera = NodePath("../CameraPivot/Camera3D")
@@ -1595,6 +1595,7 @@ room = "control_room"
 [node name="room_triggers" type="Node3D" parent="."]
 
 [node name="control_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.99708, 0, 0)
 collision_layer = 2
 script = ExtResource("16_hmwhx")
@@ -1608,6 +1609,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_pds2a")
 
 [node name="main_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58337, 0, 0)
 collision_layer = 2
 script = ExtResource("16_hmwhx")
