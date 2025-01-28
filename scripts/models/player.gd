@@ -26,11 +26,13 @@ enum PlayerState {
 	KILLING_MODE = 0,
 	IDLE,
 	INSPECTING,
+	PAUSED,
 	DEAD
 }
 var player_state: PlayerState = PlayerState.KILLING_MODE
 
 var inpectRadius = 5.0
+var is_inspecting = false
 
 signal on_enemy_killed
 
@@ -58,6 +60,9 @@ func player_look_at(pos: Vector3):
 		$Pivot.look_at(pos)
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		player_ui.toggle_pause()
+		
 	if event.is_action_pressed("fire") and canShoot:
 		var pos = null
 		var space_state = get_world_3d().direct_space_state
@@ -101,6 +106,7 @@ func set_player_context():
 		canShoot = true
 		canMove = true
 		canRotate = true
+		is_inspecting = false
 		enable_collision()
 	elif player_state == PlayerState.IDLE:
 		remove_gun()
@@ -108,6 +114,7 @@ func set_player_context():
 		canMove = true
 		canShoot = false
 		canRotate = true
+		is_inspecting = false
 		disable_collision()
 	elif player_state == PlayerState.INSPECTING:
 		remove_gun()
@@ -115,11 +122,18 @@ func set_player_context():
 		canMove = false
 		canShoot = false
 		canRotate = true
+		is_inspecting = true
+		disable_collision()
+	elif player_state == PlayerState.PAUSED:
+		canMove = false
+		canShoot = false
+		canRotate = false
 		disable_collision()
 	elif player_state == PlayerState.DEAD:
 		canMove = false
 		canShoot = false
 		canRotate = false
+		is_inspecting = false
 		disable_collision()
 		$".".rotation_degrees = Vector3(90,0,0)
 

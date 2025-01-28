@@ -1582,9 +1582,10 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_y77kf")
 
-[node name="PlayerUI" parent="." node_paths=PackedStringArray("cam", "gameManager") instance=ExtResource("9_3ai7s")]
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("cam", "gameManager", "player") instance=ExtResource("9_3ai7s")]
 cam = NodePath("../CameraPivot/Camera3D")
 gameManager = NodePath("..")
+player = NodePath("../Player")
 
 [node name="AudioManager" type="Node3D" parent="." node_paths=PackedStringArray("camera_pivot")]
 script = ExtResource("18_u0ykp")

@@ -1577,9 +1577,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5668, 0.804413, -0.538411
 mesh = SubResource("BoxMesh_pt43t")
 skeleton = NodePath("../../main_room/inspectables/Door")
 
-[node name="PlayerUI" parent="." node_paths=PackedStringArray("cam", "gameManager") instance=ExtResource("14_mhnod")]
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("cam", "gameManager", "player") instance=ExtResource("14_mhnod")]
 cam = NodePath("../CameraPivot/Camera3D")
 gameManager = NodePath("..")
+player = NodePath("../Player")
 
 [node name="pivot_anchors" type="Node3D" parent="."]
 
