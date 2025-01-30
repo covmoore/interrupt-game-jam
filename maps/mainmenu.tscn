@@ -17,7 +17,7 @@ font_size = 52
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "options_button", "credits_button", "quit_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +25,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hd6yw")
+play_button = NodePath("Background/Buttons/Play")
+options_button = NodePath("Background/Buttons/Options")
+credits_button = NodePath("Background/Buttons/Credits")
+quit_button = NodePath("Background/Buttons/Quit")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -74,6 +78,11 @@ text = "Play"
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Options"
+
+[node name="Credits" type="Button" parent="Background/Buttons"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Credits"
 
 [node name="Quit" type="Button" parent="Background/Buttons"]
 custom_minimum_size = Vector2(200, 50)
