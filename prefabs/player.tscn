@@ -675,10 +675,10 @@ bones/41/scale = Vector3(1, 1, 1)
 mesh = SubResource("ArrayMesh_dixal")
 skin = SubResource("Skin_7bohh")
 
-[node name="Gun" parent="Pivot/Character_Mesh" node_paths=PackedStringArray("player") instance=ExtResource("2_4sagr")]
+[node name="Gun" parent="Pivot/Character_Mesh" node_paths=PackedStringArray("user") instance=ExtResource("2_4sagr")]
 transform = Transform3D(-1.53846, 0, 2.32301e-07, 0, 1.53846, 0, -2.32301e-07, 0, -1.53846, -0.252994, 1.40104, 0.205145)
 visible = false
-player = NodePath("../../..")
+user = NodePath("../../..")
 
 [node name="Barrel_Start" type="Node3D" parent="Pivot/Character_Mesh/Gun"]
 transform = Transform3D(1, 0, 2.84217e-14, 0, 1, 0, -2.84217e-14, 0, 1, -0.046446, 0.118322, 0.079344)

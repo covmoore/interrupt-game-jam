@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0n1kno37q6jw"]
+[gd_scene load_steps=17 format=3 uid="uid://d0n1kno37q6jw"]
 
 [ext_resource type="Script" path="res://scripts/models/boss.gd" id="1_m7v5x"]
 [ext_resource type="PackedScene" uid="uid://wd7idxikee7e" path="res://animations/enemy_spawn_animation.tscn" id="2_uvft5"]
 [ext_resource type="AudioStream" uid="uid://pvmbv5h07wgr" path="res://sounds/spawn_sound.wav" id="3_p4rmh"]
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_bo25i"]
-[ext_resource type="PackedScene" uid="uid://dfeftj73jy3nv" path="res://prefabs/enemy_gun.tscn" id="5_h0wad"]
+[ext_resource type="PackedScene" uid="uid://dm8e7gddhkwjj" path="res://prefabs/boss_gun.tscn" id="5_ifqn5"]
 [ext_resource type="Script" path="res://scripts/models/mind_trigger.gd" id="6_l8e5i"]
 [ext_resource type="Material" uid="uid://chrdebrtl2h0g" path="res://prefabs/purple_glass.tres" id="7_o6ryx"]
 
@@ -33,9 +33,20 @@ height = 1.8
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_th5sv"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8c7s1"]
+albedo_color = Color(0.327171, 0.477111, 0.865207, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1e8vh"]
+material = SubResource("StandardMaterial3D_8c7s1")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
 [node name="DungeonMaster" type="CharacterBody3D" node_paths=PackedStringArray("gun") groups=["enemies"]]
 script = ExtResource("1_m7v5x")
 gun = NodePath("Body/Gun")
+burst_num = 10
+burst_rate = 0.1
 movement_speed = 1.0
 health = 10.0
 attack_range = 15.0
@@ -52,10 +63,9 @@ mesh = SubResource("BoxMesh_6eu86")
 mesh = SubResource("CapsuleMesh_7j7kx")
 surface_material_override/0 = SubResource("StandardMaterial3D_aqi2q")
 
-[node name="Gun" parent="Body" node_paths=PackedStringArray("player") instance=ExtResource("5_h0wad")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.137769, -0.135773)
-fire_rate = 3.0
-player = NodePath("../..")
+[node name="Gun" parent="Body" node_paths=PackedStringArray("user") instance=ExtResource("5_ifqn5")]
+unique_name_in_owner = true
+user = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_231a8")
@@ -73,3 +83,13 @@ mesh = SubResource("CapsuleMesh_qgm7i")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MindTrigger"]
 shape = SubResource("SphereShape3D_th5sv")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.151215, -0.63861)
+target_position = Vector3(0, -20, 0)
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RayCast3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0694314, 7.45058e-09)
+mesh = SubResource("CylinderMesh_1e8vh")

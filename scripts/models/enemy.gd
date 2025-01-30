@@ -2,7 +2,7 @@ class_name Enemy extends CharacterBody3D
 
 @onready var player = $"../Player"
 @onready var nav_agent = $NavigationAgent3D
-@onready var audio_player
+@onready var audio_player: AudioStreamPlayer
 @export var movement_speed : float = 2.0
 @export var health: float = 0.0
 @export var attack_range: float = 5.0
@@ -17,6 +17,9 @@ var can_rotate = true
 var path = []
 
 func _ready():
+	var gameManager = get_tree().get_root().get_children()[0]
+	if gameManager is GameManager:
+		player = gameManager.player
 	audio_player = AudioStreamPlayer.new()
 	nav_agent.path_desired_distance = 0.5
 	nav_agent.target_desired_distance = 0.5

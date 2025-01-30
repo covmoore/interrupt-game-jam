@@ -1,9 +1,9 @@
 class_name Boss extends Enemy
 
-@export var gun: Node3D = null  
+@export var gun: BossGun = null
 @export var burst_num: int = 0
 @export var burst_rate: float = 0.4
-@onready var mind_trigger: Area3D = $MindTrigger
+@onready var mind_trigger: MindTrigger = $MindTrigger
 
 func _ready() -> void:
 	mind_trigger.visible = false
@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func attack_player(pos = null):
 	if can_shoot:
-		gun.shoot_burst(burst_num, burst_rate)
+		gun.attack(burst_num, burst_rate, player)
 
 func take_damage(shot_by: CharacterBody3D, dmg: float):
 	health -= dmg
@@ -30,7 +30,9 @@ func take_damage(shot_by: CharacterBody3D, dmg: float):
 		shot_by.killed_enemy(self)
 		can_shoot = false
 		can_move = false
+		can_rotate = false
 		open_mind()
 
 func open_mind():
 	mind_trigger.visible = true
+	mind_trigger.make_hackable()

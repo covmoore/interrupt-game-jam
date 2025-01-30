@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://scripts/managers/room_manager.gd" id="4_7eefm"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
 [ext_resource type="Texture2D" uid="uid://b1003ykp85o5d" path="res://images/room0-text.png" id="6_odr38"]
-[ext_resource type="PackedScene" uid="uid://bi48fce1ya15w" path="res://prefabs/rail_enemy.tscn" id="9_0tqef"]
 [ext_resource type="PackedScene" path="res://prefabs/player_ui.tscn" id="9_3ai7s"]
 [ext_resource type="PackedScene" uid="uid://bds5k3xnl54ii" path="res://prefabs/bomber_enemy.tscn" id="9_bfmmw"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="9_g68le"]
@@ -18,6 +17,7 @@
 [ext_resource type="Script" path="res://scripts/models/wave.gd" id="11_xxg05"]
 [ext_resource type="PackedScene" uid="uid://d0n1kno37q6jw" path="res://prefabs/boss.tscn" id="13_1s28w"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="13_2epaw"]
+[ext_resource type="PackedScene" uid="uid://bi48fce1ya15w" path="res://prefabs/rail_enemy.tscn" id="15_ycndb"]
 [ext_resource type="Script" path="res://scripts/managers/audioManager.gd" id="18_u0ykp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ugbub"]
@@ -106,13 +106,13 @@ albedo_color = Color(1, 0.141176, 1, 1)
 script = ExtResource("11_xxg05")
 wave_number = 1
 spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("9_0tqef")])
+enemies = Array[PackedScene]([ExtResource("9_orjg1")])
 
 [sub_resource type="Resource" id="Resource_wpw7l"]
 script = ExtResource("11_xxg05")
 wave_number = 1
-spawn_rate = 2.0
-enemies = Array[PackedScene]([ExtResource("9_0tqef")])
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("9_orjg1")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_r75fj"]
 material = ExtResource("10_ywes5")
@@ -303,13 +303,13 @@ enemies = Array[PackedScene]([ExtResource("9_orjg1")])
 script = ExtResource("11_xxg05")
 wave_number = 2
 spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("9_bfmmw")])
+enemies = Array[PackedScene]([ExtResource("15_ycndb")])
 
 [sub_resource type="Resource" id="Resource_ijn7l"]
 script = ExtResource("11_xxg05")
 wave_number = 3
 spawn_rate = 2.0
-enemies = Array[PackedScene]([ExtResource("9_orjg1"), ExtResource("9_orjg1")])
+enemies = Array[PackedScene]([ExtResource("9_orjg1"), ExtResource("15_ycndb")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_ojsuk"]
 material = ExtResource("10_ywes5")

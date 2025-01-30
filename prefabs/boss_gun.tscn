@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://dm8e7gddhkwjj"]
+
+[ext_resource type="Script" path="res://prefabs/boss_gun.gd" id="1_cnukp"]
+[ext_resource type="PackedScene" uid="uid://c206uyvqmrkvq" path="res://prefabs/boss_bullet.tscn" id="2_c8oy7"]
+[ext_resource type="AudioStream" uid="uid://brotl78hmq2so" path="res://sounds/rail_gun_fire.wav" id="2_o1pxg"]
+[ext_resource type="PackedScene" uid="uid://clebyxmkdq56c" path="res://prefabs/airstrike.tscn" id="3_otx53"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2p1up"]
+size = Vector3(0.15, 0.15, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b310m"]
+albedo_color = Color(0.162066, 0.162066, 0.162066, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6hsd1"]
+albedo_color = Color(0.327171, 0.477111, 0.865207, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ffa37"]
+material = SubResource("StandardMaterial3D_6hsd1")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[node name="BossGun" type="Node3D"]
+script = ExtResource("1_cnukp")
+rail_gun_shoot = ExtResource("2_o1pxg")
+airstrike = ExtResource("3_otx53")
+bullet_scene = ExtResource("2_c8oy7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385622, 0, -0.502714)
+mesh = SubResource("BoxMesh_2p1up")
+surface_material_override/0 = SubResource("StandardMaterial3D_b310m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.479983, -0.3769, 0, 0.414602, 0.436335, 0.385622, -0.0923538, -0.314987)
+mesh = SubResource("BoxMesh_2p1up")
+surface_material_override/0 = SubResource("StandardMaterial3D_b310m")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.513103, -0.338929, 0, 0.372832, -0.466444, 0.385622, -0.0923538, -0.508997)
+mesh = SubResource("BoxMesh_2p1up")
+surface_material_override/0 = SubResource("StandardMaterial3D_b310m")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.387072, 0, -0.753843)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0512151, -0.63861)
+target_position = Vector3(0, -20, 0)
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0694314, 7.45058e-09)
+mesh = SubResource("CylinderMesh_ffa37")

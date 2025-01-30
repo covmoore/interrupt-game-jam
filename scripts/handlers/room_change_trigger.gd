@@ -12,7 +12,6 @@ func _ready() -> void:
 	
 
 func _on_body_entered(body: Node3D) -> void:
-	print(body)
 	var cur_room = gameManager.get_current_room()
 	if cur_room != room and body.name == "Player":
 		gameManager.set_room(room)

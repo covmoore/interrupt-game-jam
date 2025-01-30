@@ -6,7 +6,7 @@ class_name Player extends CharacterBody3D
 @export var gun: Node3D = null
 @export var interactDetection: Area3D = null
 @export var player_ui: Control
-@export var health = 5
+@export var health: float = 5.0
 @export var camera: Camera = null
 @onready var death_sound
 @onready var hurt_sound

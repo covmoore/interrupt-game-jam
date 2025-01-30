@@ -35,7 +35,6 @@ func start_next_wave():
 		on_room_cleared()
 
 func on_room_cleared():
-	print("Room Cleared: %s" % self.name)
 	if not room_cleared:
 		room_cleared = true
 		open_doors()
