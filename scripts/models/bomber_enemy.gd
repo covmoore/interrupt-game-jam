@@ -7,12 +7,14 @@ extends Enemy
 @export var overlay: Material = null
 @export var explosion_sound: AudioStream = null
 @export var explosion_fx: CPUParticles3D = null
-var blink_rate = 0.2
+var blink_rate = 0.1
+var isExploding = false
 
 func attack_player(pos = null):
 	if player != null and can_shoot:
 		can_move = false
 		can_shoot = false
+		isExploding = true
 		await explosion_timer()
 		await explode(player)
 
@@ -35,13 +37,17 @@ func explode(player: Player):
 	queue_free()
 
 func mesh_blink():
-	var original_overlay = mesh.material_overlay
+	var original_overlay = mesh.material_override
 	var blink = false
 	while(true):
 		if blink:
-			mesh.material_overlay = original_overlay
+			mesh.material_override = original_overlay
 			blink = false
 		else:
-			mesh.material_overlay = overlay
+			mesh.material_override = overlay
 			blink = true
 		await pause(blink_rate)
+
+func take_damage(shot_by: CharacterBody3D, dmg: float):
+	if !isExploding:
+		super.take_damage(shot_by, dmg)

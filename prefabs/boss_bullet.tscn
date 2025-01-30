@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://c206uyvqmrkvq"]
+
+[ext_resource type="Script" path="res://scripts/models/bullet.gd" id="1_4brq5"]
+
+[sub_resource type="Gradient" id="Gradient_t3t8r"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hnw6t"]
+noise_type = 3
+seed = 11
+frequency = 0.0868
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qqxhy"]
+in_3d_space = true
+color_ramp = SubResource("Gradient_t3t8r")
+noise = SubResource("FastNoiseLite_hnw6t")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0dfc"]
+albedo_color = Color(0.743423, 0.269276, 2.88785e-07, 1)
+albedo_texture = SubResource("NoiseTexture2D_qqxhy")
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.368227, 0.00168332, 0.755525, 1)
+emission_energy_multiplier = 0.41
+
+[sub_resource type="SphereMesh" id="SphereMesh_njolk"]
+material = SubResource("StandardMaterial3D_e0dfc")
+radius = 0.3
+height = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i5qnx"]
+radius = 0.3
+
+[node name="BossBullet" type="Area3D"]
+collision_layer = 2
+script = ExtResource("1_4brq5")
+lifespan = 5.0
+speed = 12.0
+damage = 0.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_njolk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_i5qnx")

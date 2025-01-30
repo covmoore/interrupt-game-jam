@@ -3,7 +3,7 @@ class_name Gun extends Node3D
 @export var bullet_scene: PackedScene
 @export var muzzle_speed: float = 50.0
 @export var fire_rate:float = 0.2
-@export var player: CharacterBody3D = null
+@export var user: CharacterBody3D = null
 var can_shoot = true
 
 @onready var audio_player
@@ -31,8 +31,9 @@ func shoot_burst(burst_num: int, burst_rate: float, enemy: Enemy = null):
 
 func fire(time: float, pos = null):
 	var new_bullet = bullet_scene.instantiate()
-	audio_player.play()
-	new_bullet.shot_by = player
+	if audio_player != null:
+		audio_player.play()
+	new_bullet.shot_by = user
 	new_bullet.damage = 1
 	new_bullet.global_transform = $Muzzle.global_transform
 	if pos != null:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3 uid="uid://bcrnhkm7n7ejm"]
+[gd_scene load_steps=144 format=3 uid="uid://bcrnhkm7n7ejm"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_bbrec"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_mva7x"]
@@ -8,16 +8,16 @@
 [ext_resource type="Script" path="res://scripts/managers/room_manager.gd" id="4_7eefm"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
 [ext_resource type="Texture2D" uid="uid://b1003ykp85o5d" path="res://images/room0-text.png" id="6_odr38"]
-[ext_resource type="PackedScene" uid="uid://bi48fce1ya15w" path="res://prefabs/rail_enemy.tscn" id="9_0tqef"]
-[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://prefabs/player_ui.tscn" id="9_3ai7s"]
+[ext_resource type="PackedScene" path="res://prefabs/player_ui.tscn" id="9_3ai7s"]
 [ext_resource type="PackedScene" uid="uid://bds5k3xnl54ii" path="res://prefabs/bomber_enemy.tscn" id="9_bfmmw"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="9_g68le"]
 [ext_resource type="PackedScene" uid="uid://bdvb46gk1fkg" path="res://prefabs/shooting_enemy.tscn" id="9_orjg1"]
 [ext_resource type="Script" path="res://scripts/models/enemy_spawner.gd" id="10_de85t"]
-[ext_resource type="Material" uid="uid://b0d5whnc5744t" path="res://materials/door.tres" id="10_ywes5"]
+[ext_resource type="Material" path="res://materials/door.tres" id="10_ywes5"]
 [ext_resource type="Script" path="res://scripts/models/wave.gd" id="11_xxg05"]
-[ext_resource type="Script" path="res://scripts/models/mind_trigger.gd" id="12_kokh7"]
+[ext_resource type="PackedScene" uid="uid://d0n1kno37q6jw" path="res://prefabs/boss.tscn" id="13_1s28w"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="13_2epaw"]
+[ext_resource type="PackedScene" uid="uid://bi48fce1ya15w" path="res://prefabs/rail_enemy.tscn" id="15_ycndb"]
 [ext_resource type="Script" path="res://scripts/managers/audioManager.gd" id="18_u0ykp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ugbub"]
@@ -106,13 +106,13 @@ albedo_color = Color(1, 0.141176, 1, 1)
 script = ExtResource("11_xxg05")
 wave_number = 1
 spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("9_0tqef")])
+enemies = Array[PackedScene]([ExtResource("9_orjg1")])
 
 [sub_resource type="Resource" id="Resource_wpw7l"]
 script = ExtResource("11_xxg05")
 wave_number = 1
-spawn_rate = 2.0
-enemies = Array[PackedScene]([ExtResource("9_0tqef")])
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("9_orjg1")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_r75fj"]
 material = ExtResource("10_ywes5")
@@ -185,13 +185,13 @@ size = Vector3(6.40018, 0.01, 4.87164)
 vertices = PackedVector3Array(-7, 0.5, -7, -7, 0.5, 7, 7, 0.5, 7, 7, 0.5, -7)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
-[sub_resource type="Resource" id="Resource_8frrt"]
+[sub_resource type="Resource" id="Resource_i5rvk"]
 script = ExtResource("11_xxg05")
 wave_number = 1
 spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("9_orjg1")])
+enemies = Array[PackedScene]([ExtResource("9_orjg1"), ExtResource("9_bfmmw")])
 
-[sub_resource type="Resource" id="Resource_t4m1f"]
+[sub_resource type="Resource" id="Resource_xy4cn"]
 script = ExtResource("11_xxg05")
 wave_number = 2
 spawn_rate = 2.0
@@ -303,13 +303,13 @@ enemies = Array[PackedScene]([ExtResource("9_orjg1")])
 script = ExtResource("11_xxg05")
 wave_number = 2
 spawn_rate = 1.0
-enemies = Array[PackedScene]([ExtResource("9_bfmmw")])
+enemies = Array[PackedScene]([ExtResource("15_ycndb")])
 
 [sub_resource type="Resource" id="Resource_ijn7l"]
 script = ExtResource("11_xxg05")
 wave_number = 3
 spawn_rate = 2.0
-enemies = Array[PackedScene]([ExtResource("9_orjg1"), ExtResource("9_orjg1")])
+enemies = Array[PackedScene]([ExtResource("9_orjg1"), ExtResource("15_ycndb")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_ojsuk"]
 material = ExtResource("10_ywes5")
@@ -489,21 +489,11 @@ size = Vector3(15, 0.01, 15)
 material = ExtResource("3_v2qkb")
 size = Vector3(1.2, 1.6, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3jhv"]
-transparency = 1
-blend_mode = 3
-albedo_color = Color(0.432665, 0.00241212, 0.853589, 1)
-roughness = 0.0
-emission_enabled = true
-emission = Color(0.554953, 0.2697, 1, 1)
-emission_operator = 1
-
-[sub_resource type="SphereMesh" id="SphereMesh_a6qfg"]
-material = SubResource("StandardMaterial3D_t3jhv")
-radius = 1.5
-height = 3.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_hs8th"]
+[sub_resource type="Resource" id="Resource_6vn06"]
+script = ExtResource("11_xxg05")
+wave_number = 1
+spawn_rate = 1.0
+enemies = Array[PackedScene]([ExtResource("13_1s28w")])
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y77kf"]
 size = Vector3(0.601074, 0.528076, 3)
@@ -881,7 +871,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2251, 0.55, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5.4)
 script = ExtResource("10_de85t")
 initial_delay = 1.0
-rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_8frrt"), SubResource("Resource_t4m1f")])
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_i5rvk"), SubResource("Resource_xy4cn")])
 
 [node name="Zone2" type="Marker3D" parent="room2/EnemySpawnZones"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43023, 0, -0.25114)
@@ -1280,10 +1270,12 @@ mesh = SubResource("BoxMesh_6xwfe")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room5/door"]
 shape = SubResource("BoxShape3D_1ej10")
 
-[node name="boss_room" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+[node name="boss_room" type="Node3D" parent="." node_paths=PackedStringArray("player", "enemySpawners")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15442, 0, -29.9524)
 script = ExtResource("4_7eefm")
 player = NodePath("../Player")
+number_of_waves = 1
+enemySpawners = [NodePath("EnemySpawnZones/Zone1")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="boss_room"]
 environment = SubResource("Environment_m23uw")
@@ -1366,15 +1358,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01648, 8.3596, 0)
 light_energy = 10.799
 omni_range = 20.0
 
-[node name="Area3D" type="Area3D" parent="boss_room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12386, 0.216298, 0)
-script = ExtResource("12_kokh7")
+[node name="EnemySpawnZones" type="Node3D" parent="boss_room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0346, 0.55, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="boss_room/Area3D"]
-mesh = SubResource("SphereMesh_a6qfg")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="boss_room/Area3D"]
-shape = SubResource("SphereShape3D_hs8th")
+[node name="Zone1" type="Marker3D" parent="boss_room/EnemySpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0469208, 0, 0.41522)
+script = ExtResource("10_de85t")
+initial_delay = 1.0
+rounds = Array[ExtResource("11_xxg05")]([SubResource("Resource_6vn06")])
 
 [node name="pivot_anchors" type="Node3D" parent="."]
 

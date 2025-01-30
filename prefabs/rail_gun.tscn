@@ -18,11 +18,11 @@ size = Vector3(0.085, 0.15, 0.16)
 [sub_resource type="BoxMesh" id="BoxMesh_nwe1v"]
 size = Vector3(0.08, 0.15, 0.16)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8c7s1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d4vsg"]
 albedo_color = Color(0.327171, 0.477111, 0.865207, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_mxr04"]
-material = SubResource("StandardMaterial3D_8c7s1")
+material = SubResource("StandardMaterial3D_d4vsg")
 top_radius = 0.05
 bottom_radius = 0.05
 height = 0.1
@@ -62,7 +62,8 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.007
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0512151, -0.63861)
-target_position = Vector3(0, -15, 0)
+target_position = Vector3(0, -20, 0)
+collision_mask = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RayCast3D"]
 unique_name_in_owner = true

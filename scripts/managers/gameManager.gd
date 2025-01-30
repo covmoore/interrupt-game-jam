@@ -79,7 +79,6 @@ func set_room(curRoom: String):
 		else:
 			room.visible = false
 	for anchor in pivot_anchors:
-		print(anchor)
 		if anchor.room == curRoom:
 			camera.move_to_room(anchor)
 	current_room = curRoom

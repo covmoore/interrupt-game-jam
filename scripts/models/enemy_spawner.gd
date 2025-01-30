@@ -18,9 +18,9 @@ func spawn_enemies(enemies: Array[PackedScene], spawn_rate: float):
 	await try_await(initial_delay)
 	for enemy in enemies:
 		var new_enemy = enemy.instantiate()
-		new_enemy.global_transform = global_transform
 		var scene_root = get_tree().get_root().get_children()[0]
 		scene_root.add_child(new_enemy)
+		new_enemy.global_transform = global_transform
 		new_enemy.spawn()
 		await try_await(spawn_rate)
 

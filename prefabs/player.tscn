@@ -354,11 +354,11 @@ bind/41/bone = -1
 bind/41/pose = Transform3D(-1.47542, -9.21244e-08, 3.57063e-08, 3.57063e-08, -3.46271e-07, 1.47542, -9.21244e-08, 1.47542, 5.49637e-09, -0.105895, -0.202024, -1.46633)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_we0ex"]
-radius = 0.25
+radius = 0.255283
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gel3u"]
 radius = 0.2
-height = 1.0
+height = 1.7797
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_v3hkg"]
 radius = 1.6
@@ -372,7 +372,7 @@ interactDetection = NodePath("AreaDetection")
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="Character_Mesh" type="Node3D" parent="Pivot"]
-transform = Transform3D(-0.65, 0, -9.81473e-08, 0, 0.65, 0, 9.81473e-08, 0, -0.65, 0.014, -0.487, -0.214)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.014, -0.487, -0.214)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Pivot/Character_Mesh"]
 transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, 0, 0, 0)
@@ -675,10 +675,10 @@ bones/41/scale = Vector3(1, 1, 1)
 mesh = SubResource("ArrayMesh_dixal")
 skin = SubResource("Skin_7bohh")
 
-[node name="Gun" parent="Pivot/Character_Mesh" node_paths=PackedStringArray("player") instance=ExtResource("2_4sagr")]
+[node name="Gun" parent="Pivot/Character_Mesh" node_paths=PackedStringArray("user") instance=ExtResource("2_4sagr")]
 transform = Transform3D(-1.53846, 0, 2.32301e-07, 0, 1.53846, 0, -2.32301e-07, 0, -1.53846, -0.252994, 1.40104, 0.205145)
 visible = false
-player = NodePath("../../..")
+user = NodePath("../../..")
 
 [node name="Barrel_Start" type="Node3D" parent="Pivot/Character_Mesh/Gun"]
 transform = Transform3D(1, 0, 2.84217e-14, 0, 1, 0, -2.84217e-14, 0, 1, -0.046446, 0.118322, 0.079344)
@@ -687,10 +687,11 @@ transform = Transform3D(1, 0, 2.84217e-14, 0, 1, 0, -2.84217e-14, 0, 1, -0.04644
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
 
 [node name="HeadCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.677, 0, 0, 0, 0.677, 0, 0, 0, 0.677, 0, 0.694, 0)
+transform = Transform3D(0.677, 0, 0, 0, 0.677, 0, 0, 0, 0.677, 0, 1.35985, 0.10834)
 shape = SubResource("SphereShape3D_we0ex")
 
 [node name="BodyCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.331419, 0.133078)
 shape = SubResource("CapsuleShape3D_gel3u")
 
 [node name="AreaDetection" type="Area3D" parent="."]
