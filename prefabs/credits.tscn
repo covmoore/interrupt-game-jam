@@ -1,0 +1,101 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2p8cosku0gln"]
+
+[ext_resource type="Script" path="res://scripts/ui/credits.gd" id="1_84s7e"]
+[ext_resource type="Texture2D" uid="uid://1mkq8qpgtjtb" path="res://images/enterthedungeoncredits.png" id="2_bdqcn"]
+[ext_resource type="Texture2D" uid="uid://dicea7ssbobrk" path="res://images/playersfxcredits.png" id="3_trck6"]
+
+[sub_resource type="Gradient" id="Gradient_3ws1x"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.160784, 0.298039, 0.427451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_icpq8"]
+gradient = SubResource("Gradient_3ws1x")
+
+[sub_resource type="SystemFont" id="SystemFont_yva7q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fdf6v"]
+font = SubResource("SystemFont_yva7q")
+font_size = 52
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Credits" type="Control" node_paths=PackedStringArray("go_back_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_84s7e")
+go_back_button = NodePath("Background/Button")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_icpq8")
+
+[node name="Title" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.0
+offset_top = 4.0
+offset_right = 132.0
+offset_bottom = 76.0
+grow_horizontal = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_fdf6v")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="enterthedungeon" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -231.5
+offset_right = 1.0
+offset_bottom = 231.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bdqcn")
+expand_mode = 1
+
+[node name="playersfx" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -231.5
+offset_right = 401.0
+offset_bottom = 231.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_trck6")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -78.0
+offset_right = 125.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Go Back"
