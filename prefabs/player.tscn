@@ -672,6 +672,7 @@ bones/41/rotation = Quaternion(-9.9629e-08, 0.695768, 0.718266, 5.25291e-08)
 bones/41/scale = Vector3(1, 1, 1)
 
 [node name="Character" type="MeshInstance3D" parent="Pivot/Character_Mesh/Skeleton3D"]
+layers = 2
 mesh = SubResource("ArrayMesh_dixal")
 skin = SubResource("Skin_7bohh")
 

@@ -24,6 +24,7 @@ func on_selected(cam: Camera3D, player: Player):
 
 func on_hover():
 	if isSubInteractable:
+		print("based")
 		parent = get_node(parent_path)
 		if parent.isActive:
 			for child in get_children():

@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/managers/room_manager.gd" id="4_7eefm"]
 [ext_resource type="Shader" path="res://shaders/cyber_dungeon.gdshader" id="5_xgppb"]
 [ext_resource type="Texture2D" uid="uid://b1003ykp85o5d" path="res://images/room0-text.png" id="6_odr38"]
-[ext_resource type="PackedScene" path="res://prefabs/player_ui.tscn" id="9_3ai7s"]
+[ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://prefabs/player_ui.tscn" id="9_3ai7s"]
 [ext_resource type="PackedScene" uid="uid://bds5k3xnl54ii" path="res://prefabs/bomber_enemy.tscn" id="9_bfmmw"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="9_g68le"]
 [ext_resource type="PackedScene" uid="uid://bdvb46gk1fkg" path="res://prefabs/shooting_enemy.tscn" id="9_orjg1"]
