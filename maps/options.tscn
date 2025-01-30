@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtp5d61cf3e6x"]
+
+[ext_resource type="Script" path="res://scripts/ui/options.gd" id="1_gvfr1"]
+[ext_resource type="Script" path="res://scripts/ui/volume_slider.gd" id="2_ecmuj"]
+
+[sub_resource type="Gradient" id="Gradient_3ws1x"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.160784, 0.298039, 0.427451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0ay50"]
+gradient = SubResource("Gradient_3ws1x")
+
+[sub_resource type="SystemFont" id="SystemFont_yva7q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iskjw"]
+font = SubResource("SystemFont_yva7q")
+font_size = 52
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Options" type="Control" node_paths=PackedStringArray("back_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gvfr1")
+back_button = NodePath("Background/Back")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_0ay50")
+
+[node name="Title" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 75.0
+offset_right = 125.0
+offset_bottom = 147.0
+grow_horizontal = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_iskjw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -174.0
+offset_right = 224.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Background/Settings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("2_ecmuj")
+bus_name = "Master"
+
+[node name="Labels" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -175.0
+offset_right = -46.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MasterVolume" type="Label" parent="Background/Labels"]
+layout_mode = 2
+text = "Master Volume:"
+horizontal_alignment = 2
+
+[node name="Back" type="Button" parent="Background"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -126.0
+offset_top = -98.0
+offset_right = 124.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back
+"

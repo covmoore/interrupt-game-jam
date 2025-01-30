@@ -9,7 +9,7 @@ func _on_PlayButton_pressed():
 	get_tree().change_scene_to_file("res://maps/dungeon.tscn")
 	
 func _on_OptionsButton_pressed():
-	print("implement this later")
+	get_tree().change_scene_to_file("res://maps/options.tscn")
 
 func _on_QuitButton_pressed():
 	get_tree().quit(0)
