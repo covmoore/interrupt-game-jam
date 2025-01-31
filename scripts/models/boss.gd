@@ -4,9 +4,13 @@ class_name Boss extends Enemy
 @export var burst_num: int = 0
 @export var burst_rate: float = 0.4
 @onready var mind_trigger: MindTrigger = $MindTrigger
+@onready var root_node
+@onready var player_ui_node
 
 func _ready() -> void:
 	mind_trigger.visible = false
+	root_node = get_tree().current_scene
+	player_ui_node = root_node.get_node("PlayerUI")
 	super._ready()
 
 func attack_player(pos = null):
@@ -36,3 +40,4 @@ func take_damage(shot_by: CharacterBody3D, dmg: float):
 func open_mind():
 	mind_trigger.visible = true
 	mind_trigger.make_hackable()
+	player_ui_node.change_state(player_ui_node.UIState.BOSS_DEFEATED)
