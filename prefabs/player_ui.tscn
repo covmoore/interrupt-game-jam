@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bx318d6ukm8n2"]
 
 [ext_resource type="Script" path="res://scripts/ui/player_ui.gd" id="1_c76ns"]
-[ext_resource type="Script" path="res://scripts/ui/panel.gd" id="2_3nlbv"]
+[ext_resource type="Script" path="res://prefabs/hud.gd" id="2_k4m2q"]
 [ext_resource type="Script" path="res://scripts/ui/interact_panel.gd" id="3_55d8k"]
 [ext_resource type="Script" path="res://scripts/ui/restart_panel.gd" id="4_7gvqm"]
 [ext_resource type="Script" path="res://scripts/ui/pause_panel.gd" id="5_mdboe"]
@@ -69,7 +69,7 @@ theme_override_constants/margin_bottom = 12
 [node name="hud" type="Control" parent="CanvasLayer/MarginContainer"]
 visibility_layer = 1024
 layout_mode = 2
-script = ExtResource("2_3nlbv")
+script = ExtResource("2_k4m2q")
 
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer/MarginContainer/hud"]
 modulate = Color(0, 0.733333, 0, 1)
