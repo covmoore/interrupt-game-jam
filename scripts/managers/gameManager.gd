@@ -21,6 +21,7 @@ var gameState = GameState.NORMAL
 
 var current_room = ""
 var current_inspected: Inspectable = null
+var timer: SceneTreeTimer = null
 
 signal on_cancel_interaction
 signal on_back_interaction
@@ -29,6 +30,11 @@ signal on_back_interaction
 func _ready() -> void:
 	set_room(main_room.name)
 	set_room_context()
+	
+
+func _on_timer_timeout():
+	print("dead")
+	player.take_damage(1000000)
 
 func get_camera():
 	return camera
@@ -43,6 +49,8 @@ func set_room_context():
 	elif room_type == RoomType.MIND:
 		player.change_state(Player.PlayerState.IDLE)
 		change_state(GameState.NORMAL)
+		timer = get_tree().create_timer(60*10)
+		timer.connect("timeout", _on_timer_timeout)
 	else:
 		pass
 
@@ -52,7 +60,7 @@ func change_state(state: GameState):
 		if room_type == RoomType.DUNGEON:
 			player.change_state(Player.PlayerState.KILLING_MODE)
 			camera.change_state(Camera.CameraState.GLOBAL)
-			uiManager.change_state(UIManager.UIState.IDLE)
+			uiManager.change_state(UIManager.UIState.KILLING)
 		elif room_type == RoomType.MIND:
 			player.change_state(Player.PlayerState.IDLE)
 			camera.change_state(Camera.CameraState.GLOBAL)

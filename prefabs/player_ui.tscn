@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://bx318d6ukm8n2"]
 
 [ext_resource type="Script" path="res://scripts/ui/player_ui.gd" id="1_c76ns"]
-[ext_resource type="Script" path="res://scripts/ui/panel.gd" id="2_3nlbv"]
+[ext_resource type="Script" path="res://prefabs/hud.gd" id="2_k4m2q"]
 [ext_resource type="Script" path="res://scripts/ui/boss_defeated_panel.gd" id="3_1wvm8"]
 [ext_resource type="Script" path="res://scripts/ui/interact_panel.gd" id="3_55d8k"]
 [ext_resource type="Script" path="res://scripts/ui/restart_panel.gd" id="4_7gvqm"]
@@ -73,7 +73,7 @@ theme_override_constants/margin_bottom = 12
 [node name="hud" type="Control" parent="CanvasLayer/MarginContainer"]
 visibility_layer = 1024
 layout_mode = 2
-script = ExtResource("2_3nlbv")
+script = ExtResource("2_k4m2q")
 
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer/MarginContainer/hud"]
 modulate = Color(0, 0.733333, 0, 1)
@@ -86,6 +86,14 @@ max_value = 5.0
 value = 5.0
 fill_mode = 1
 
+[node name="Timer" type="Label" parent="CanvasLayer/MarginContainer/hud"]
+layout_mode = 0
+offset_left = 525.25
+offset_top = 8.43
+offset_right = 597.25
+offset_bottom = 47.43
+theme_override_font_sizes/font_size = 28
+text = "10:00"
 [node name="BossDefeatedPanel" type="Control" parent="CanvasLayer/MarginContainer"]
 visible = false
 visibility_layer = 1024
