@@ -18,12 +18,7 @@ func _on_OptionsButton_pressed():
 	get_tree().change_scene_to_file("res://maps/options.tscn")
 	
 func _on_CreditsButton_pressed():
-	var credits_url = "https://drive.google.com/drive/folders/1PgYbVBYbB8uqkt6pU1wZYw5d4E-D_dL2?usp=drive_link"
-	# Check if running in the editor or not WebGL
-	if OS.has_feature("editor") or OS.get_name() != "Web":
-		OS.shell_open(credits_url)
-	else:
-		JavaScriptBridge.eval('window.open(%s, "_blank")' % credits_url)
+	get_tree().change_scene_to_file("res://prefabs/credits.tscn")
 
 func _on_QuitButton_pressed():
 	get_tree().quit(0)
