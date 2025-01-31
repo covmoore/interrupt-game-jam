@@ -1,4 +1,4 @@
-[gd_scene load_steps=204 format=4 uid="uid://bpy5y680rvwjc"]
+[gd_scene load_steps=205 format=4 uid="uid://bpy5y680rvwjc"]
 
 [ext_resource type="PackedScene" uid="uid://clfr6g1wxrggi" path="res://prefabs/player.tscn" id="1_136gs"]
 [ext_resource type="Script" path="res://scripts/managers/gameManager.gd" id="1_581u0"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bx318d6ukm8n2" path="res://prefabs/player_ui.tscn" id="14_mhnod"]
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="15_ww2tj"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="16_hmwhx"]
+[ext_resource type="Script" path="res://maps/mind_audio_manager.gd" id="17_xmglv"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7qubq"]
 size = Vector2(12, 5)
@@ -449,7 +450,7 @@ depth = 0.005
 size = Vector3(0.015, 0.02, 0.02)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h8kcf"]
-size = Vector3(0.382755, 2.33826, 2.52464)
+size = Vector3(0.441047, 2.33826, 2.52464)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4g0fa"]
 size = Vector3(0.085, 0.615, 0.4)
@@ -2619,11 +2620,13 @@ shape = SubResource("BoxShape3D_2ckmh")
 
 [node name="Bookshelf" type="StaticBody3D" parent="main_room/inspectables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.71433, 1.17027, 3.70441)
+collision_layer = 8
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="main_room/inspectables/Bookshelf"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0911226, 0.0106776, -0.0077002)
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0619764, 0.0106776, -0.0077002)
 shape = SubResource("BoxShape3D_h8kcf")
 
 [node name="camera_anchor" type="Node3D" parent="main_room/inspectables/Bookshelf"]
@@ -2633,7 +2636,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.394
 
 [node name="Nineteen Eighty-Four" type="StaticBody3D" parent="main_room/inspectables/Bookshelf/sub_interactables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.245577, 0.631417, -0.695912)
-collision_layer = 8
+collision_layer = 16
 collision_mask = 23
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
@@ -2663,8 +2666,8 @@ mesh = SubResource("ArrayMesh_pw5m4")
 skeleton = NodePath("")
 
 [node name="Ready Player One" type="StaticBody3D" parent="main_room/inspectables/Bookshelf/sub_interactables" groups=["interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.245577, 0.63743, 0.0489633)
-collision_layer = 8
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14107, 0.63743, 0.0489633)
+collision_layer = 16
 collision_mask = 23
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
@@ -2695,7 +2698,7 @@ skeleton = NodePath("")
 
 [node name="Martian Chronicles" type="StaticBody3D" parent="main_room/inspectables/Bookshelf/sub_interactables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.245577, -0.00327075, 0.83881)
-collision_layer = 8
+collision_layer = 16
 collision_mask = 23
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
@@ -2726,7 +2729,7 @@ skeleton = NodePath("")
 
 [node name="All Tomorrows" type="StaticBody3D" parent="main_room/inspectables/Bookshelf/sub_interactables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.245577, -0.0224035, -0.377519)
-collision_layer = 8
+collision_layer = 16
 collision_mask = 23
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
@@ -2757,7 +2760,7 @@ skeleton = NodePath("")
 
 [node name="Foundation" type="StaticBody3D" parent="main_room/inspectables/Bookshelf/sub_interactables" groups=["interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.245577, -0.625522, 0.281667)
-collision_layer = 8
+collision_layer = 16
 collision_mask = 23
 script = ExtResource("5_ve011")
 "Is Sub Interactable" = true
@@ -2787,71 +2790,85 @@ mesh = SubResource("ArrayMesh_ilwu0")
 skeleton = NodePath("")
 
 [node name="BookCase" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-5.45518e-08, 0, -0.339, 0, 1.182, 0, 1.248, 0, -1.48182e-08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_dnx47")
 skeleton = NodePath("")
 
 [node name="Book_002" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-1.5759e-09, -3.05696e-09, -0.185943, -0.00912197, 0.276402, 0, 0.0360524, 0.0699351, -8.12782e-09, -0.00917149, 0.691562, -0.711307)
 mesh = SubResource("ArrayMesh_y3q0s")
 skeleton = NodePath("")
 
 [node name="Book_003" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-1.5033e-09, -4.74184e-09, -0.185943, -0.0141496, 0.263668, 0, 0.0343915, 0.108481, -8.12782e-09, -0.00917149, 0.682611, 0.965218)
 mesh = SubResource("ArrayMesh_gkn1d")
 skeleton = NodePath("")
 
 [node name="Book_004" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-2.21661e-09, -0.212421, -0.124027, -0.0371885, 1.26613e-08, 7.39258e-09, -9.68911e-17, 0.190175, -0.138535, -0.00917149, -1.02622, -0.796312)
 mesh = SubResource("ArrayMesh_w53wv")
 skeleton = NodePath("")
 
 [node name="Book_006" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-1.52421e-09, 4.3318e-09, -0.185943, 0.0129261, 0.267335, 0, 0.0348698, -0.0991001, -8.12782e-09, -0.00917149, -0.029433, -0.980779)
 mesh = SubResource("ArrayMesh_tix63")
 skeleton = NodePath("")
 
 [node name="Book_008" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(0.000485183, -0.00538407, -0.185894, 0.00841611, 0.27768, -0.00287157, 0.0362205, -0.064449, 0.00315733, -0.0777259, 0.693594, -0.480494)
 mesh = SubResource("ArrayMesh_ih2h6")
 skeleton = NodePath("")
 
 [node name="Book_011" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-0.00189896, -0.0650187, -0.180794, -0.0362899, 0.0622986, -1.60192e-08, 0.0079009, 0.270519, -0.0434535, -0.00917149, -0.222697, 0.319068)
 mesh = SubResource("ArrayMesh_3ouwp")
 skeleton = NodePath("")
 
 [node name="Book_012" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-5.81347e-16, -1.24627e-08, -0.185943, -0.0371885, 1.01964e-07, 0, 1.32997e-08, 0.285112, -8.12782e-09, 0.0361948, 0.432459, 0.453545)
 mesh = SubResource("ArrayMesh_qukxh")
 skeleton = NodePath("")
 
 [node name="Book_013" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-5.81347e-16, -1.24627e-08, -0.185943, -0.0371885, 1.01964e-07, 0, 1.32997e-08, 0.285112, -8.12782e-09, -0.00917149, 0.676601, 0.425771)
 mesh = SubResource("ArrayMesh_ryq8c")
 skeleton = NodePath("")
 
 [node name="Book_014" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(0.00246452, 0.119004, 0.168521, -0.0365592, 0.0521151, -0.00228658, -0.0063516, -0.253793, 0.0785501, -0.00917149, -0.967017, -0.196348)
 mesh = SubResource("ArrayMesh_anbs2")
 skeleton = NodePath("")
 
 [node name="Book_016" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-5.81347e-16, -1.24627e-08, -0.185943, -0.0371885, 1.01964e-07, 0, 1.32997e-08, 0.285112, -8.12782e-09, -0.00917149, 0.514032, 0.43778)
 mesh = SubResource("ArrayMesh_b3sdl")
 skeleton = NodePath("")
 
 [node name="Book_017" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-5.81347e-16, -1.24627e-08, -0.185943, -0.0371885, 1.01964e-07, 0, 1.32997e-08, 0.285112, -8.12782e-09, -0.0346413, 0.595393, 0.414064)
 mesh = SubResource("ArrayMesh_4adlx")
 skeleton = NodePath("")
 
 [node name="Book_021" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-5.81347e-16, -1.24627e-08, -0.185943, -0.0371885, 1.01964e-07, 0, 1.32997e-08, 0.285112, -8.12782e-09, -0.105584, 0.758161, 0.425771)
 mesh = SubResource("ArrayMesh_wyl14")
 skeleton = NodePath("")
 
 [node name="BookCase_001" type="MeshInstance3D" parent="main_room/inspectables/Bookshelf"]
+physics_interpolation_mode = 2
 transform = Transform3D(-5.45518e-08, 0, -0.339, 0, 1.182, 0, 1.248, 0, -1.48182e-08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_v2axn")
 skeleton = NodePath("")
@@ -3087,3 +3104,13 @@ gameManager = NodePath("../..")
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_pds2a")
+
+[node name="AudioManager" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("17_xmglv")
+camera = NodePath("../CameraPivot/Camera3D")
+
+[node name="mind_song" type="AudioStreamPlayer3D" parent="AudioManager"]
+volume_db = 7.0
+max_db = 6.0
+
+[node name="wind" type="AudioStreamPlayer3D" parent="AudioManager"]

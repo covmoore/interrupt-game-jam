@@ -67,7 +67,6 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
 [node name="hud" type="Control" parent="CanvasLayer/MarginContainer"]
-visible = false
 visibility_layer = 1024
 layout_mode = 2
 script = ExtResource("2_3nlbv")
@@ -82,6 +81,15 @@ offset_bottom = 35.0
 max_value = 5.0
 value = 5.0
 fill_mode = 1
+
+[node name="Timer" type="Label" parent="CanvasLayer/MarginContainer/hud"]
+layout_mode = 0
+offset_left = 525.25
+offset_top = 8.43
+offset_right = 597.25
+offset_bottom = 47.43
+theme_override_font_sizes/font_size = 28
+text = "10:00"
 
 [node name="interactMenu" type="Control" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("exit_button", "back_button", "ui_manager")]
 visible = false
