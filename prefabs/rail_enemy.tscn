@@ -16,15 +16,15 @@ material = SubResource("StandardMaterial3D_if5h6")
 radius = 0.15
 height = 0.3
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_7j7kx"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d5vdu"]
 radius = 0.25
 height = 1.75
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dkjwe"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_soydl"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqi2q"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3la0"]
 render_priority = 1
-next_pass = SubResource("StandardMaterial3D_dkjwe")
+next_pass = SubResource("StandardMaterial3D_soydl")
 albedo_color = Color(0.427443, 0.619779, 0.922407, 1)
 albedo_texture_msdf = true
 metallic_specular = 0.0
@@ -33,7 +33,7 @@ emission = Color(0.705882, 0.290196, 1, 1)
 emission_energy_multiplier = 2.06
 clearcoat_roughness = 0.0
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_231a8"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_krbfw"]
 radius = 0.255193
 height = 1.75
 
@@ -51,14 +51,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000884116, 0.51602, -0.175
 mesh = SubResource("SphereMesh_oxels")
 
 [node name="Body" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_7j7kx")
-surface_material_override/0 = SubResource("StandardMaterial3D_aqi2q")
+mesh = SubResource("CapsuleMesh_d5vdu")
+surface_material_override/0 = SubResource("StandardMaterial3D_j3la0")
 
 [node name="RailGun" parent="Body" instance=ExtResource("5_6r26w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.290807, 0.0800183, -0.0948231)
 bullet_scene = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_231a8")
+shape = SubResource("CapsuleShape3D_krbfw")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

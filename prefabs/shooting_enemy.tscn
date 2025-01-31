@@ -6,21 +6,21 @@
 [ext_resource type="Material" uid="uid://bl2khh1dv1nsr" path="res://materials/black.tres" id="4_yutdr"]
 [ext_resource type="PackedScene" uid="uid://dfeftj73jy3nv" path="res://prefabs/enemy_gun.tscn" id="5_65ey0"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_6eu86"]
+[sub_resource type="BoxMesh" id="BoxMesh_tcmf0"]
 size = Vector3(0.5, 0.25, 0.25)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_7j7kx"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_t6x2m"]
 radius = 0.35
 height = 1.75
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dkjwe"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6aagc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqi2q"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0nl6"]
 render_priority = 1
-next_pass = SubResource("StandardMaterial3D_dkjwe")
+next_pass = SubResource("StandardMaterial3D_6aagc")
 albedo_color = Color(1, 0.0980392, 0.0666667, 1)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_231a8"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l28dn"]
 radius = 0.35
 height = 1.75
 
@@ -37,17 +37,17 @@ spawning_sound = ExtResource("3_5crsw")
 [node name="Eye" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51602, -0.3)
 material_override = ExtResource("4_yutdr")
-mesh = SubResource("BoxMesh_6eu86")
+mesh = SubResource("BoxMesh_tcmf0")
 
 [node name="Body" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_7j7kx")
-surface_material_override/0 = SubResource("StandardMaterial3D_aqi2q")
+mesh = SubResource("CapsuleMesh_t6x2m")
+surface_material_override/0 = SubResource("StandardMaterial3D_s0nl6")
 
 [node name="Gun" parent="Body" node_paths=PackedStringArray("user") instance=ExtResource("5_65ey0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.137769, -0.135773)
 user = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_231a8")
+shape = SubResource("CapsuleShape3D_l28dn")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

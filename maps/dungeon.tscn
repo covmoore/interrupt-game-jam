@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://scripts/handlers/pivot_anchor_handler.gd" id="9_g68le"]
 [ext_resource type="PackedScene" uid="uid://bdvb46gk1fkg" path="res://prefabs/shooting_enemy.tscn" id="9_orjg1"]
 [ext_resource type="Script" path="res://scripts/models/enemy_spawner.gd" id="10_de85t"]
-[ext_resource type="Material" uid="uid://b0d5whnc5744t" path="res://materials/door.tres" id="10_ywes5"]
+[ext_resource type="Material" path="res://materials/door.tres" id="10_ywes5"]
 [ext_resource type="Script" path="res://scripts/models/wave.gd" id="11_xxg05"]
 [ext_resource type="PackedScene" uid="uid://d0n1kno37q6jw" path="res://prefabs/boss.tscn" id="13_1s28w"]
 [ext_resource type="Script" path="res://scripts/handlers/room_change_trigger.gd" id="13_2epaw"]
