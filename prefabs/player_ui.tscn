@@ -1,12 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://bx318d6ukm8n2"]
+[gd_scene load_steps=13 format=3 uid="uid://bx318d6ukm8n2"]
 
 [ext_resource type="Script" path="res://scripts/ui/player_ui.gd" id="1_c76ns"]
 [ext_resource type="Script" path="res://scripts/ui/panel.gd" id="2_3nlbv"]
+[ext_resource type="Script" path="res://scripts/ui/boss_defeated_panel.gd" id="3_1wvm8"]
 [ext_resource type="Script" path="res://scripts/ui/interact_panel.gd" id="3_55d8k"]
 [ext_resource type="Script" path="res://scripts/ui/restart_panel.gd" id="4_7gvqm"]
+[ext_resource type="Script" path="res://scripts/ui/control_room_panel.gd" id="4_wt388"]
 [ext_resource type="Script" path="res://scripts/ui/pause_panel.gd" id="5_mdboe"]
 [ext_resource type="Script" path="res://scripts/ui/options_panel.gd" id="6_cy3il"]
 [ext_resource type="Script" path="res://scripts/ui/volume_slider.gd" id="6_i4psn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e4d1x"]
+font_size = 72
+font_color = Color(0, 0, 0, 1)
+outline_size = 2
+shadow_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvkkl"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -24,13 +32,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_e4d1x"]
-font_size = 72
-font_color = Color(0, 0, 0, 1)
-outline_size = 2
-shadow_color = Color(1, 1, 1, 1)
-
-[node name="PlayerUI" type="Control" node_paths=PackedStringArray("canvas", "hud", "healthbar", "interactMenu", "optionsMenu", "restartMenu", "pauseMenu")]
+[node name="PlayerUI" type="Control" node_paths=PackedStringArray("canvas", "hud", "healthbar", "interactMenu", "optionsMenu", "restartMenu", "pauseMenu", "bossDefeatedMenu", "controlRoomPanel")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -51,6 +53,8 @@ interactMenu = NodePath("CanvasLayer/MarginContainer/interactMenu")
 optionsMenu = NodePath("CanvasLayer/MarginContainer/OptionsPanel")
 restartMenu = NodePath("CanvasLayer/MarginContainer/RestartPanel")
 pauseMenu = NodePath("CanvasLayer/MarginContainer/PausePanel")
+bossDefeatedMenu = NodePath("CanvasLayer/MarginContainer/BossDefeatedPanel")
+controlRoomPanel = NodePath("CanvasLayer/MarginContainer/ControlRoomPanel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -67,7 +71,6 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
 [node name="hud" type="Control" parent="CanvasLayer/MarginContainer"]
-visible = false
 visibility_layer = 1024
 layout_mode = 2
 script = ExtResource("2_3nlbv")
@@ -82,6 +85,75 @@ offset_bottom = 35.0
 max_value = 5.0
 value = 5.0
 fill_mode = 1
+
+[node name="BossDefeatedPanel" type="Control" parent="CanvasLayer/MarginContainer"]
+visible = false
+visibility_layer = 1024
+layout_mode = 2
+script = ExtResource("3_1wvm8")
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/BossDefeatedPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.5
+offset_top = 100.0
+offset_right = 465.5
+offset_bottom = 149.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.329412, 1, 1)
+theme_override_font_sizes/font_size = 35
+text = "You've defeated the boss... Approach to enter the mind"
+
+[node name="ControlRoomPanel" type="Control" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("play_again_button", "return_button")]
+visibility_layer = 1024
+layout_mode = 2
+script = ExtResource("4_wt388")
+play_again_button = NodePath("VBoxContainer/PlayAgainButton")
+return_button = NodePath("VBoxContainer/ReturnButton")
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ControlRoomPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -460.5
+offset_top = 20.0
+offset_right = 460.5
+offset_bottom = 323.0
+grow_horizontal = 2
+text = "you hacked the mind
+Thanks for Playing the
+demo"
+label_settings = SubResource("LabelSettings_e4d1x")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/ControlRoomPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -274.0
+offset_right = 125.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="PlayAgainButton" type="Button" parent="CanvasLayer/MarginContainer/ControlRoomPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Play Again"
+
+[node name="ReturnButton" type="Button" parent="CanvasLayer/MarginContainer/ControlRoomPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Return To Menu"
 
 [node name="interactMenu" type="Control" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("exit_button", "back_button", "ui_manager")]
 visible = false
@@ -171,6 +243,7 @@ text = "Main Menu
 "
 
 [node name="PausePanel" type="Control" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("return_button", "options_button", "resume_button", "player_ui")]
+visible = false
 layout_mode = 2
 script = ExtResource("5_mdboe")
 return_button = NodePath("VBoxContainer/ReturnButton")
