@@ -85,32 +85,18 @@ func _physics_process(_delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = Vector3(movement.x, 0, movement.y).rotated(Vector3.UP, _camera.global_rotation.y).normalized()
 	
-	if gameManager.room_type == gameManager.RoomType.DUNGEON:
-		if direction:
-			if movement.y < 0:
-				animation_player.play("gun_down_walk_forward/Gun Up Walk Forward")
-			elif movement.y > 0:
-				animation_player.play("gun_down_walk_forward/Gun Up Walk Back")
-			elif movement.x > 0:
-				animation_player.play("gun_down_walk_forward/Gun Up Strafe Right")
-			elif movement.x < 0:
-				animation_player.play("gun_down_walk_forward/Gun Up Strafe Left")
-			direction = direction.normalized()
-		else:
-			animation_player.play("gun_down_walk_forward/Gun Up Idle")
+	if direction:
+		if movement.y < 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Walk Forward")
+		elif movement.y > 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Walk Back")
+		elif movement.x > 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Strafe Right")
+		elif movement.x < 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Strafe Left")
+		direction = direction.normalized()
 	else:
-		if direction:
-			if movement.y < 0:
-				animation_player.play("gun_down_walk_forward/Gun Down Walk Forward")
-			elif movement.y > 0:
-				animation_player.play("gun_down_walk_forward/Gun Down Walk Back")
-			elif movement.x > 0:
-				animation_player.play("gun_down_walk_forward/Gun Down Strafe Right")
-			elif movement.x < 0:
-				animation_player.play("gun_down_walk_forward/Gun Down Strafe Left")
-			direction = direction.normalized()
-		else:
-			animation_player.play("gun_down_walk_forward/Gun Down Idle")
+		animation_player.play("gun_down_walk_forward/Gun Up Idle")
 	
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
