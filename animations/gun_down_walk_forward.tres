@@ -1,0 +1,28 @@
+[gd_resource type="AnimationLibrary" load_steps=12 format=3 uid="uid://dajdktfda7jdf"]
+
+[ext_resource type="Animation" uid="uid://vpdsqqkitptr" path="res://Character/Gun Down Idle.res" id="1_cqm10"]
+[ext_resource type="Animation" uid="uid://cpm4cytrbm022" path="res://Character/Gun Down Run.res" id="2_mjm3r"]
+[ext_resource type="Animation" uid="uid://bl41p8t7nwv2t" path="res://Character/Gun Down Strafe Left.res" id="3_d52l8"]
+[ext_resource type="Animation" uid="uid://hnwl2uspml8u" path="res://Character/Gun Down Strafe Right.res" id="4_d6lhp"]
+[ext_resource type="Animation" uid="uid://v245u7l0uybt" path="res://Character/Gun Down Walk Back.res" id="5_2nf5o"]
+[ext_resource type="Animation" uid="uid://b5luypgql3bs4" path="res://Character/Gun Down Walk Forward.res" id="6_un2ey"]
+[ext_resource type="Animation" uid="uid://bx26q7xaybbd4" path="res://Character/Gun Up Idle.res" id="7_hrpod"]
+[ext_resource type="Animation" uid="uid://cihhm675ek2id" path="res://Character/Gun Up Strafe Left.res" id="8_ishbk"]
+[ext_resource type="Animation" uid="uid://jin3qk117336" path="res://Character/Gun Up Strafe Right.res" id="9_5ewaa"]
+[ext_resource type="Animation" uid="uid://c54j0pqy2605b" path="res://Character/Gun Up Walk Back.res" id="10_p0e4q"]
+[ext_resource type="Animation" uid="uid://cr30nf1b8p5yk" path="res://Character/Gun Up Walk Forward.res" id="11_ro81a"]
+
+[resource]
+_data = {
+"Gun Down Idle": ExtResource("1_cqm10"),
+"Gun Down Run": ExtResource("2_mjm3r"),
+"Gun Down Strafe Left": ExtResource("3_d52l8"),
+"Gun Down Strafe Right": ExtResource("4_d6lhp"),
+"Gun Down Walk Back": ExtResource("5_2nf5o"),
+"Gun Down Walk Forward": ExtResource("6_un2ey"),
+"Gun Up Idle": ExtResource("7_hrpod"),
+"Gun Up Strafe Left": ExtResource("8_ishbk"),
+"Gun Up Strafe Right": ExtResource("9_5ewaa"),
+"Gun Up Walk Back": ExtResource("10_p0e4q"),
+"Gun Up Walk Forward": ExtResource("11_ro81a")
+}
