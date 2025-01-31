@@ -10,6 +10,8 @@ class_name Player extends CharacterBody3D
 @export var camera: Camera = null
 @onready var death_sound
 @onready var hurt_sound
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var gameManager:GameManager
 
 var battle_mesh = null
 var mind_mesh = null
@@ -44,6 +46,7 @@ func _ready() -> void:
 	add_child(death_sound)
 	add_child(hurt_sound)
 	_camera = $"../CameraPivot/Camera3D"
+	gameManager = get_tree().current_scene
 
 func get_detection_list(selected: String):
 	for item in items_in_range:
@@ -81,8 +84,19 @@ func _input(event: InputEvent) -> void:
 func _physics_process(_delta: float):
 	var movement = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = Vector3(movement.x, 0, movement.y).rotated(Vector3.UP, _camera.global_rotation.y).normalized()
+	
 	if direction:
+		if movement.y < 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Walk Forward")
+		elif movement.y > 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Walk Back")
+		elif movement.x > 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Strafe Right")
+		elif movement.x < 0:
+			animation_player.play("gun_down_walk_forward/Gun Up Strafe Left")
 		direction = direction.normalized()
+	else:
+		animation_player.play("gun_down_walk_forward/Gun Up Idle")
 	
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
@@ -151,7 +165,7 @@ func set_player_mesh(_mesh: Mesh):
 func take_damage(dmg):
 	health -= dmg
 	player_ui.set_healthbar_value(health)
-	var suit_mesh = $"Pivot/Character_Mesh/Skeleton3D/Character".mesh as Mesh
+	var suit_mesh = $"Pivot/Character_Mesh/Armature/Skeleton3D/Character".mesh as Mesh
 	var suit_material = suit_mesh.surface_get_material(0)
 	if suit_mesh == null or suit_material == null:
 		print("Cringe... ~o~ the players's mesh or material")
