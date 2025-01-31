@@ -3060,7 +3060,7 @@ room = "control_room"
 
 [node name="room_triggers" type="Node3D" parent="."]
 
-[node name="control_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="control_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager", "playerUI")]
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.99708, 0, 0)
 collision_layer = 2
@@ -3068,13 +3068,14 @@ script = ExtResource("16_hmwhx")
 room = "control_room"
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
+playerUI = NodePath("../../PlayerUI")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/control_trigger"]
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120117, 0.235962, 0)
 shape = SubResource("BoxShape3D_pds2a")
 
-[node name="main_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager")]
+[node name="main_trigger" type="Area3D" parent="room_triggers" node_paths=PackedStringArray("collider", "gameManager", "playerUI")]
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58337, 0, 0)
 collision_layer = 2
@@ -3082,6 +3083,7 @@ script = ExtResource("16_hmwhx")
 room = "main_room"
 collider = NodePath("CollisionShape3D")
 gameManager = NodePath("../..")
+playerUI = NodePath("../../PlayerUI")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room_triggers/main_trigger"]
 physics_interpolation_mode = 2

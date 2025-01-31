@@ -5,6 +5,7 @@ var room_discovered = false
 @export var audioManager: AudioManager = null
 @export var collider: CollisionShape3D = null
 @export var gameManager: GameManager = null
+@export var playerUI:UIManager = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,3 +20,5 @@ func _on_body_entered(body: Node3D) -> void:
 			audioManager.follow_camera() 
 		if gameManager.get_current_room() == "room1":
 			audioManager.play_dungeon_soundtrack()
+		if gameManager.get_current_room() == "control_room":
+			playerUI.change_state(playerUI.UIState.WON)

@@ -6,6 +6,7 @@ enum UIState {
 	INSPECTING,
 	PAUSED,
 	BOSS_DEFEATED,
+	WON,
 	DEAD
 }
 var ui_state = UIState.KILLING
@@ -19,6 +20,7 @@ var ui_state = UIState.KILLING
 @export var restartMenu: UIPanel = null
 @export var pauseMenu: UIPanel = null
 @export var bossDefeatedMenu:UIPanel = null
+@export var controlRoomPanel:UIPanel = null
 @export var player:Player = null
 
 signal cancel_interaction
@@ -26,7 +28,8 @@ var panels = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	panels = [hud, interactMenu, restartMenu, pauseMenu, optionsMenu, bossDefeatedMenu]
+	panels = [hud, interactMenu, restartMenu, pauseMenu, optionsMenu, 
+				bossDefeatedMenu, controlRoomPanel]
 	show_panels([hud])
 	var interactables = get_tree().get_nodes_in_group("interactable")
 
@@ -45,6 +48,8 @@ func set_context():
 		show_panels([interactMenu])
 	if ui_state == UIState.PAUSED:
 		show_panels([pauseMenu])
+	if ui_state == UIState.WON:
+		show_panels([controlRoomPanel])
 	if ui_state == UIState.DEAD:
 		show_panels([restartMenu])
 		
